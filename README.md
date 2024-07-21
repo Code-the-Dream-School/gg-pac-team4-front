@@ -16,7 +16,7 @@ You will have two folders inside one team folder (one for front-end and one for 
 1. Clone this repository to the folder that was already created for both the front-end and back-end repos
 2. Run `npm install` to install dependencies
 3. Pull the latest version of the `main` branch (when needed)
-4. Run `npm start` to start the development server
+4. Run `npm run dev` to start the development server
 5. Open http://localhost:3000 with your browser to see the data received the back-end server.
 6. Now you have your front-end and back-end running locally!
 
