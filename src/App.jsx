@@ -1,31 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { getAllData } from './util/index';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './components/pages/HomePage';
+import Login from './components/auth/Login.jsx';
+import Register from './components/auth/Register.jsx';
+import SearchForm from './components/search/SearchForm.jsx';
+import PaymentForm from './components/payment/PaymentForm.jsx';
+import './App.css';
 
-const URL = 'http://localhost:8000/api/v1/';
 
-function App() {
-  
-  const [message, setMessage] = useState(''); 
-
-  useEffect(() => {
-
-    (async () => {
-      const myData = await getAllData(URL)
-      setMessage(myData.data);
-    })();
-      
-    return () => {
-      console.log('unmounting');
-    }
-
-  }, []);
+const App = () => {
 
   return (
-    <>
-      <h1>{message}</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/search" element={<SearchForm />} />
+        <Route path="/payment" element={<PaymentForm />} />
+      </Routes>
+    </BrowserRouter>
   );
+};
 
-}
-
-export default App
+export default App;
