@@ -3,7 +3,7 @@ import HomePage from './components/pages/HomePage';
 import NotFound from './components/pages/NotFound';
 import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
-import SearchForm from './components/search/SearchForm.jsx';
+import SearchBar from './components/search/SearchBar.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
 import './App.css';
 
@@ -17,7 +17,7 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/search" element={<SearchForm />} />
+        <Route path="/search" element={<SearchBar />} />
         <Route path="/payment" element={<PaymentForm />} />
       </Routes>
     </BrowserRouter>
