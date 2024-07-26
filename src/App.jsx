@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './components/pages/HomePage';
+import NotFound from './components/pages/NotFound';
 import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
 import SearchForm from './components/search/SearchForm.jsx';
@@ -12,6 +13,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
