@@ -16,10 +16,11 @@ const HomePage = () => {
 
   return (
     <>
-      <h1 className="text-3xl font-spartan font-bold underline">HOME PAGE</h1>
+      <h1 className="text-3xl font-spartan font-bold">HOME PAGE</h1>
       <button onClick={search}>Search classes</button>
       <button onClick={login}>Log In</button>
-      <button className='btn-red' onClick={register}>Join</button>
+      <button className='bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg' 
+              onClick={register}>Join</button>
     </>
   );
 };

@@ -18,7 +18,8 @@ export default {
         lightBlue: "#F0FFFF",
       },
       fontFamily: {
-        spartan: ["League Spartan", "sans-serif"]
+        spartan: ["League Spartan", "sans-serif"],
+        roboto: ["Roboto", "sans-serif"]
       }
     },
   },
