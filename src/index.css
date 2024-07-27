@@ -15,6 +15,27 @@ html {
     font-family: "Roboto", sans-serif;
 }
 
+@layer base {
+    body {
+        @apply h-full bg-pureWhite;
+    }
+}
+
+@layer components {
+    .btn-red {
+        @apply bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-lg py-1 px-6 rounded-lg;
+    }
+    .btn-white {
+        @apply bg-pureWhite border-2 border-red hover:bg-red hover:text-white text-red font-spartan font-semibold text-lg py-1 px-6 rounded-lg;
+    }
+    .btn-yellow {
+        @apply bg-yellow text-white hover:border-2 hover:bg-pureWhite hover:text-yellow hover:border-yellow font-spartan font-semibold text-lg py-1 px-6 rounded-lg;
+    }
+    .form-input {
+        @apply w-full text-sm text-grey border-2 rounded-md py-1 px-6 focus:outline-none focus:border-grey focus:ring-1 focus:ring-grey;
+    }
+}
+
 #root {
     display: flex;
     flex-direction: column;

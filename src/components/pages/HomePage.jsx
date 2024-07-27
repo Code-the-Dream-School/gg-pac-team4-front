@@ -19,7 +19,7 @@ const HomePage = () => {
       <h1 className="text-3xl font-spartan font-bold underline">HOME PAGE</h1>
       <button onClick={search}>Search classes</button>
       <button onClick={login}>Log In</button>
-      <button onClick={register}>Join</button>
+      <button className='btn-red' onClick={register}>Join</button>
     </>
   );
 };
