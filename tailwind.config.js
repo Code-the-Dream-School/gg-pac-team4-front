@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-
-const withMT = require("@material-tailwind/react/utils/withMT");
-
-module.exports = withMT({
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -16,10 +16,9 @@ module.exports = withMT({
         lightBlue: "#F0FFFF",
       },
       fontFamily: {
-        spartan: ["League Spartan", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"]
+        spartan: ["League Spartan", "sans-serif"]
       }
     },
   },
   plugins: [],
-});
+}
