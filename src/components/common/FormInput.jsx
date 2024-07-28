@@ -9,7 +9,7 @@ const FormInput = ({
 }) => {
   return (
     <>
-      <div class="relative w-full mb-4">
+      <div className="relative w-full mb-4">
         <input
           id={id}
           name={name}
