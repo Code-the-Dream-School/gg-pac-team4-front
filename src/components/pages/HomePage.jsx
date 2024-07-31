@@ -13,13 +13,13 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-col lg:justify-between lg:mx-20 sm:mx-10 my-6 sm:my-12 mx-4">
+    <div className="flex flex-col my-auto lg:mx-auto lg:px-8 sm:mx-10 sm:my-12">
       <div className="flex flex-col lg:flex-row lg:justify-between justify-center sm:pl-2">
-        <div className="lg:pt-36 lg:text-left text-center items-center justify-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-spartan font-semibold tracking-wider leading-tight pt-3 sm:pt-20 mb-8">
-            Helping unlock
-            <br /> your talent with
-            <br /> the best teachers
+        <div className="lg:pt-36 pt-4 sm:pt-10 lg:text-left text-center items-center justify-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-spartan font-semibold tracking-wide leading-tight pt-3 mb-8">
+            Helping unlock<br/>
+          your talent with<br/>
+           the best teachers
           </h1>
           <button
             className="bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-2xl py-4 px-20 rounded-lg"
@@ -29,57 +29,55 @@ const HomePage = () => {
           </button>
         </div>
 
-        <div className="lg:my-0 sm:my-20">
-          <img className="scale-75" src={mainImage} alt="art skills image" />
+        <div className="m-10">
+          <img className="w-[700px]" src={mainImage} alt="art skills image" />
         </div>
       </div>
-      <div className="flex grow flex-col lg:flex-row pt-3">
-        <div className="relative w-full lg:max-w-lg">
+     
+      <div className="flex flex-col lg:flex-row items-center md:m-auto justify-center pt-16">
+        <div className="relative w-full lg:max-w-lg md:pb-16 md:pl-4">
           <img
-            className="lg:scale-100 md:scale-125 md:pl-10 mb-10"
+            className="scale-90 md:scale-110 lg:scale-100 -ml-4"
             src={GreenBlobImage}
             alt="green blob"
           />
           <div
-            className="absolute inset-0 flex items-center justify-start md:pl-48 pl-24 pb-24
+            className="absolute top-1/3 left-1/8 transform -translate-y-1/2
         "
           >
-            <span className="text-3xl  font-spartan font-semibold text-white text-left">
-              Courses for
-              <br /> every age
-            </span>
+            <div className="text-2xl lg:text-3xl  md:text-3xl sm:text-2xl  font-spartan font-semibold text-white text-left pl-32 lg:pl-24">
+              Courses for<br/> every age
+            </div>
           </div>
         </div>
-        <div className="relative w-full lg:max-w-lg pt-4">
+        <div className="relative  w-full lg:max-w-lg md:pb-20">
           <img
-            className="w-full scale-125  mb-10"
+          className="scale-125 md:scale-125 lg:scale-125"
+
             src={YellowBlobImage}
             alt="yellow blob"
           />
-          <div className="absolute inset-0 flex items-start lg:pt-32 pt-24 lg:pl-32 pl-20">
-            <span className="text-3xl  font-spartan font-semibold text-white">
+          <div className="absolute top-1/3 left-1/4 transform -translate-y-1/2 -ml-3">
+            <div className="text-2xl lg:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white">
               More than 100+
               <br /> subject taught
-            </span>
+            </div>
           </div>
         </div>
-        <div className="relative w-full lg:max-w-lg">
+        <div className="relative  w-full lg:max-w-lg">
           <img
-            className="w-full scale-110"
+            className="scale-100 sm:scale-125 md:scale-125 lg:scale-125"
             src={PurpleBlobImage}
             alt="green blob"
           />
-          <div className="absolute inset-0 flex items-center justify-start pl-24 lg:pl-32 md:pl-48 pl-24">
-            <span className="text-3xl  font-spartan font-semibold text-white text-left pl-3">
+          <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 -ml-6">
+            <div className="text-2xl lg:text-3xl md:text-3xl  sm:text-2xl font-spartan font-semibold text-white text-left pl-3">
               1000+
               <br />
               experienced teachers
-            </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-        
       </div>
     </div>
   );
