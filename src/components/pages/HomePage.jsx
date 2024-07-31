@@ -51,7 +51,7 @@ const HomePage = () => {
         </div>
       </section>
       <section className="flex flex-col lg:flex-row items-center md:m-auto justify-center pt-2 lg:pt-16">
-        <div className="relative w-full lg:max-w-lg md:pb-16 pl-0">
+        <div className="relative w-full lg:max-w-lg md:pb-12 pl-0">
           <img
             className="scale-90 md:scale-100 lg:scale-100 -ml-4 pb-0 md:pb-4 pl-0 lg:pl-0 md:pl-8"
             src={GreenBlobImage}
@@ -67,7 +67,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="relative  w-full lg:max-w-lg pb-20 md:pb-20">
+        <div className="relative  w-full lg:max-w-lg pb-10 md:pb-20">
           <img
             className="scale-100 md:scale-125 lg:scale-125"
             src={YellowBlobImage}
@@ -82,7 +82,7 @@ const HomePage = () => {
         </div>
         <div className="relative  w-full lg:max-w-lg">
           <img
-            className="scale-100 sm:scale-125 md:scale-125 lg:scale-125 pt-2 -mt-2 lg:-mt-4"
+            className="scale-100 sm:scale-125 md:scale-125 lg:scale-125 pt-2 -mt-2 md:mt-4 lg:-mt-4"
             src={PurpleBlobImage}
             alt="purple blob"
           />
