@@ -1,20 +1,19 @@
-import React from "react";
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import mainImage from "../../assets/imgMainPage.jpg";
 import GreenBlobImage from "../../assets/blob_green.jpg";
 import YellowBlobImage from "../../assets/blob_yellow.jpg";
 import PurpleBlobImage from "../../assets/blob_dusty_purple.jpg";
-import Music from "../../assets/icons/icons-musical.png";
-import Acting from "../../assets/icons/icons8-acting.png";
-import Storytelling from "../../assets/icons/icons8-storytelling.png";
-import Arts from "../../assets/icons/icons-art.png";
-import Photography from "../../assets/icons/icons8-photography.png";
-import Games from "../../assets/icons/icons-chess.png";
-import Films from "../../assets/icons/icons8-film.png";
-import Animation from "../../assets/icons/icons8-3d.png";
-import Handicraft from "../../assets/icons/icons8-hand-holding.png";
+import items from "../../data/data"
 import ArrowUp from "../../assets/icons/icons-arrow-up.png";
 import ArrowSearch from "../../assets/icons/icon-search.svg";
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+};
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -50,44 +49,38 @@ const HomePage = () => {
           <img className="w-[700px]" src={mainImage} alt="art skills image" />
         </div>
       </section>
-      <section className="flex flex-col lg:flex-row items-center md:m-auto justify-center pt-2 lg:pt-16">
-        <div className="relative w-full lg:max-w-lg md:pb-12 pl-0">
-          <img
-            className="scale-90 md:scale-100 lg:scale-100 -ml-4 pb-0 md:pb-4 pl-0 lg:pl-0 md:pl-8"
-            src={GreenBlobImage}
-            alt="green blob"
-          />
-          <div
-            className="absolute top-1/4 left-1/8
-        "
-          >
-            <div className="text-2xl lg:text-3xl  md:text-3xl sm:text-2xl  font-spartan font-semibold text-white text-left pl-32 lg:pl-24">
-              Courses for
-              <br /> every age
-            </div>
+      <section className="flex grow flex-col lg:flex-row items-center justify-center pt-2 lg:pt-16">
+      <div
+        className="relative w-full h-80 md:h-96 bg-contain bg-center bg-no-repeat"
+        style={{ 
+          backgroundImage: `url(${GreenBlobImage})`
+        }}
+      >
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-center">
+            Courses for
+            <br /> every age
           </div>
         </div>
-        <div className="relative  w-full lg:max-w-lg pb-10 md:pb-20">
-          <img
-            className="scale-100 md:scale-125 lg:scale-125"
-            src={YellowBlobImage}
-            alt="yellow blob"
-          />
-          <div className="absolute top-1/4 left-1/4  ml-1 lg:-ml-3">
-            <div className="text-2xl lg:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white">
-              More than 100+
+      </div>
+        <div
+        className="relative w-full h-80 md:h-96 bg-contain bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${YellowBlobImage})` }}
+      >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white">
+              Over 100
               <br /> subject taught
             </div>
           </div>
         </div>
-        <div className="relative  w-full lg:max-w-lg">
-          <img
-            className="scale-100 sm:scale-125 md:scale-125 lg:scale-125 pt-2 -mt-2 md:mt-4 lg:-mt-4"
-            src={PurpleBlobImage}
-            alt="purple blob"
-          />
-          <div className="absolute top-14 lg:top-10 left-1/4">
-            <div className="text-2xl lg:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left">
+        
+        <div
+        className="relative w-full h-80 md:h-96 bg-contain bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${PurpleBlobImage})` }}
+      >
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-10">
               1000+
               <br />
               experienced teachers
@@ -99,57 +92,18 @@ const HomePage = () => {
       <section className="relative py-10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img src={Music} alt="Music Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">Music</p>
-            </div>
-            <div className="flex items-center text-center p-6 rounded-lg">
-              <img src={Acting} alt="Acting Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">Acting Skills</p>
-            </div>
-            <div className="flex items-center text-center p-6 rounded-lg">
-              <img
-                src={Storytelling}
-                alt="Storytelling Icon"
-                className="w-16 h-16 mb-4"
-              />
-              <p className="text-2xl font-medium pl-2">Storytelling</p>
-            </div>
-            <div className="flex items-center text-center p-6 rounded-lg">
-              <img src={Arts} alt="Arts Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">Arts</p>
-            </div>
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img
-                src={Photography}
-                alt="Photography Icon"
-                className="w-16 h-16 mb-4"
-              />
-              <p className="text-2xl font-medium pl-2">Photography</p>
-            </div>
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img src={Games} alt="Games Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">Games & Hobbies</p>
-            </div>
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img src={Films} alt="Tape Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">Film production</p>
-            </div>
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img src={Animation} alt="Cube Icon" className="w-16 h-16 mb-4" />
-              <p className="text-2xl font-medium pl-2">3D & Animation</p>
-            </div>
-            <div className="flex  items-center text-center p-6 rounded-lg">
-              <img
-                src={Handicraft}
-                alt="Hands Icon"
-                className="w-16 h-16 mb-4"
-              />
-              <p className="text-2xl font-medium pl-2">Handicraft</p>
-            </div>
+            {items.map((item, index) => (
+              <div key={index} className="flex items-center text-center p-6 rounded-lg ">
+                <img src={item.src} alt={item.alt} className="w-16 h-16 m-4" />
+                <p className="text-2xl font-medium  transition-colors duration-300 hover:text-darkGreen hover:cursor-pointer transition-shadow">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <button className="absolute bottom-2 right-4 bg-darkGreen rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-lightGreen">
+        <button
+          className="absolute bottom-2 right-4 bg-darkGreen rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-lightGreen"
+          onClick={scrollToTop}
+        >
           <img src={ArrowUp} alt="Arrow Up" />
         </button>
       </section>
