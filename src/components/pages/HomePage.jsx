@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import mainImage from "../../assets/imgMainPage.jpg";
-import GreenBlobImage from "../../assets/blob_green.jpg";
-import YellowBlobImage from "../../assets/blob_yellow.jpg";
-import PurpleBlobImage from "../../assets/blob_dusty_purple.jpg";
+import GreenBlobImage from "../../assets/blob_green.png";
+import YellowBlobImage from "../../assets/blob_yellow.png";
+import PurpleBlobImage from "../../assets/blob_dusty_purple.png";
 import items from "../../data/data"
 import ArrowUp from "../../assets/icons/icons-arrow-up.png";
 import ArrowSearch from "../../assets/icons/icon-search.svg";
@@ -23,10 +23,10 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-col my-auto lg:mx-auto lg:px-8 sm:mx-10 sm:my-12">
-      <section className="flex flex-col lg:flex-row lg:justify-between justify-center sm:pl-2">
-        <div className="lg:pt-36 pt-4 sm:pt-10 lg:text-left text-center items-center justify-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-spartan font-semibold tracking-wide leading-tight pt-3 mb-8">
+    <div className="flex flex-col my-auto lg:mx-auto my-12">
+      <section className="flex flex-col lg:flex-row lg:justify-between xl:justify-between justify-center items-center">
+        <div className="lg:text-left text-center items-center justify-center xl:justify-between">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl items-center font-spartan font-semibold tracking-wide leading-tight pt-3 mb-8">
             Helping unlock
             <br />
             your talent with
@@ -46,10 +46,10 @@ const HomePage = () => {
         </div>
 
         <div className="m-10">
-          <img className="w-[700px]" src={mainImage} alt="art skills image" />
+          <img className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl pt-0 lg:pt-20 xl:pt-0" src={mainImage} alt="art skills image" />
         </div>
       </section>
-      <section className="flex grow flex-col lg:flex-row items-center justify-center pt-2 lg:pt-16">
+      <section className="flex flex-col lg:flex-row items-center justify-center">
       <div
         className="relative w-full h-80 md:h-96 bg-contain bg-center bg-no-repeat"
         style={{ 
@@ -57,7 +57,7 @@ const HomePage = () => {
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-center">
+          <div className="text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-center">
             Courses for
             <br /> every age
           </div>
@@ -68,7 +68,7 @@ const HomePage = () => {
         style={{ backgroundImage: `url(${YellowBlobImage})` }}
       >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white">
+            <div className="text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white">
               Over 100
               <br /> subject taught
             </div>
@@ -77,10 +77,11 @@ const HomePage = () => {
         
         <div
         className="relative w-full h-80 md:h-96 bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${PurpleBlobImage})` }}
+        style={{ backgroundImage: `url(${PurpleBlobImage})` 
+      }}
       >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-2xl lg:text-2xl xl:text-3xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-10">
+            <div className="text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-10">
               1000+
               <br />
               experienced teachers
@@ -88,25 +89,25 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      <section className="relative py-10">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      <section className="px-4 py-8">
+        <div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
             {items.map((item, index) => (
-              <div key={index} className="flex items-center text-center p-6 rounded-lg ">
-                <img src={item.src} alt={item.alt} className="w-16 h-16 m-4" />
-                <p className="text-2xl font-medium  transition-colors duration-300 hover:text-darkGreen hover:cursor-pointer transition-shadow">{item.text}</p>
+              <div key={index} className="flex items-center text-center-6 rounded-lg">
+                <img src={item.src} alt={item.alt} className="mr-2" />
+                <p className="text-2xl font-medium hover:text-darkGreen hover:cursor-pointer">{item.text}</p>
               </div>
             ))}
           </div>
         </div>
         <button
-          className="absolute bottom-2 right-4 bg-darkGreen rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-lightGreen"
+          className="absolute right-4 bg-darkGreen rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-lightGreen"
           onClick={scrollToTop}
         >
           <img src={ArrowUp} alt="Arrow Up" />
         </button>
       </section>
+    
     </div>
   );
 };
