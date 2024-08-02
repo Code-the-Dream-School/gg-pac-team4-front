@@ -60,7 +60,7 @@ const HomePage = () => {
           }}
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-4/12 md:w-1/4 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl  font-spartan font-semibold text-white text-left">
+            <div className="w-4/12 lg:w-1/3 md:w-1/4 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl  font-spartan font-semibold text-white text-left">
               Courses for every age
             </div>
           </div>
@@ -81,7 +81,7 @@ const HomePage = () => {
           style={{ backgroundImage: `url(${PurpleBlobImage})` }}
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-3/5 md: w-5/12 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-0 md:pl-10">
+            <div className="w-3/5 md:w-5/12 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-0 md:pl-10">
               1000+ experienced teachers
             </div>
           </div>
@@ -93,7 +93,7 @@ const HomePage = () => {
             {items.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center text-center-6 rounded-lg"
+                className="flex items-center text-center rounded-lg"
               >
                 <img src={item.src} alt={item.alt} className="mr-2" />
                 <p className="text-2xl font-spartan font-medium hover:text-darkGreen hover:cursor-pointer">
