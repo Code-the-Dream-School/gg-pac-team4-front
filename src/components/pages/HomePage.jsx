@@ -31,7 +31,7 @@ const HomePage = () => {
           </h1>
           <div className="flex justify-center lg:justify-start">
             <button
-              className="flex items-center bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-2xl py-4 px-8 rounded-lg"
+              className="flex items-center bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-2xl py-2 w-3/5 justify-center rounded-lg"
               onClick={search}
             >
               Get started
@@ -81,7 +81,7 @@ const HomePage = () => {
           style={{ backgroundImage: `url(${PurpleBlobImage})` }}
         >
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-3/5 md: w-5/12 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-10">
+            <div className="w-3/5 md: w-5/12 text-2xl lg:text-2xl xl:text-2xl md:text-3xl sm:text-2xl font-spartan font-semibold text-white text-left pl-0 md:pl-10">
               1000+ experienced teachers
             </div>
           </div>
