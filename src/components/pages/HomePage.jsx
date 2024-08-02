@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import mainImage from '../../assets/imgMainPage.jpg';
-import GreenBlobImage from '../../assets/blob_green.png';
+import GreenBlobImage from '../../assets/blob_green.  png';
 import YellowBlobImage from '../../assets/blob_yellow.png';
 import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
 import items from '../../data/data';
