@@ -1,17 +1,17 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import mainImage from "../../assets/imgMainPage.jpg";
-import GreenBlobImage from "../../assets/blob_green.png";
-import YellowBlobImage from "../../assets/blob_yellow.png";
-import PurpleBlobImage from "../../assets/blob_dusty_purple.png";
-import items from "../../data/data";
-import ArrowUp from "../../assets/icons/icons-arrow-up.png";
-import ArrowSearch from "../../assets/icons/icon-search.svg";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import mainImage from '../../assets/imgMainPage.jpg';
+import GreenBlobImage from '../../assets/blob_green.png';
+import YellowBlobImage from '../../assets/blob_yellow.png';
+import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
+import items from '../../data/data';
+import ArrowUp from '../../assets/icons/icons-arrow-up.png';
+import ArrowSearch from '../../assets/icons/icon-search.svg';
 
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 };
 
@@ -19,7 +19,7 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const search = () => {
-    navigate("/search");
+    navigate('/search');
   };
 
   return (
