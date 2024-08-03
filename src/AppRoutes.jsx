@@ -7,7 +7,6 @@ import SearchBar from './components/search/SearchBar.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
 import Footer from './components/layouts/Footer.jsx'
 
-
 const AppRoutes = () => {
   return (
     <BrowserRouter>
