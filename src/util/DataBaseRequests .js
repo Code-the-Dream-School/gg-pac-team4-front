@@ -1,8 +1,10 @@
 import axios from "axios";
 
+const API_BASE_URL = `http://localhost:8000/api/v1`;
+
 export const login = async ({ email, password }) => {
     try {
-        const response = await axios.post(`http://localhost:8000/api/v1/login`, {
+        const response = await axios.post(`${API_BASE_URL}/login`, {
             email,
             password
         });
@@ -13,5 +15,5 @@ export const login = async ({ email, password }) => {
 };
 
 export const logout = async () => {
-    return await axios.post(`http://localhost:8000/api/v1/logout`, {});
+    return await axios.post(`${API_BASE_URL}/logout`, {});
 };

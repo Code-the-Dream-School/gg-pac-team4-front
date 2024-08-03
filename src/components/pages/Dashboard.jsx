@@ -1,4 +1,4 @@
-import { logout } from "../../util/fetchData";
+import { logout } from "../../util/DataBaseRequests ";
 import { useAuth } from "../../AuthProvider";
 import { useNavigate } from "react-router-dom";
 

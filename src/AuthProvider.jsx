@@ -9,24 +9,25 @@ export const useAuth = () => {
 export const AuthProvider = ({ children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userData, setUserData] = useState({ firstName: "", lastName: "", role: "" })
-    const isToken = sessionStorage.getItem('isToken');
-
+    const [token, setToken] = useState(sessionStorage.getItem('token') || "");
+    
     useEffect(() => {
-        if (isToken) {
+        if (token) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
-    }, [isToken]);
+    }, [token]);
 
     const loginAction = (status, data) => {
-        sessionStorage.setItem('isToken', status);
-        setIsLoggedIn(true);
+        setToken(data.token);
+        sessionStorage.setItem('token', data.token);
+        setIsLoggedIn(status);
         setUserData({ firstName: data.firstName, lastName: data.lastName, role: data.role });
     };
-
+    
     const logoutAction = () => {
-        sessionStorage.removeItem('isToken');
+        sessionStorage.removeItem('token');
         setIsLoggedIn(false);
         setUserData({ firstName: "", lastName: "", role: "" });
     };

@@ -1,9 +1,9 @@
-import { AuthProvider, useAuth } from "../../AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import FormInput from "../common/FormInput";
-import { login } from "../../util/fetchData"
+import { login } from "../../util/DataBaseRequests "
+import { useAuth } from "../../AuthProvider";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -38,7 +38,7 @@ const Login = () => {
     } catch (error) {
       setFormErrors({
         ...formErrors,
-        form: error.message,
+        form: "Invalid email or password",
       });
     }
   };
@@ -47,7 +47,7 @@ const Login = () => {
     if (isLoggedIn) {
       navigate("/dashboard");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn]);
 
   return (
     <div className="flex flex-col gap-5 mt-16 items-center">
@@ -55,10 +55,8 @@ const Login = () => {
       <form className=" w-2/3 md:w-1/2 lg:w-1/3 xl:w-3/12" onSubmit={handleSubmit}>
         <p className="font-spartan mb-4">Don't have an account? <span><Link to="/register" className="underline">Sign Up</Link></span></p>
         {/* without passing the empty string in the placeholder attribute the floating label doesn't go back into the input */}
-        {<p className="text-red text-sm font-spartan">{formErrors.email}</p>}
-        {formErrors.form === "Invalid email" 
-            ? <p className="text-red text-sm font-spartan">{formErrors.form}</p>
-            : null}
+        {formErrors.email &&<p className="text-red text-sm font-spartan">{formErrors.email}</p>}
+        {formErrors.form && <p className="text-red text-sm font-spartan">{formErrors.form}</p>}
         <FormInput 
               type="email" 
               placeholder=" " 
@@ -68,10 +66,8 @@ const Login = () => {
               >
                 Email address
         </FormInput>
-        {<p className="text-red text-sm font-spartan">{formErrors.password}</p>}
-        {formErrors.form === "Invalid password" 
-            ? <p className="text-red text-sm font-spartan">{formErrors.form}</p>
-            : null}
+        {formErrors.password &&<p className="text-red text-sm font-spartan">{formErrors.password}</p>}
+        {formErrors.form && <p className="text-red text-sm font-spartan">{formErrors.form}</p> }
         <FormInput 
               type="password" 
               placeholder=" " 
