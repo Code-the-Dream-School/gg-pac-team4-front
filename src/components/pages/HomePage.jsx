@@ -1,31 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import mainImage from "../../assets/imgMainPage.jpg";
-import GreenBlobImage from "../../assets/blob_green.png";
-import YellowBlobImage from "../../assets/blob_yellow.png";
-import PurpleBlobImage from "../../assets/blob_dusty_purple.png";
-import items from "../../data/data";
-import ArrowUp from "../../assets/icons/icons-arrow-up.png";
-import ArrowSearch from "../../assets/icons/icon-search.svg";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import mainImage from '../../assets/imgMainPage.jpg';
+import GreenBlobImage from '../../assets/blob_green.png';
+import YellowBlobImage from '../../assets/blob_yellow.png';
+import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
+import items from '../../data/data';
+import ArrowUp from '../../assets/icons/icons-arrow-up.png';
+import ArrowSearch from '../../assets/icons/icon-search.svg';
 
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
-    behavior: "smooth",
+    behavior: 'smooth',
   });
 };
-
 const HomePage = () => {
   const navigate = useNavigate();
-
   const search = () => {
-    navigate("/search");
+    navigate('/search');
   };
-
   return (
     <div className="flex flex-col w-10/12 my-auto lg:mx-auto mt-4 md:mt-12 my-12">
       <section className="flex flex-col lg:flex-row lg:justify-between xl:justify-between justify-center items-center">
-        <div className="lg:text-left text-center lg:w-2/5 items-center justify-center xl:justify-between">
+        <div className="lg:text-left  text-center lg:w-2/5 items-center justify-center xl:justify-between">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl items-center font-spartan font-semibold tracking-wide leading-tight pt-3 mb-8">
             Helping unlock your talent with the best teachers
           </h1>
