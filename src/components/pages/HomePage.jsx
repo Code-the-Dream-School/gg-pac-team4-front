@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import mainImage from '../../assets/imgMainPage.jpg';
@@ -14,6 +15,7 @@ const scrollToTop = () => {
     behavior: 'smooth',
   });
 };
+
 const HomePage = () => {
   const navigate = useNavigate();
   const search = () => {

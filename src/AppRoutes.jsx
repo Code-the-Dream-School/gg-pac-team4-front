@@ -5,10 +5,13 @@ import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
 import SearchBar from './components/search/SearchBar.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
+import Footer from './components/layouts/Footer.jsx'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomePage />} />
@@ -16,7 +19,10 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/search" element={<SearchBar />} />
         <Route path="/payment" element={<PaymentForm />} />
-      </Routes>
+      </Routes> 
+      </main>     
+      <Footer />
+      </div>
     </BrowserRouter>
   );
 };
