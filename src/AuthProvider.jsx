@@ -8,30 +8,27 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children}) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userData, setUserData] = useState({ firstName: "", lastName: "", role: "" })
-    const [token, setToken] = useState(sessionStorage.getItem('token') || "");
+    const [userData, setUserData] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
     
     useEffect(() => {
-        if (token) {
+        if (userData.token) {
             setIsLoggedIn(true);
         } else {
             setIsLoggedIn(false);
         }
-    }, [token]);
+    }, [userData.token]);
 
-    const loginAction = (status, data) => {
-        setToken(data.token);
-        sessionStorage.setItem('token', data.token);
+    const loginUser = (status, data) => {
+        sessionStorage.setItem('user', JSON.stringify(data));
         setIsLoggedIn(status);
-        setUserData({ firstName: data.firstName, lastName: data.lastName, role: data.role });
+        setUserData(data);
     };
     
-    const logoutAction = () => {
-        sessionStorage.removeItem('token');
+    const logoutUser = () => {
+        sessionStorage.removeItem('user');
         setIsLoggedIn(false);
-        setUserData({ firstName: "", lastName: "", role: "" });
+        setUserData({});
     };
 
-    return <AuthContext.Provider value={{isLoggedIn, userData, loginAction, logoutAction}}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{isLoggedIn, userData, loginUser, logoutUser}}>{children}</AuthContext.Provider>;
 };
-
