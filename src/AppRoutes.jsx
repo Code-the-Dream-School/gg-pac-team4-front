@@ -7,11 +7,14 @@ import NotFound from './components/pages/NotFound.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
 import Register from './components/auth/Register.jsx';
 import SearchBar from './components/search/SearchBar.jsx';
+import Footer from './components/layouts/Footer.jsx'
 
 const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Header/>
+      <div className="flex flex-col min-h-screen">
+      <main className="flex-grow">
       <Routes>
         <Route path="*" element={<NotFound />} />
         <Route path="/" element={<HomePage />} />
@@ -19,7 +22,10 @@ const AppRoutes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/search" element={<SearchBar />} />
         <Route path="/payment" element={<PaymentForm />} />
-      </Routes>
+      </Routes> 
+      </main>     
+      <Footer />
+      </div>
     </BrowserRouter>
   );
 };
