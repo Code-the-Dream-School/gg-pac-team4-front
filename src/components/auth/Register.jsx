@@ -9,6 +9,7 @@ const Register = () => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [isAdultNameRequired, setIsAdultNameRequired] = useState(false);
   const [adultName, setAdultName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   const handleUserRegistration = (event) => {
     event.preventDefault();
@@ -46,6 +47,10 @@ const Register = () => {
     setAdultName(event.target.value);
   };
 
+  const handlePhoneChange = (event) => {
+    setPhoneNumber(event.target.value);
+  }
+
   const calculateAge = (birthdate) => {
     const birthDate = new Date(birthdate);
     const currentDate = new Date();
@@ -63,11 +68,6 @@ const Register = () => {
 
     return age;
   }
-
-
-
-
-
 
   return (
     <section className="w-full max-w-xl mx-auto px-10 py-5">
@@ -113,29 +113,40 @@ const Register = () => {
           </FormInput>
         </div>
         {userRole === 'student' && (
-          <div className="flex w-full gap-x-4">
-            <FormInput
-              type="date"
-              id="dob"
-              label="dob"
-              value={dateOfBirth}
-              onChange={handleDateOfBirthChange}
-              placeholder=" "
-              className="basis-2/4">
-              Date of Birth
-            </FormInput>
+          <>
+            <div className="flex w-full gap-x-4">
+              <FormInput
+                type="date"
+                id="dob"
+                label="dob"
+                value={dateOfBirth}
+                onChange={handleDateOfBirthChange}
+                placeholder=" "
+                className="basis-2/4">
+                Date of Birth
+              </FormInput>
+              <FormInput
+                type="text"
+                id="adult-name"
+                label="adult-name"
+                value={adultName}
+                onChange={handleAdultNameChange}
+                placeholder=" "
+                className="basis-2/4"
+                disabled={!isAdultNameRequired}>
+                Adult Full Name
+              </FormInput>
+            </div>
             <FormInput
               type="text"
-              id="adult-name"
-              label="adult-name"
-              value={adultName}
-              onChange={handleAdultNameChange}
-              placeholder=" "
-              className="basis-2/4"
-              disabled={!isAdultNameRequired}>
-              Adult Full Name
+              id="phone"
+              label="phone"
+              value={phoneNumber}
+              onChange={handlePhoneChange}
+              placeholder=" ">
+              Phone number
             </FormInput>
-          </div>
+          </>
         )}
       </form>
 
