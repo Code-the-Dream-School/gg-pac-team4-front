@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import FormInput from "../common/FormInput";
+import FormInput from '../common/FormInput';
+import FormSubmitBtn from '../common/FormSubmitBtn';
 
 const Register = () => {
   const [userRole, setUserRole] = useState('student');
@@ -207,15 +208,10 @@ const Register = () => {
           placeholder=" ">
           Confirm Password
         </FormInput>
-        <input 
-        type="submit"
-        value={`Create ${userRole} account`}
-        className="bg-red w-full text-2xl border-2 border-red hover:bg-pureWhite hover:text-red text-white font-spartan font-semibold  py-1 px-7 rounded-lg"
+        <FormSubmitBtn
+          value={`Create ${userRole} account`}
         />
-    
       </form>
-
-
     </section >
   );
 };
