@@ -10,10 +10,16 @@ const Register = () => {
   const [isAdultNameRequired, setIsAdultNameRequired] = useState(false);
   const [adultName, setAdultName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+
 
   const handleUserRegistration = (event) => {
     event.preventDefault();
-    console.log("SUBMIT FORM")
+    console.log("SUBMIT FORM");
   }
 
   const switchUserRole = () => {
@@ -50,6 +56,23 @@ const Register = () => {
   const handlePhoneChange = (event) => {
     setPhoneNumber(event.target.value);
   }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  }
+
+  const handleConfirmEmailChange = (event) => {
+    setConfirmEmail(event.target.value);
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  }
+
+  const handleConfirmPasswordChange = (event) => {
+    setConfirmPassword(event.target.value);
+  }
+
 
   const calculateAge = (birthdate) => {
     const birthDate = new Date(birthdate);
@@ -138,16 +161,53 @@ const Register = () => {
               </FormInput>
             </div>
             <FormInput
-              type="text"
+              type="tel"
               id="phone"
               label="phone"
               value={phoneNumber}
               onChange={handlePhoneChange}
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder=" ">
               Phone number
             </FormInput>
           </>
         )}
+        <FormInput
+          type="email"
+          id="email"
+          label="email"
+          value={email}
+          onChange={handleEmailChange}
+          placeholder=" ">
+          Email Address
+        </FormInput>
+        <FormInput
+          type="email"
+          id="email2"
+          label="email2"
+          value={confirmEmail}
+          onChange={handleConfirmEmailChange}
+          placeholder=" ">
+          Confirm Email Address
+        </FormInput>
+        <FormInput
+          type="password"
+          id="password"
+          label="password"
+          value={password}
+          onChange={handlePasswordChange}
+          placeholder=" ">
+          Password
+        </FormInput>
+        <FormInput
+          type="password"
+          id="password2"
+          label="password2"
+          value={confirmPassword}
+          onChange={handleConfirmPasswordChange}
+          placeholder=" ">
+          Confirm Password
+        </FormInput>
       </form>
 
 
