@@ -19,7 +19,8 @@ const Register = () => {
 
   const handleUserRegistration = (event) => {
     event.preventDefault();
-    console.log("SUBMIT FORM");
+    console.log('SUBMIT FORM');
+    console.log(`Create ${userRole} account`);
   }
 
   const switchUserRole = () => {
@@ -42,10 +43,8 @@ const Register = () => {
 
   const handleDateOfBirthChange = (event) => {
     const newBirthDate = event.target.value;
-    console.log(newBirthDate);
     setDateOfBirth(newBirthDate);
     const age = calculateAge(newBirthDate);
-    console.log('age', age);
     setIsAdultNameRequired(age < 16);
   };
 
@@ -95,17 +94,17 @@ const Register = () => {
   return (
     <section className="w-full max-w-xl mx-auto px-10 py-5">
       <h1 className="text-black font-medium text-3xl sm:text-4xl md:text-5xl font-spartan text-center mt-10 mb-5">Sign Up</h1>
-      <p className="text-black font-spartan font-regular text-2xl text-left px-2">Already have an account?&nbsp;
+      <p className="text-black font-spartan font-regular text-xl text-left px-2 mb-2">Already have an account?&nbsp;
         <Link to="/login" className="underline">Log In</Link>
       </p>
 
       {userRole === 'student' ? (
-        <div className="flex w-full font-spartan font-medium text-[40px] text-grey text-center mb-5">
+        <div className="flex w-full font-spartan font-medium text-3xl text-grey text-center mb-5">
           <button className="basis-2/4 text-black border-b-[3px] border-black">as a Student</button>
           <button className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Teacher</button>
         </div>
       ) : (
-        <div className="flex w-full font-spartan font-medium text-[40px] text-grey text-center mb-5">
+        <div className="flex w-full font-spartan font-medium text-3xl text-grey text-center mb-5">
           <h2 className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Student</h2>
           <h2 className="basis-2/4 text-black border-b-[3px] border-black">as a Teacher</h2>
         </div>
@@ -208,6 +207,12 @@ const Register = () => {
           placeholder=" ">
           Confirm Password
         </FormInput>
+        <input 
+        type="submit"
+        value={`Create ${userRole} account`}
+        className="bg-red w-full text-2xl border-2 border-red hover:bg-pureWhite hover:text-red text-white font-spartan font-semibold  py-1 px-7 rounded-lg"
+        />
+    
       </form>
 
 
@@ -215,4 +220,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Register; 
