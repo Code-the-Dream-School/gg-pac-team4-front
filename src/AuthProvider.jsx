@@ -18,17 +18,17 @@ export const AuthProvider = ({ children}) => {
         }
     }, [userData.token]);
 
-    const loginUser = (status, data) => {
+    const setUserSession = (status, data) => {
         sessionStorage.setItem('user', JSON.stringify(data));
         setIsLoggedIn(status);
         setUserData(data);
     };
     
-    const logoutUser = () => {
+    const clearUserSession = () => {
         sessionStorage.removeItem('user');
         setIsLoggedIn(false);
         setUserData({});
     };
 
-    return <AuthContext.Provider value={{isLoggedIn, userData, loginUser, logoutUser}}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{isLoggedIn, userData, setUserSession, clearUserSession}}>{children}</AuthContext.Provider>;
 };

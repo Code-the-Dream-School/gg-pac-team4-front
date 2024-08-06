@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [formErrors, setFormErrors] = useState({});
-  const { isLoggedIn, loginUser } = useAuth();
+  const { isLoggedIn, setUserSession } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -31,7 +31,7 @@ const Login = () => {
     try {
       const result = await login(formData);
       if (result.status === 200) {
-        loginUser(true, result.data.user);
+        setUserSession(true, result.data.user);
         navigate("/dashboard");
       }
     } catch (error) {
