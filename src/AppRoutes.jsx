@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Dashboard from './components/pages/Dashboard.jsx';
 import Footer from './components/layouts/Footer.jsx'
+import Header from './components/layouts/Header.jsx';
 import HomePage from './components/pages/HomePage.jsx';
 import Login from './components/auth/Login.jsx';
 import NotFound from './components/pages/NotFound.jsx';
@@ -13,6 +14,7 @@ import SearchBar from './components/search/SearchBar.jsx';
 const AppRoutes = () => {
   return (
     <BrowserRouter>
+      <Header/>
       <div className="flex flex-col min-h-screen">
       <main className="flex-grow">
       <Routes>
