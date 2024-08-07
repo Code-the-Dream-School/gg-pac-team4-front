@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FormInput from '../common/FormInput';
 import FormSubmitBtn from '../common/FormSubmitBtn';
+import FormErrorMsg from '../common/FormErrorMsg';
 
 const Register = () => {
   const [userRole, setUserRole] = useState('student');
@@ -12,7 +13,9 @@ const Register = () => {
   const [adultName, setAdultName] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
+  const [confirmEmailError, setConfirmEmailError] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -22,6 +25,14 @@ const Register = () => {
     event.preventDefault();
     console.log('SUBMIT FORM');
     console.log(`Create ${userRole} account`);
+
+    if (email.trim() === '') {
+      setEmailError('Email is required');
+    }
+
+    if (email !== confirmEmail) {
+      setConfirmEmailError('Emails do not match');
+    }
   }
 
   const switchUserRole = () => {
@@ -172,6 +183,7 @@ const Register = () => {
             </FormInput>
           </>
         )}
+        {emailError && <FormErrorMsg error={emailError}/>}
         <FormInput
           type="email"
           id="email"
@@ -181,6 +193,7 @@ const Register = () => {
           placeholder=" ">
           Email Address
         </FormInput>
+        {confirmEmailError && <FormErrorMsg error={confirmEmailError}/>}
         <FormInput
           type="email"
           id="email2"
