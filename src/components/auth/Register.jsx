@@ -28,10 +28,14 @@ const Register = () => {
 
     if (email.trim() === '') {
       setEmailError('Email is required');
+    } else {
+      setEmailError('');
     }
 
     if (email !== confirmEmail) {
       setConfirmEmailError('Emails do not match');
+    } else {
+      setConfirmEmailError('');
     }
   }
 
@@ -69,7 +73,11 @@ const Register = () => {
   }
 
   const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+    if(newEmail.trim() !== '') {
+      setEmailError('');
+    }
   }
 
   const handleConfirmEmailChange = (event) => {
