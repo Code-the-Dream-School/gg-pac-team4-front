@@ -1,13 +1,15 @@
-import { logout } from "../../util/DataBaseRequests";
-import { useAuth } from "../../AuthProvider";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+
+import DashboardNav from "../navbars/DashboardNav";
+import { Home } from "./dashboard-pages/index";
 
 const Dashboard = () => {
+    const location = useLocation();
+    
     return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">Dashboard Page</h1>
-            <h2>Welcome.</h2>
+        <div className="flex flex-col items-center w-full">
+            <DashboardNav/>
+            {location.pathname==="/dashboard" ? <Home/> : <Outlet/>}
         </div>
     );
 };

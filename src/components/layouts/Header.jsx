@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 
 import DesktopNav from "../navbars/DesktopNav";
 import MobileNav from "../navbars/MobileNav";
-import ProfileNav from "../navbars/ProfileNav";
-import { useAuth } from "../../AuthProvider";
 
 const Header = () => {
     const [isSearch, setIsSearch] = useState(true);
@@ -24,7 +22,7 @@ const Header = () => {
     const register = () => navigate("/register");
 
     return (
-        <header className="h-20 w-full flex items-center px-24 justify-between">
+        <header className="h-20 w-full flex items-center px-20 justify-between">
             <Link className="text-black font-spartan font-semibold text-xl sm:text-3xl w-1/3" to="/">TalentStudio</Link>
             <DesktopNav onSearch={search} onLogin={login} onJoin={register} stateSearch={isSearch} stateLogin={isLoginBtn} stateJoin={isJoinBtn}/>
             <MobileNav onSearch={search} onLogin={login} onJoin={register} stateSearch={isSearch} stateLogin={isLoginBtn} stateJoin={isJoinBtn}/>
