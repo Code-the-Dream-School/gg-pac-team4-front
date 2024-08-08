@@ -7,7 +7,7 @@ const Dashboard = () => {
     const location = useLocation();
     
     return (
-        <div className="flex flex-col items-center w-full">
+        <div className="flex flex-col items-center w-full h-full bg-lightBlue">
             <DashboardNav/>
             {location.pathname==="/dashboard" ? <Home/> : <Outlet/>}
         </div>
