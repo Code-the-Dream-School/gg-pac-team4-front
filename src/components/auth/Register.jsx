@@ -17,7 +17,9 @@ const Register = () => {
   const [confirmEmail, setConfirmEmail] = useState('');
   const [confirmEmailError, setConfirmEmailError] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
 
 
@@ -36,6 +38,18 @@ const Register = () => {
       setConfirmEmailError('Emails do not match');
     } else {
       setConfirmEmailError('');
+    }
+
+    if (password.trim() === '') {
+      setPasswordError('Password is required');
+    } else {
+      setPasswordError('');
+    }
+
+    if (password !== confirmPassword) {
+      setConfirmPasswordError('Passwords do not match');
+    } else {
+      setConfirmPasswordError('');
     }
   }
 
@@ -85,7 +99,11 @@ const Register = () => {
   }
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+    if(newPassword.trim() !== '') {
+      setPasswordError('');
+    }
   }
 
   const handleConfirmPasswordChange = (event) => {
@@ -211,6 +229,7 @@ const Register = () => {
           placeholder=" ">
           Confirm Email Address
         </FormInput>
+        {passwordError && <FormErrorMsg error={passwordError}/>}
         <FormInput
           type="password"
           id="password"
@@ -220,6 +239,7 @@ const Register = () => {
           placeholder=" ">
           Password
         </FormInput>
+        {confirmPasswordError && <FormErrorMsg error={confirmPasswordError}/>}
         <FormInput
           type="password"
           id="password2"
