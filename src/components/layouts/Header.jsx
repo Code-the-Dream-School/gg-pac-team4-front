@@ -22,7 +22,7 @@ const Header = () => {
     const register = () => navigate("/register");
 
     return (
-        <header className="h-20 w-full flex items-center px-20 justify-between">
+        <header className="h-20 w-full flex items-center px-4 lg:px-20 justify-between">
             <Link className="text-black font-spartan font-semibold text-xl sm:text-3xl w-1/3" to="/">TalentStudio</Link>
             <DesktopNav onSearch={search} onLogin={login} onJoin={register} stateSearch={isSearch} stateLogin={isLoginBtn} stateJoin={isJoinBtn}/>
             <MobileNav onSearch={search} onLogin={login} onJoin={register} stateSearch={isSearch} stateLogin={isLoginBtn} stateJoin={isJoinBtn}/>

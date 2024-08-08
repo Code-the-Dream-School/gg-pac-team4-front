@@ -10,7 +10,7 @@ const DesktopNav = ({ onSearch, onLogin, onJoin, stateSearch, stateLogin, stateJ
             {
                 stateSearch
                     ? <form className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1">
-                        <input className='focus:outline-none w-2/3' aria-label="Search" placeholder="Search online classes or teachers..." />
+                        <input className='focus:outline-none w-2/3' aria-label="Search" placeholder="Search classes or teachers..." />
                         <button onClick={onSearch} aria-label="Search"><img src={searchIcon} className="h-6" alt="search icon" /></button>
                     </form>
                     : <div></div>
