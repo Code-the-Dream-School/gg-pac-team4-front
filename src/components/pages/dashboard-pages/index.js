@@ -1,12 +1,12 @@
+import Classes from "./Classes";
 import EditProfile from "./EditProfile";
 import Home from "./Home";
+import Lessons from "./Lessons";
 import Messages from "./Messages";
+import NewClassForm from "./NewClassForm";
 import Notifications from "./Notifications";
-import StudentLessons from "./StudentLessons";
-import StudentPayments from "./StudentPayments";
-import TeacherClasses from "./TeacherClasses";
-import TeacherNewClassForm from "./TeacherNewClassForm";
-import TeacherSchedule from "./TeacherSchedule";
-import TeacherStudents from "./TeacherStudents";
+import Payments from "./Payments";
+import Schedule from "./Schedule";
+import Students from "./Students";
 
-export { EditProfile, Home, Messages, Notifications, StudentLessons, StudentPayments, TeacherClasses, TeacherNewClassForm, TeacherSchedule, TeacherStudents };
+export { EditProfile, Home, Messages, Notifications, Lessons, Classes, NewClassForm, Schedule, Students, Payments };

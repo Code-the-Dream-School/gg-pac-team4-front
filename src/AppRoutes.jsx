@@ -1,15 +1,15 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+  Classes,
   EditProfile,
   Home,
+  Lessons,
   Messages,
+  NewClassForm,
   Notifications,
-  StudentLessons,
-  StudentPayments,
-  TeacherClasses,
-  TeacherNewClassForm,
-  TeacherSchedule,
-  TeacherStudents,
+  Payments,
+  Schedule,
+  Students,
 } from './components/pages/dashboard-pages/index.js';
 
 import Dashboard from './components/pages/Dashboard.jsx';
@@ -38,14 +38,14 @@ const AppRoutes = () => {
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="profile" element={<Home />} />
                 <Route path="edit-profile" element={<EditProfile />} />
-                <Route path="teacher-classes" element={<TeacherClasses />} />
-                <Route path="teacher-add-class" element={<TeacherNewClassForm />} />
-                <Route path="teacher-students" element={<TeacherStudents />} />
-                <Route path="teacher-schedule" element={<TeacherSchedule/>} />
-                <Route path="student-lessons" element={<StudentLessons />} />
+                <Route path="classes" element={<Classes />} />
+                <Route path="add-class" element={<NewClassForm />} />
+                <Route path="students" element={<Students />} />
+                <Route path="schedule" element={<Schedule/>} />
+                <Route path="lessons" element={<Lessons />} />
                 <Route path="notifications" element={<Notifications/>} />
                 <Route path="messages" element={<Messages/>} />
-                <Route path="student-payments" element={<StudentPayments/>} />
+                <Route path="payments" element={<Payments/>} />
               </Route>
             </Route>
             <Route path="/search" element={<SearchBar />} />
