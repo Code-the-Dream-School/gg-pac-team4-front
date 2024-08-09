@@ -1,8 +1,19 @@
-import HomeTeacher from "./HomeTeacher";
+import HomeStudent from './HomeStudent';
+import HomeTeacher from './HomeTeacher';
+import { useAuth } from '../../../AuthProvider';
+import { useNavigate } from "react-router-dom";
 
-const Home = ({profile}) => {
+const Home = ({ profile }) => {
+  const { userData } = useAuth();
+  const navigate = useNavigate();
+  const editProfile = () => navigate("/dashboard/edit-profile");
   return (
-    <><HomeTeacher profile={profile}/></>
+    <>
+      {userData.role === 'teacher' 
+        ? <HomeTeacher profile={profile} onNavigate={editProfile}/>
+        : <HomeStudent profile={profile} onNavigate={editProfile}/>
+      }
+    </>
   );
 };
 

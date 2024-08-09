@@ -21,7 +21,6 @@ export const logout = async () => {
 export const getUserData = async ( id, token ) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/users/${id}`, { headers: { Authorization: `Bearer ${token}`}});
-        //console.log(response);
         return response;
     } catch (error) {
         throw error.response.data;

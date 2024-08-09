@@ -8,7 +8,7 @@ import Student from '../../assets/icons/student.png';
 
 const DashboardNavTeacher = () => {
   const navbarItemsTeacher = [
-    { src: Home, text: 'Home', link: 'profile' },
+    { src: Home, text: 'Home', link: '' },
     { src: Classes, text: 'My classes', link: 'classes' },
     { src: Student, text: 'My students', link: 'students' },
     { src: Schedule, text: 'Schedule', link: 'schedule' },
@@ -24,9 +24,10 @@ const DashboardNavTeacher = () => {
           key={index}
           className={({ isActive }) =>
             isActive
-              ? 'flex gap-2 font-spartan text-sm md:text-xl font-semibold border-b border-black'
-              : 'flex gap-2 font-spartan text-sm md:text-xl font-medium border-b border-lightGreen opacity-70 hover:border-black'
+              ?'flex gap-2 font-spartan text-sm md:text-xl font-semibold border-b border-black'
+              : 'flex gap-2 font-spartan text-sm md:text-xl font-medium border-b border-lightGreen opacity-60 hover:border-black hover:opacity-100'
           }
+          end
         >
           <img className="h-3 md:h-5" src={src} alt={`${text} icon`} />
           {text}

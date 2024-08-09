@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import DashboardNav from "../navbars/DashboardNav";
 import { Home } from "./dashboard-pages/index";
@@ -13,20 +13,19 @@ const Dashboard = () => {
     const { userData } = useAuth();
 
     useEffect(() => {
+        console.log('useeffect')
         const fetchUserProfileData = async () => {
         try {
             const result = await getUserData(userData._id, userData.token);
             if (result.status === 200) {
-                console.log(result)
-                setProfile(result.data)
-                // setProfile({
-                //     firstName: userProfile.data.firstName,
-                //     lastName: userProfile.data.lastName,
-                //     email: userProfile.data.email,
-                //     dateOfBirth: userProfile.data.dateOfBirth || null,
-                //     adultName: userProfile.data.adultName || null,
-                //     role: userProfile.data.role,
-                // });
+                setProfile({
+                    firstName: result.data.firstName,
+                    lastName: result.data.lastName,
+                    email: result.data.email,
+                    dateOfBirth: new Date(result.data.dateOfBirth).toLocaleString("en-US", { timeZone: 'UTC', year: 'numeric', month: 'long', day: 'numeric' })|| "",
+                    adultName: result.data.adultName || "",
+                    role: result.data.role,
+                });
                 setError('');
             }
         } catch (error) {
@@ -36,9 +35,6 @@ const Dashboard = () => {
     };
         fetchUserProfileData();
     },[]);
-
-    console.log(profile);
-    console.log(userData);
 
     return (
         <div className="flex flex-col items-center w-full h-full bg-lightBlue">

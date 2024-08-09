@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   Classes,
   EditProfile,
-  Home,
   Lessons,
   Messages,
   NewClassForm,
@@ -35,7 +34,6 @@ const AppRoutes = () => {
           <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />}>
-              <Route path="profile" element={<Home />} />
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<NewClassForm />} />

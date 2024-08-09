@@ -7,7 +7,7 @@ import Payment from '../../assets/icons/payment.png';
 
 const DashboardNavStudent = () => {
   const navbarItemsStudent = [
-    { src: Home, text: 'Home', link: 'profile' },
+    { src: Home, text: 'Home', link: '' },
     { src: Lesson, text: 'My lessons', link: 'lessons' },
     { src: Notification, text: 'Notifications', link: 'notifications' },
     { src: Messages, text: 'Messages', link: 'messages' },
@@ -23,8 +23,9 @@ const DashboardNavStudent = () => {
           className={({ isActive }) =>
             isActive
               ? 'flex gap-2 font-spartan text-sm md:text-xl font-semibold border-b border-black'
-              : 'flex gap-2 font-spartan text-sm md:text-xl font-medium border-b border-lightGreen opacity-70 hover:border-black'
+              : 'flex gap-2 font-spartan text-sm md:text-xl font-medium border-b border-lightGreen opacity-60 hover:border-black hover:opacity-100'
           }
+          end
         >
           <img className="h-3 md:h-5" src={src} alt={`${text} icon`} />
           {text}
