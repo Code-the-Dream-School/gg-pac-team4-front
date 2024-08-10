@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Added useEffect
+import React, { useState, useEffect } from 'react';
 import { getClassesData } from '../../util/DataSearchRequests';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';

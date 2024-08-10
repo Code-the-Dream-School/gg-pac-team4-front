@@ -12,9 +12,9 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
             {classes.map((classItem) => (
               <div
                 key={classItem._id}
-                className="flex flex-row border h-[350px] rounded-lg shadow-md"
+                className="flex flex-row border h-[300px] rounded-lg shadow-md"
               >
-                <div className="flex  justify-center items-center p-8 rounded-lg">
+                <div className="flex  justify-center items-center p-4 rounded-lg">
                   <img
                     className="w-[350px] h-[250px] object-cover rounded-lg"
                     src={classItem.classImageUrl}
@@ -28,7 +28,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
                   <p className="font-roboto text-xl mt-2">
                     {classItem.description}
                   </p>
-                  <p className="mt-2">{classItem.createdBy}</p>
+                  <p className="mt-2">{classItem.createdBy?.name}</p>
                 </div>
                 <div className="flex flex-col  justify-around text-black px-4">
                   <div className="flex flex-col  gap-4  text-black">
@@ -65,7 +65,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
               </div>
             ))}
           </div>
-          <div className="flex justify-center mt-6">
+          <div className="flex justify-center m-6">
             <button
               className="bg-darkGreen text-white px-4 py-2 rounded-full"
               disabled={currentPage === 1}
@@ -73,7 +73,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
             >
               Previous
             </button>
-            <span className="mx-4">
+            <span className="flex items-center mx-4">
               Page {currentPage} of {totalPages}
             </span>
             <button
