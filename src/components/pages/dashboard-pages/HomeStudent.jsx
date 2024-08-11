@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const HomeStudent = ({ profile, onNavigate }) => {
+const HomeStudent = ({ profile, onNavigate, error }) => {
   const { firstName, lastName, dateOfBirth, adultName } = profile;
   let studentAge = (new Date().getTime() - new Date(dateOfBirth)) / (24 * 3600 * 365.25 * 1000);
   return (
@@ -18,6 +18,7 @@ const HomeStudent = ({ profile, onNavigate }) => {
             Edit Profile
           </button>
         </div>
+        {error.message && <p>{error.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Date Of Birth</h3>
           <p>{dateOfBirth}</p>

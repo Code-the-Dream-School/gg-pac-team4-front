@@ -1,5 +1,4 @@
 import EditProfileForm from "./EditProfileForm";
-import MusicIcon from "../../../assets/icons/icons-musical.png"
 import { useAuth } from "../../../AuthProvider";
 import { useNavigate } from "react-router-dom";
 

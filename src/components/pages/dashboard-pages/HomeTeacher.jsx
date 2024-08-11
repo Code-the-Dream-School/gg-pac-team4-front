@@ -1,4 +1,4 @@
-const HomeTeacher = ({ profile, onNavigate }) => {
+const HomeTeacher = ({ profile, onNavigate, error }) => {
   const { firstName, lastName } = profile;
   //console.log(profile)
   return (
@@ -19,6 +19,7 @@ const HomeTeacher = ({ profile, onNavigate }) => {
             Edit Profile
           </button>
         </div>
+        {error.message && <p>{error.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Speacialty</h3>
           <p></p>

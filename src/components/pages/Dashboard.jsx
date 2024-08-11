@@ -9,8 +9,8 @@ import { useAuth } from "../../AuthProvider";
 const Dashboard = () => {
     const location = useLocation();
     const [profile, setProfile] = useState({});
-    const [error, setError] = useState('');
-    const { userData } = useAuth();
+    const [error, setError] = useState({});
+    const { userData, clearUserSession } = useAuth();
 
     useEffect(() => {
         console.log('useeffect')
@@ -30,7 +30,10 @@ const Dashboard = () => {
             }
         } catch (error) {
             console.error('Error fetching user profile:', error);
-            setError('The profile is unavailable. Try again later please');
+            setError({...error, message: 'The profile is unavailable. Try again later please'});
+            if(error.message === "Authentication invalid") {
+                clearUserSession();
+            }
         }
     };
         fetchUserProfileData();
@@ -39,7 +42,7 @@ const Dashboard = () => {
     return (
         <div className="flex flex-col items-center w-full h-full bg-lightBlue">
             <DashboardNav/>
-            {location.pathname==="/dashboard" ? <Home profile={profile}/> : <Outlet/>}
+            {location.pathname==="/dashboard" ? <Home profile={profile} error={error}/> : <Outlet/>}
         </div>
     );
 };
