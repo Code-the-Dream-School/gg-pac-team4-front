@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       if (error.response && error.response.status === 401) {
         setMessage('Invalid credentials');
       } else {
-        setMessage(error.response?.data?.message || 'Error sending password reset link');
+        setMessage(error.response?.data?.message || 'Wrong credentials');
       }
     }
   };
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
       >
         <div className="bg-white rounded-lg p-8 shadow-lg max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-4">Email Sent</h2>
-          <p className="mb-4">A password reset link has been sent to your email.</p>
+          <p className="mb-4">A password reset link has been sent to your email. Check your email please</p>
           <button
             onClick={() => setIsModalOpen(false)} // Close modal on click
             className="w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg bg-darkGreen hover:bg-darkGreen-darker"
