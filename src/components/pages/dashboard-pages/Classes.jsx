@@ -24,7 +24,7 @@ const Classes = () => {
         </button>
       </div>
       <div className="bg-pureWhite w-3/5 flex flex-col gap-4">
-        <div className="flex flex-wrap justify-around gap-10 mt-10">
+        <div className="flex flex-wrap justify-around gap-1 mt-10">
           <img src={ClassImg} alt="Class image full" className="w-44 sm:w-72" />
           <div className="mr-12">
             <p className="text-3xl font-bold">$35</p>

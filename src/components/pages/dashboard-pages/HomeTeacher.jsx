@@ -2,7 +2,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
   const { firstName, lastName } = profile;
   //console.log(profile)
   return (
-    <div className="flex flex-wrap w-full flex-grow justify-around">
+    <div className="flex flex-wrap w-full h-screen flex-grow justify-around">
       <div className="flex flex-col w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
           <div className="w-20 h-20 bg-grey rounded-full"></div>
@@ -48,7 +48,17 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
             Add More
           </button>
         </div>
+        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4">
+          <h2 className="font-spartan font-semibold text-2xl py-2">
+            Video Portfolio
+          </h2>
+          <p>Here will be some videos</p>
+          <button className="mt-auto bg-pureWhite py-1 w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red mb-4">
+            Add More
+          </button>
+        </div>
       </div>
+      
     </div>
   );
 };

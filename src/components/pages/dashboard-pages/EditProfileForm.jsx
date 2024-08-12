@@ -1,5 +1,5 @@
 import FormInput from '../../common/FormInput';
-import MultiSelectDropdown from '../../common/MultiSelectDropdown';
+import SelectDropdown from '../../common/SelectDropdown';
 
 const EditProfileForm = ({ options, role, cancel }) => {
   // this is just a layout without sending the data to DB and storing the state
@@ -14,21 +14,38 @@ const EditProfileForm = ({ options, role, cancel }) => {
       </div>
       <form className="mt-4 p-4 sm:w-2/5 w-4/5 h-full">
         <div className="flex gap-8">
-          <FormInput placeholder=" ">First name</FormInput>
-          <FormInput placeholder=" ">Last name</FormInput>
+          <FormInput placeholder=" " name="firstName">
+            First name
+          </FormInput>
+          <FormInput placeholder=" " name="lastName">
+            Last name
+          </FormInput>
         </div>
-        <FormInput placeholder=" ">Email</FormInput>
-        { 
-          role === 'teacher' 
-          ? <FormInput placeholder=" ">Education & Experience</FormInput>
-          : <></>
-          }
-        <MultiSelectDropdown
+        <FormInput placeholder=" " name="email">
+          Email
+        </FormInput>
+        {role === 'teacher' ? (
+          <FormInput placeholder=" " name="educationExperience">
+            Education & Experience
+          </FormInput>
+        ) : (
+          <></>
+        )}
+        <SelectDropdown
           options={options}
-          placeholder={role === 'teacher' ? "Select your specialty" : "Select subjects you are interested in"}
+          multiple={true}
+          placeholder={
+            role === 'teacher'
+              ? 'Select your specialty'
+              : 'Select subjects you are interested in'
+          }
         />
+        <label htmlFor="about" className="hidden">
+          About yourself
+        </label>
         <textarea
-          aria-label="Tell more about yourself"
+          id="about"
+          name="about"
           className="mt-4 p-2 w-full text-sm placeholder:text-xs placeholder:text-grey text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
           placeholder="Tell more about yourself"
         />
@@ -39,7 +56,10 @@ const EditProfileForm = ({ options, role, cancel }) => {
           >
             Save
           </button>
-          <button onClick={cancel} className="w-full bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+          <button
+            onClick={cancel}
+            className="w-full bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+          >
             Cancel
           </button>
         </div>
