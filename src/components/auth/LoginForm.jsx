@@ -27,7 +27,7 @@ const LoginForm = ({ onSubmit, formErrors, formData, handleChange, onForgotPassw
             >
                 Password
             </FormInput>
-            <button type="button" onClick={onForgotPassword} className="text-lightGreen mt-2 mb-2">Forgot Password?</button>
+            <button type="button" onClick={onForgotPassword} className="text-red mt-2 mb-2">Forgot Password?</button>
             <button type="submit" className="bg-red w-full hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg">Log In</button>            
         </form>
     );

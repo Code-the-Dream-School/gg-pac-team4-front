@@ -48,9 +48,7 @@ const Login = () => {
     }
   }, [isLoggedIn]);
 
-  const handleForgotPassword = () => {
-    navigate("/forgot-password");
-  };
+  const handleForgotPassword = () => navigate("/forgot-password");
 
   return (
     <div className="flex flex-col gap-5 mt-16 items-center">
