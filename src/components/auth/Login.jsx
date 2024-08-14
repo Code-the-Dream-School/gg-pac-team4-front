@@ -48,7 +48,7 @@ const Login = () => {
     }
   }, [isLoggedIn]);
 
-  const handleForgotPassword = () => navigate("/forgot-password");
+  const handleForgotPasswordForm = () => navigate("/forgot-password");
 
   return (
     <div className="flex flex-col gap-5 mt-16 items-center">
@@ -57,7 +57,7 @@ const Login = () => {
                   formErrors={formErrors}
                   formData={formData}
                   handleChange={handleChange}
-                  onForgotPassword={handleForgotPassword}
+                  onForgotPasswordForm={handleForgotPasswordForm}
       />
     </div>
   );

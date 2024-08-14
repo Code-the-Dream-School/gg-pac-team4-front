@@ -16,6 +16,12 @@ const handleError = (error, setFormErrors) => {
       default:
         errorMessage = 'Error: ' + (error.response.data?.message || 'An error occurred');
     }
+  } else if (error.request) {
+    // The request was made but no response was received
+    errorMessage = 'No response received from the server. Please try again later.';
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    errorMessage = 'Request error: ' + error.message;
   }
 
   setFormErrors({ form: errorMessage });

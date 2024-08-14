@@ -16,11 +16,11 @@ const ResetPasswordForm = () => {
     if (urlToken) {
       setToken(urlToken);
     } else {
-      console.error('No token found in URL');
+      setMessage('There was a processing error. Please try again or contact support.');
     }
   }, []);
 
-  const passwordsMatch = () => password === confirmPassword;
+  const isPasswordsMatch = password === confirmPassword;
 
   const handlePasswordReset = async () => {
     try {
@@ -36,7 +36,7 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!passwordsMatch()) {
+    if (!isPasswordsMatch) {
       setMessage('Passwords do not match');
       return;
     }

@@ -7,7 +7,7 @@ import handleError from '../../util/errorMessages';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
-const ForgotPassword = () => {
+const ForgotPasswordForm = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
@@ -26,17 +26,22 @@ const ForgotPassword = () => {
     return true;
   };
 
+  // Function to send reset link
+  const sendResetLinkRequest = async () => {
+    try {
+      await sendResetLink({ email });
+      setMessage('');
+      setIsModalOpen(true);
+    } catch (error) {
+      handleError(error, setFormErrors);
+    }
+  };
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      try {
-        await sendResetLink({ email });
-        setMessage('');
-        setIsModalOpen(true);
-      } catch (error) {
-        handleError(error, setFormErrors);
-      }
+      await sendResetLinkRequest();
     }
   };
 
@@ -107,4 +112,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ForgotPasswordForm;
