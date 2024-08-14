@@ -43,8 +43,8 @@ const ResetPasswordForm = () => {
 
     await handlePasswordReset();
   };
- 
-  // Define the arePasswordsEntered function
+
+  // Directly assign the boolean expression to a constant
   const arePasswordsEntered = password && confirmPassword;
 
   return (
@@ -73,7 +73,7 @@ const ResetPasswordForm = () => {
           </FormInput>
           <button
             type="submit"
-            className={`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${arePasswordsEntered() ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`}
+            className={`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${arePasswordsEntered ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`}
             disabled={!password || !confirmPassword}
           >
             Reset Password
