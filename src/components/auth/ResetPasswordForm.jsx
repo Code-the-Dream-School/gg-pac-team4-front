@@ -43,6 +43,9 @@ const ResetPasswordForm = () => {
 
     await handlePasswordReset();
   };
+ 
+  // Define the arePasswordsEntered function
+  const arePasswordsEntered = password && confirmPassword;
 
   return (
     <div className="flex items-center justify-center mt-10">
