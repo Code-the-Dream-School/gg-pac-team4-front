@@ -18,3 +18,14 @@ export const getClassesData = async (
     throw error;
   }
 };
+
+//for future filter button
+export const getCategories = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/classes/category`);
+    return response.data.category;
+  } catch (error) {
+    console.error('Error during search:', error);
+    throw error;
+  }
+};

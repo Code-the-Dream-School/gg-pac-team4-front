@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getClassesData } from '../../util/DataSearchRequests';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
+import FilterButtons from './FilterContainer';
 
 const SearchPage = () => {
   const [classes, setClasses] = useState([]);
@@ -38,6 +39,7 @@ const SearchPage = () => {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
+      <FilterButtons />
       <SearchResults
         classes={classes}
         currentPage={currentPage}

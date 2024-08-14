@@ -1,18 +1,24 @@
 import React from 'react';
-import AgeIcon from '../../assets/icons/icon-age.png';
-import LessonTypeIcon from '../../assets/icons/icon-lesson.png';
-import ScheduleIcon from '../../assets/icons/icons-schedule.png';
+import { useNavigate } from 'react-router-dom';
+import AgeIcon from '../../assets/icons/icon-age.svg';
+import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
+import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 
 const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/register');
+  };
   return (
-    <div className="container m-auto">
+    <div className="container m-auto ">
       {classes.length > 0 ? (
         <>
-          <div className="flex flex-col gap-6 mt-10">
+          <div className="flex flex-col gap-6 mt-10 ">
             {classes.map((classItem) => (
               <div
                 key={classItem._id}
-                className="flex flex-row border h-[300px] rounded-lg shadow-md"
+                className="flex flex-row border h-[300px] rounded-lg  border-gray hover:shadow-lg cursor-pointer "
+                onClick={() => handleClick()}
               >
                 <div className="flex  justify-center items-center p-4 rounded-lg">
                   <img
@@ -28,7 +34,6 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
                   <p className="font-roboto text-xl mt-2">
                     {classItem.description}
                   </p>
-                  <p className="mt-2">{classItem.createdBy?.name}</p>
                 </div>
                 <div className="flex flex-col  justify-around text-black px-4">
                   <div className="flex flex-col  gap-4  text-black">
