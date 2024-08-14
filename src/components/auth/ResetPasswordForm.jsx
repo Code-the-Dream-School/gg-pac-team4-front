@@ -20,7 +20,7 @@ const ResetPasswordForm = () => {
     }
   }, []);
 
-  const isPasswordsMatch = password === confirmPassword;
+  const isPasswordMatch = password === confirmPassword;
 
   const handlePasswordReset = async () => {
     try {
@@ -36,7 +36,7 @@ const ResetPasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!isPasswordsMatch) {
+    if (!isPasswordMatch) {
       setMessage('Passwords do not match');
       return;
     }
