@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import FormInput from "../common/FormInput";
-import { useNavigate } from "react-router-dom";
+import { sendResetLink } from '../../util/DataBaseRequests';
+import FormInput from '../common/FormInput';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
+import handleError from '../../util/errorMessages';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
@@ -13,82 +14,90 @@ const ForgotPassword = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  // Validate form fields
+  const validateForm = () => {
     if (!email) {
       setFormErrors({
         ...formErrors,
-        email: "Email is required",
+        email: 'Email is required',
       });
-      return;
+      return false;
     }
+    return true;
+  };
 
-    try {
-      const response = await axios.post('http://localhost:8000/api/v1/forgot-password', {
-        email: email
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      setMessage(''); // Clear the message
-      setIsModalOpen(true); // Open the modal
-    } catch (error) {
-      console.error('Error:', error);
-      if (error.response && error.response.status === 401) {
-        setMessage('Invalid credentials');
-      } else {
-        setMessage(error.response?.data?.message || 'Wrong credentials');
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      try {
+        await sendResetLink({ email });
+        setMessage('');
+        setIsModalOpen(true);
+      } catch (error) {
+        handleError(error, setFormErrors);
       }
     }
   };
 
   return (
-    <div className="flex items-center justify-center mt-10">
-      <div className="w-full max-w-md p-8 space-y-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center">Forgot Password</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {message && <p className="text-red text-sm font-spartan">{message}</p>}
-          {formErrors.email && <p className="text-red text-sm font-spartan">{formErrors.email}</p>}
-          <FormInput
-            type="email"
-            placeholder=" "
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}    // Update email state on change         
-          >
-            Email
-          </FormInput>
+    <div className="flex items-center justify-center mt-16">
+      <form
+        onSubmit={handleSubmit}
+        className="w-2/3 md:w-1/2 lg:w-1/3 xl:w-3/10 p-8 space-y-8"
+      >
+        <div className="flex items-center justify-between">
           <button
-            type="submit"
-            className={`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${email ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`}
-            disabled={!email} // Disable button if email is empty
+            onClick={() => navigate(-1)} // Navigate back on click
+            className="text-gray-500 hover:text-gray-700"
           >
-            Send Reset Link
+            &larr; Back
           </button>
-        </form>
-        <button
-          onClick={() => navigate(-1)} // Navigate back on click
-          className="w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg bg-gray-500 hover:bg-gray-700 mt-4"
+          <h2 className="font-spartan text-3xl text-center flex-grow">
+            Forgot Password
+          </h2>
+        </div>
+        {message && <p className="text-red text-sm font-spartan">{message}</p>}
+        {formErrors.email && (
+          <p className="text-red text-sm font-spartan">{formErrors.email}</p>
+        )}
+        {formErrors.form && (
+          <p className="text-red text-sm font-spartan">{formErrors.form}</p>
+        )}
+        <FormInput
+          type="email"
+          placeholder=" "
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} // Update email state on change
         >
-          Back
+          Email
+        </FormInput>
+        <button
+          type="submit"
+          className={`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${email ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`}
+          disabled={!email} // Disable button if email is empty
+        >
+          Send Reset Link
         </button>
-      </div>
+      </form>
 
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={() => setIsModalOpen(false)}
+        onRequestClose={() => setIsModalOpen(false)} // Close modal on request
         contentLabel="Confirmation Modal"
         className="fixed inset-0 flex items-center justify-center z-50"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-70"
       >
-        <div className="bg-white rounded-lg p-8 shadow-lg max-w-md mx-auto">
+        <div className="bg-white rounded-lg p-8 max-w-md mx-auto z-50">
           <h2 className="text-2xl font-bold mb-4">Email Sent</h2>
-          <p className="mb-4">A password reset link has been sent to your email. Check your email please</p>
+          <p className="mb-8">
+            A password reset link has been sent to your email. Check your email
+            please
+          </p>
           <button
             onClick={() => setIsModalOpen(false)} // Close modal on click
-            className="w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg bg-darkGreen hover:bg-darkGreen-darker"
+            className="w-full text-white font-spartan font-semibold text-lg py-1 rounded-lg bg-darkGreen hover:bg-darkGreen-darker"
           >
             Close
           </button>

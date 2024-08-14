@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import FormInput from "../common/FormInput";
 import { useNavigate } from "react-router-dom";
+import { resetPassword } from '../../util/DataBaseRequests';
 
 const ResetPasswordForm = () => {
   const [password, setPassword] = useState('');
@@ -20,36 +20,34 @@ const ResetPasswordForm = () => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== confirmPassword) {
-      setMessage('Passwords do not match');
-      return;
-    }
-  
+  const passwordsMatch = () => password === confirmPassword;
+
+  const handlePasswordReset = async () => {
     try {
-      const response = await axios.patch('http://localhost:8000/api/v1/reset-password', {
-        token: token,
-        newPassword: password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      const response = await resetPassword({ token, newPassword: password });
+      console.log(response);
       setMessage('Password reset successful');
-      navigate('/login'); 
+      navigate('/login');
     } catch (error) {
-      console.error('Error:', error);
-      setMessage(error.response?.data?.message || 'Error resetting password');
+      setMessage(error.message || 'An error occurred');
     }
   };
 
-  const arePasswordsEntered = () => password && confirmPassword;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!passwordsMatch()) {
+      setMessage('Passwords do not match');
+      return;
+    }
+
+    await handlePasswordReset();
+  };
 
   return (
     <div className="flex items-center justify-center mt-10">
-      <div className="w-full max-w-md p-8 space-y-6 rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center">Reset Password</h2>
+      <div className="w-full max-w-md p-8 space-y-6 ">
+        <h2 className="font-spartan text-3xl text-center flex-grow">Reset Password</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {message && <p className="text-red text-sm font-spartan">{message}</p>}
           <FormInput
@@ -73,7 +71,7 @@ const ResetPasswordForm = () => {
           <button
             type="submit"
             className={`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${arePasswordsEntered() ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`}
-            disabled={!arePasswordsEntered()}
+            disabled={!password || !confirmPassword}
           >
             Reset Password
           </button>
