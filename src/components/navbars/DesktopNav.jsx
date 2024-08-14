@@ -3,12 +3,12 @@ import loginIcon from '../../assets/icons/login.png';
 import searchIcon from '../../assets/icons/search.png';
 import { useAuth } from '../../AuthProvider';
 
-const DesktopNav = ({ onSearch, onLogin, onJoin, stateSearch, stateLogin, stateJoin }) => {
+const DesktopNav = ({ onSearch, onLogin, onJoin, isSearch, isLogin, isJoin }) => {
     const { isLoggedIn } = useAuth()
     return (
-        <nav className="w-2/3 hidden relative py-6 sm:flex justify-between items-center">
+        <nav aria-label="desktop navbar" className="w-2/3 hidden relative py-6 sm:flex justify-between items-center">
             {
-                stateSearch
+                isSearch
                     ? <form className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1">
                         <input className='focus:outline-none w-2/3' aria-label="Search" placeholder="Search classes or teachers..." />
                         <button onClick={onSearch} aria-label="Search"><img src={searchIcon} className="h-6" alt="search icon" /></button>
@@ -19,7 +19,7 @@ const DesktopNav = ({ onSearch, onLogin, onJoin, stateSearch, stateLogin, stateJ
                 {isLoggedIn
                     ? <ProfileNav />
                     : <>
-                        {stateLogin
+                        {isLogin
                             ? <button onClick={onLogin} className="font-spartan font-semibold text-base sm:text-lg flex items-center">
                                 <img src={loginIcon} className="h-4 sm:h-5" alt="join icon" />
                                 Log In
@@ -27,7 +27,7 @@ const DesktopNav = ({ onSearch, onLogin, onJoin, stateSearch, stateLogin, stateJ
                             : <div></div>
                         }
                         {
-                            stateJoin
+                            isJoin
                                 ? <button onClick={onJoin} className='bg-red hover:bg-pureWhite hover:text-red w-16 h-8 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-lg rounded-lg transition duration-300 easy-in'>
                                     Join
                                 </button>

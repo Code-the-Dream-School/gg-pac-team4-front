@@ -40,7 +40,7 @@ const Dashboard = () => {
     },[]);
 
     return (
-        <div className="flex flex-col items-center w-full h-full bg-lightBlue">
+        <div aria-label={userData.role === 'teacher' ? 'teacher dashboard' : 'student dashboard'} className="flex flex-col items-center w-full h-full bg-lightBlue">
             <DashboardNav/>
             {location.pathname==="/dashboard" ? <Home profile={profile} error={error}/> : <Outlet/>}
         </div>
