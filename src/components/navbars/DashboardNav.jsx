@@ -1,33 +1,10 @@
-import Classes from '../../assets/icons/classes.png';
-import Home from '../../assets/icons/home.png';
-import Lesson from '../../assets/icons/lessons.png';
-import Messages from '../../assets/icons/messages.png';
 import { NavLink } from 'react-router-dom';
-import Notification from '../../assets/icons/notification.png';
-import Payment from '../../assets/icons/payment.png';
-import Schedule from '../../assets/icons/schedule.png';
-import Student from '../../assets/icons/student.png';
+import navbarItemsStudent from '../../data/navbarStudent';
+import navbarItemsTeacher from '../../data/navbarTeacher';
 import { useAuth } from '../../AuthProvider';
 
 const DashboardNav = () => {
   const { userData } = useAuth();
-
-  const navbarItemsStudent = [
-    { src: Home, text: 'Home', link: '' },
-    { src: Lesson, text: 'My lessons', link: 'lessons' },
-    { src: Notification, text: 'Notifications', link: 'notifications' },
-    { src: Messages, text: 'Messages', link: 'messages' },
-    { src: Payment, text: 'Payments', link: 'payments' },
-  ];
-
-  const navbarItemsTeacher = [
-    { src: Home, text: 'Home', link: '' },
-    { src: Classes, text: 'My classes', link: 'classes' },
-    { src: Student, text: 'My students', link: 'students' },
-    { src: Schedule, text: 'Schedule', link: 'schedule' },
-    { src: Notification, text: 'Notifications', link: 'notifications' },
-    { src: Messages, text: 'Messages', link: 'messages' },
-  ];
 
   const currentNavbarContent =
     userData.role === 'teacher' ? navbarItemsTeacher : navbarItemsStudent;
