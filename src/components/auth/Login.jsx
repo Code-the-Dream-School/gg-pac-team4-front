@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [formErrors, setFormErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({}); 
   const { isLoggedIn, setUserSession } = useAuth();
   const navigate = useNavigate();
 
@@ -48,13 +48,17 @@ const Login = () => {
     }
   }, [isLoggedIn]);
 
+  const handleRequestPasswordResetForm = () => navigate("/forgot-password");
+
   return (
     <div className="flex flex-col gap-5 mt-16 items-center">
       <h1 className="font-spartan text-3xl">Log In</h1>
       <LoginForm onSubmit={handleSubmit}
                   formErrors={formErrors}
                   formData={formData}
-                  handleChange={handleChange}/>
+                  handleChange={handleChange}
+                  onRequestPasswordResetForm={handleRequestPasswordResetForm}
+      />
     </div>
   );
 };
