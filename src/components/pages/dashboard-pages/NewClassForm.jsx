@@ -10,9 +10,9 @@ const TeacherNewClassForm = () => {
       <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
         Add a new class
       </h1>
-      <form className="flex flex-col w-3/4 ">
-        <div className='flex sm:flex-row flex-col gap-8'>
-          <div className='sm:w-1/2'>
+      <form className="flex flex-col w-3/4">
+        <div className="flex lg:flex-row flex-col gap-8">
+          <div className="lg:w-1/2">
             <FormInput placeholder=" " name="className">
               Class name
             </FormInput>
@@ -38,7 +38,7 @@ const TeacherNewClassForm = () => {
               Lesson duration
             </FormInput>
           </div>
-          <div className='sm:w-1/2'>
+          <div className="lg:w-1/2">
             <div className="flex gap-6">
               <p className="w-full">Specify required student age:</p>
               <FormInput type="number" placeholder=" " min="1" name="ageMin">
@@ -48,27 +48,53 @@ const TeacherNewClassForm = () => {
                 Maximum
               </FormInput>
             </div>
-            <div className="flex gap-10 my-4">
-              <p className="">Select the type of the class:</p>
-              <label className="flex gap-1 items-center">
-                <input
-                  type="radio"
-                  name="typeClass"
-                  value="online"
-                  className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                  defaultChecked
-                />
-                Online
-              </label>
-              <label className="flex gap-1 items-center">
-                <input
-                  type="radio"
-                  name="typeClass"
-                  value="offline"
-                  className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                />
-                Offline
-              </label>
+            <div className="flex gap-4 my-4">
+              <p className='w-2/5'>Select the type of the class:</p>
+              <div className="w-1/2 flex justify-around">
+                <label className="flex gap-1 items-center">
+                  <input
+                    type="radio"
+                    name="typeClass"
+                    value="online"
+                    className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                    defaultChecked
+                  />
+                  Online
+                </label>
+                <label className="flex gap-1 items-center">
+                  <input
+                    type="radio"
+                    name="typeClass"
+                    value="offline"
+                    className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                  />
+                  Offline
+                </label>
+              </div>
+            </div>
+            <div className="flex gap-4 my-4">
+              <p className='w-2/5'>Select the type of the lesson:</p>
+              <div className="w-1/2 flex justify-around">
+                <label className="flex gap-1 items-center">
+                  <input
+                    type="radio"
+                    name="lessonType"
+                    value="group"
+                    className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                    defaultChecked
+                  />
+                  Group
+                </label>
+                <label className="flex gap-1 items-center">
+                  <input
+                    type="radio"
+                    name="lessonType"
+                    value="oneToOne"
+                    className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                  />
+                  1:1
+                </label>
+              </div>
             </div>
             <FormInput type="text" placeholder="" name="goal">
               Learning goals of the class
@@ -84,7 +110,7 @@ const TeacherNewClassForm = () => {
               <FormInput type="date" name="date" />
               <FormInput type="time" name="time" />
             </div>
-          </div>{' '}
+          </div>
         </div>
         <div className="col-span-2 flex gap-8 justify-center">
           <button

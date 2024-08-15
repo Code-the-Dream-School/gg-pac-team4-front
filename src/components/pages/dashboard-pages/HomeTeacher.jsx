@@ -44,7 +44,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
             Portfolio
           </h2>
           <p>Here will be some pictures</p>
-          <button className="mt-auto bg-pureWhite p-4 sm:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red mb-4">
+          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
         </div>
@@ -53,7 +53,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
             Video Portfolio
           </h2>
           <p>Here will be some videos</p>
-          <button className="mt-auto bg-pureWhite py-1 sm:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red mb-4">
+          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
         </div>
