@@ -7,7 +7,7 @@ import handleError from '../../util/errorMessages';
 
 Modal.setAppElement('#root'); // Set the app element for accessibility
 
-const ForgotPasswordForm = () => {
+const RequestPasswordResetForm = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [formErrors, setFormErrors] = useState({});
@@ -112,4 +112,4 @@ const ForgotPasswordForm = () => {
   );
 };
 
-export default ForgotPasswordForm;
+export default RequestPasswordResetForm;
