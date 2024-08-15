@@ -17,6 +17,7 @@
     "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-tailwindcss-select": "^1.8.5"
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.25.1"
   },

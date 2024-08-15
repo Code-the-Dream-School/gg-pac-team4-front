@@ -1,13 +1,12 @@
-
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import mainImage from '../../assets/imgMainPage.jpg';
-import GreenBlobImage from '../../assets/blob_green.png';
-import YellowBlobImage from '../../assets/blob_yellow.png';
-import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
-import items from '../../data/data';
-import ArrowUp from '../../assets/icons/icons-arrow-up.png';
 import ArrowSearch from '../../assets/icons/icon-search.svg';
+import ArrowUp from '../../assets/icons/icons-arrow-up.png';
+import GreenBlobImage from '../../assets/blob_green.png';
+import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
+import React from 'react';
+import YellowBlobImage from '../../assets/blob_yellow.png';
+import items from '../../data/data';
+import mainImage from '../../assets/imgMainPage.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const scrollToTop = () => {
   window.scrollTo({

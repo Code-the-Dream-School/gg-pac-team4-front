@@ -1,7 +1,18 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import {
+  Classes,
+  EditProfile,
+  Lessons,
+  Messages,
+  NewClassForm,
+  Notifications,
+  Payments,
+  Schedule,
+  Students,
+} from './components/pages/dashboard-pages/index.js';
 
 import Dashboard from './components/pages/Dashboard.jsx';
-import Footer from './components/layouts/Footer.jsx'
+import Footer from './components/layouts/Footer.jsx';
 import Header from './components/layouts/Header.jsx';
 import HomePage from './components/pages/HomePage.jsx';
 import Login from './components/auth/Login.jsx';
@@ -16,25 +27,33 @@ import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 const AppRoutes = () => {
   return (
     <BrowserRouter>
-      <Header/>
-      <div className="flex flex-col min-h-screen">
+      <Header />
       <main className="flex-grow">
-      <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route element={<PrivateRoute/>}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route path="/search" element={<SearchBar />} />
-        <Route path="/payment" element={<PaymentForm />} />
-        <Route path="/forgot-password" element={<RequestPasswordResetForm/>} />
-        <Route path="/reset-password" element={<ResetPasswordForm />} />
-      </Routes> 
-      </main>     
+        <Routes>
+          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route path="edit-profile" element={<EditProfile />} />
+              <Route path="classes" element={<Classes />} />
+              <Route path="add-class" element={<NewClassForm />} />
+              <Route path="students" element={<Students />} />
+              <Route path="schedule" element={<Schedule />} />
+              <Route path="lessons" element={<Lessons />} />
+              <Route path="notifications" element={<Notifications />} />
+              <Route path="messages" element={<Messages />} />
+              <Route path="payments" element={<Payments />} />
+            </Route>
+          </Route>
+          <Route path="/search" element={<SearchBar />} />
+          <Route path="/payment" element={<PaymentForm />} />
+          <Route path="/forgot-password" element={<RequestPasswordResetForm/>} />
+          <Route path="/reset-password" element={<ResetPasswordForm />} />
+        </Routes>
+      </main>
       <Footer />
-      </div>
     </BrowserRouter>
   );
 };

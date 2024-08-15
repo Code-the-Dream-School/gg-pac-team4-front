@@ -49,3 +49,12 @@ export const sendResetLink = async ({ email }) => {
         throw error.response.data;
     }
 };
+
+export const getUserData = async ( id, token ) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/${id}`, { headers: { Authorization: `Bearer ${token}`}});
+        return response;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
