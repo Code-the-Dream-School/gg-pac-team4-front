@@ -19,19 +19,16 @@ const DesktopNav = ({ onSearch, onLogin, onJoin, isSearch, isLogin, isJoin }) =>
                 {isLoggedIn
                     ? <ProfileNav />
                     : <>
-                        {isLogin
-                            ? <button onClick={onLogin} className="font-spartan font-semibold text-base sm:text-lg flex items-center">
+                        {
+                            isLogin && <button onClick={onLogin} className="font-spartan font-semibold text-base sm:text-lg flex items-center">
                                 <img src={loginIcon} className="h-4 sm:h-5" alt="join icon" />
                                 Log In
-                            </button>
-                            : <div></div>
+                            </button> 
                         }
                         {
-                            isJoin
-                                ? <button onClick={onJoin} className='bg-red hover:bg-pureWhite hover:text-red w-16 h-8 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-lg rounded-lg transition duration-300 easy-in'>
+                            isJoin && <button onClick={onJoin} className='bg-red hover:bg-pureWhite hover:text-red w-16 h-8 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-lg rounded-lg transition duration-300 easy-in'>
                                     Join
                                 </button>
-                                : <div></div>
                         }
                     </>
                 }

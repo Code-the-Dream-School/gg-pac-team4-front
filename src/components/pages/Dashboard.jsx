@@ -26,11 +26,11 @@ const Dashboard = () => {
                     adultName: result.data.adultName || "",
                     role: result.data.role,
                 });
-                setError('');
+                setError({message: ''});
             }
         } catch (error) {
             console.error('Error fetching user profile:', error);
-            setError({...error, message: 'The profile is unavailable. Try again later please'});
+            setError({message: 'The profile is unavailable. Try again later please'});
             if(error.message === "Authentication invalid") {
                 clearUserSession();
             }

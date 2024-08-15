@@ -4,7 +4,7 @@ import SelectDropdown from '../../common/SelectDropdown';
 const EditProfileForm = ({ options, role, cancel }) => {
   // this is just a layout without sending the data to DB and storing the state
   return (
-    <div className="w-full flex flex-grow items-center sm:items-start sm:justify-center sm:flex-row flex-col overflow-y-hidden">
+    <div className="w-full h-full md:h-screen flex flex-grow items-center sm:items-start sm:justify-center sm:flex-row flex-col overflow-y-hidden">
       <div className="sm:w-1/5 w-4/5 flex flex-col items-center gap-4 mt-4 p-4">
         {/* div for user's photo */}
         <div className="h-24 w-24 bg-grey rounded-full"></div>
@@ -24,13 +24,16 @@ const EditProfileForm = ({ options, role, cancel }) => {
         <FormInput placeholder=" " name="email">
           Email
         </FormInput>
-        {role === 'teacher' ? (
-          <FormInput placeholder=" " name="educationExperience">
-            Education & Experience
+        {role === 'teacher' && 
+          <FormInput placeholder=" " name="education">
+            Education
           </FormInput>
-        ) : (
-          <></>
-        )}
+        }
+        {role === 'teacher' && 
+          <FormInput placeholder=" " name="experience">
+            Experience
+          </FormInput>
+        }
         <SelectDropdown
           options={options}
           multiple={true}
