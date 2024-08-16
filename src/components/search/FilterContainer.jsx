@@ -1,7 +1,7 @@
 import React from 'react';
 import iconsArrowDown from '../../assets/icons/icon.svg';
 import iconsSort from '../../assets/icons/icon-sort.svg';
-
+//filter functionality will work later
 const buttons = [
   { label: 'Specialties', filter: 'specialties', icon: iconsArrowDown },
   { label: 'Age', filter: 'age', icon: iconsArrowDown },

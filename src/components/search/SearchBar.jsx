@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import searchIcon from '../../assets/icons/img_search.svg';
+import deleteSearchIcon from '../../assets/icons/delete-search.svg';
 
 const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -7,6 +8,11 @@ const SearchBar = ({ onSearch }) => {
   const handleSearch = (event) => {
     event.preventDefault();
     onSearch(searchTerm);
+  };
+
+  const handleClear = () => {
+    setSearchTerm('');
+    onSearch('');
   };
 
   return (
@@ -21,14 +27,22 @@ const SearchBar = ({ onSearch }) => {
         <input
           type="text"
           className="focus:outline-none w-2/3"
-          aria-label="Search"
+          aria-label="Search input"
           placeholder="Search online classes or teachers..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
+          type="button"
+          onClick={handleClear}
+          aria-label="Clear search input"
+        >
+          <img src={deleteSearchIcon} className="" alt="clear search icon" />
+        </button>
+        <button
           type="submit"
           className="bg-darkGreen text-white font-roboto text-lg sm:text-xl md:text-2xl lg:text-3xl w-2/5 sm:w-1/2 md:w-1/3 lg:w-1/6 rounded-full"
+          aria-label="Search"
         >
           Search
         </button>

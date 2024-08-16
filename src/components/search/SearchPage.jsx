@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getClassesData } from '../../util/DataSearchRequests';
+import { getClassesData } from '../../util/DataBaseRequests';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import FilterButtons from './FilterContainer';
@@ -7,39 +7,53 @@ import FilterButtons from './FilterContainer';
 const SearchPage = () => {
   const [classes, setClasses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('');
 
-  const fetchClasses = async (page = 1) => {
+  const fetchClasses = async (searchTerm = '', page = 1) => {
     try {
-      const data = await getClassesData(search, page);
-      setClasses(data.classes);
-      setTotalPages(data.totalPages);
-      setCurrentPage(data.currentPage);
+      const limit = 5;
+      const sortBy = 'classTitle';
+      const sortOrder = 'asc';
+
+      const data = await getClassesData(
+        searchTerm,
+        '',
+        '',
+        category,
+        page,
+        limit,
+        sortBy,
+        sortOrder
+      );
+      setClasses(data.classes || []);
+      setTotalPages(data.totalPages || 1);
+      setCurrentPage(data.currentPage || 1);
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
     }
   };
 
-  // Fetch classes when search term or current page changes
   useEffect(() => {
-    fetchClasses(currentPage);
-  }, [search, currentPage]);
+    fetchClasses(search, currentPage);
+  }, [search, currentPage, category]);
 
-  // Handle search action
-  const handleSearch = () => {
-    fetchClasses(1); // Reset to first page on new search
+  const handleSearch = (searchTerm) => {
+    setSearch(searchTerm);
+    setCurrentPage(1);
   };
 
-  // Handle page change
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
   };
 
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      <FilterButtons />
+      <FilterButtons setCategory={setCategory} />
       <SearchResults
         classes={classes}
         currentPage={currentPage}
