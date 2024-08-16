@@ -1,35 +1,67 @@
-import { logout } from "../../util/DataBaseRequests";
-import { useAuth } from "../../AuthProvider";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import DashboardNav from '../navbars/DashboardNav';
+import { Home } from './dashboard-pages/index';
+import { getUserData } from '../../util/DataBaseRequests';
+import { useAuth } from '../../AuthProvider';
 
 const Dashboard = () => {
-    // temporarily this functionality is here, then it will be moved to the header
-    const [logoutError, setLogoutError] = useState({});
-    const { clearUserSession, userData } = useAuth();
-    
-    const navigate = useNavigate();
-    const handleLogout = async () => {
-        try {
-            const result = await logout();
-            if (result.status === 200){
-                clearUserSession();
-                navigate('/');
-            }
-        } catch (error) {
-            console.log(error);
-            setLogoutError({...logoutError, message: `Something went wrong. You're still logged in.`});
-        }
+  const location = useLocation();
+  const [profile, setProfile] = useState({});
+  const [error, setError] = useState({});
+  const { userData, clearUserSession } = useAuth();
 
+  useEffect(() => {
+    console.log('useeffect');
+    const fetchUserProfileData = async () => {
+      try {
+        const result = await getUserData(userData._id, userData.token);
+        if (result.status === 200) {
+          setProfile({
+            firstName: result.data.firstName,
+            lastName: result.data.lastName,
+            email: result.data.email,
+            dateOfBirth:
+              new Date(result.data.dateOfBirth).toLocaleString('en-US', {
+                timeZone: 'UTC',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              }) || '',
+            adultName: result.data.adultName || '',
+            role: result.data.role,
+          });
+          setError({ message: '' });
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        setError({
+          message: 'The profile is unavailable. Try again later please',
+        });
+        if (error.message === 'Authentication invalid') {
+          clearUserSession();
+        }
+      }
     };
-    return (
-        <div className="flex flex-col items-center">
-            <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">Dashboard Page</h1>
-            <h2>Welcome, {userData.role} {userData.firstName} {userData.lastName.slice(0,1)}.</h2>
-            {logoutError.message && <p>{logoutError.message}</p>}
-            <button className="border-b border-black" onClick={handleLogout}>Log out</button>
-        </div>
-    );
+    fetchUserProfileData();
+  }, []);
+
+  return (
+    <div
+      aria-label={
+        userData.role === 'teacher' ? 'teacher dashboard' : 'student dashboard'
+      }
+      className="flex flex-col items-center w-full h-full bg-lightBlue"
+    >
+      <DashboardNav />
+      {location.pathname === '/dashboard' ? (
+        <Home profile={profile} error={error} />
+      ) : (
+        <Outlet />
+      )}
+    </div>
+  );
 };
 
 export default Dashboard;
