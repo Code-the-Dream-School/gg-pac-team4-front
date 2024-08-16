@@ -12,30 +12,33 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   return (
     <div className="container m-auto ">
       {classes.length > 0 ? (
-        <>
-          <div className="flex flex-col gap-6 mt-10 ">
+        <div>
+          <div className="flex flex-col gap-6 mt-10 m-5 md:m-10">
             {classes.map((classItem) => (
               <div
                 key={classItem._id}
-                className="flex flex-row border h-[300px] rounded-lg  border-gray hover:shadow-lg cursor-pointer "
+                className="flex flex-col lg:flex-row  border  rounded-lg  border-gray p-0  py-5 lg:p-5 hover:shadow-lg cursor-pointer "
                 onClick={() => handleClick()}
               >
-                <div className="flex  justify-center items-center p-4 rounded-lg">
-                  <img
-                    className="w-[350px] h-[250px] object-cover rounded-lg"
-                    src={classItem.classImageUrl}
-                    alt={classItem.classTitle}
-                  />
+                <div className="flex  flex-col md:flex-row lg:flex-row md:w-full lg:w-[80%] xl:w-[85%] pb-4">
+                  <div className="flex w-full lg:w-[40%] justify-center items-center p-4 rounded-lg">
+                    <img
+                      className="md:w-full lg:w-full h-auto max-w-full object-cover rounded-lg"
+                      src={classItem.classImageUrl}
+                      alt={classItem.classTitle}
+                    />
+                  </div>
+                  <div className="flex flex-col justify-around px-4 text-black">
+                    <h2 className="font-roboto font-medium text-2xl mt-4">
+                      {classItem.classTitle}
+                    </h2>
+                    <p className="font-roboto text-xl mt-2">
+                      {classItem.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-col w-3/5 justify-around gap-4 px-4 text-black">
-                  <h2 className="font-roboto font-medium text-2xl mt-4">
-                    {classItem.classTitle}
-                  </h2>
-                  <p className="font-roboto text-xl mt-2">
-                    {classItem.description}
-                  </p>
-                </div>
-                <div className="flex flex-col  justify-around text-black px-4">
+
+                <div className="flex flex-row lg:flex-col  justify-around text-black px-4 py-4 md:py-4 border-t border-gray lg:border-none">
                   <div className="flex flex-col  gap-4  text-black">
                     <p className="flex text-3xl font-medium items-center justify-center">
                       ${classItem.price}
@@ -58,7 +61,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
                     />
                     <span>{classItem.type}</span>
                   </div>
-                  <div className="flex items-center gap-2 mt-2">
+                  <div className="flex items-center gap-2 mt-2 hidden md:flex">
                     <img
                       src={ScheduleIcon}
                       alt="Schedule Icon"
@@ -89,7 +92,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
               Next
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <p>No results found.</p>
       )}
