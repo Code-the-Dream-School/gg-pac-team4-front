@@ -1,11 +1,20 @@
 const HomeTeacher = ({ profile, onNavigate, error }) => {
-  const { firstName, lastName } = profile;
-  //console.log(profile)
+  const { 
+    firstName, 
+    lastName, 
+    aboutMe, 
+    education, 
+    experience, 
+    subjectArea, 
+    profileImageUrl, 
+    profilePortfolioImages, 
+    profilePortfolioVideos } = profile;
+  
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
-          <div className="w-20 h-20 bg-grey rounded-full"></div>
+          <img className="w-20 h-20 rounded-full" src={profileImageUrl} alt="user photo"/>
           <div className="font-spartan font-semibold text-2xl text-center xl:text-left">
             <p>{firstName}</p>
             <p>{lastName}</p>
@@ -22,15 +31,16 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
         {error.message && <p>{error.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Speacialty</h3>
-          <p></p>
+          <p>{subjectArea.length > 0 ? subjectArea : 'Please edit your profile'}</p>
           <h3 className="font-spartan font-bold text-xl text-center">
             Education & Experience
           </h3>
-          <p></p>
+          <p>{education ? education : 'Please edit your profile'}</p>
+          <p>{experience}</p>
         </div>
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">
           <h3 className="font-spartan font-bold text-xl">About</h3>
-          <p></p>
+          <p>{aboutMe ? aboutMe : 'Please edit your profile'}</p>
         </div>
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 self-center mt-2">
@@ -43,7 +53,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Portfolio
           </h2>
-          <p>Here will be some pictures</p>
+          <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p>
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
@@ -52,13 +62,12 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Video Portfolio
           </h2>
-          <p>Here will be some videos</p>
+          <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p>
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
         </div>
       </div>
-      
     </div>
   );
 };

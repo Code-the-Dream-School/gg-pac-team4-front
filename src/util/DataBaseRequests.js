@@ -9,6 +9,7 @@ export const login = async ({ email, password }) => {
             email,
             password
         });
+        console.log(response)
         return response;
     } catch (error) {
         throw error.response.data;
@@ -44,15 +45,6 @@ export const sendResetLink = async ({ email }) => {
                 'Content-Type': 'application/json'
             }
         });
-        return response;
-    } catch (error) {
-        throw error.response.data;
-    }
-};
-
-export const getUserData = async ( id, token ) => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/users/${id}`, { headers: { Authorization: `Bearer ${token}`}});
         return response;
     } catch (error) {
         throw error.response.data;
