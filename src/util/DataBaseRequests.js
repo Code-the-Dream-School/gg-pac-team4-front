@@ -50,3 +50,17 @@ export const sendResetLink = async ({ email }) => {
         throw error.response.data;
     }
 };
+
+export const updateProfile = async (id, token, formData) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+}

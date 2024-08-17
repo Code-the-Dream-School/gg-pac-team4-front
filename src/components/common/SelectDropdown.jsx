@@ -1,19 +1,11 @@
 import Select from 'react-tailwindcss-select';
-import { useState } from 'react';
 
-const SelectDropdown = ({ options, placeholder,multiple }) => {
-  const [category, setCategory] = useState(null);
-
-  const handleChange = (value) => {
-    console.log('value:', value);
-    setCategory(value);
-  };
-
+const SelectDropdown = ({ options, placeholder,multiple, onChange, value}) => {
   return (
     <Select
       placeholder={placeholder}
-      value={category}
-      onChange={handleChange}
+      value={value}
+      onChange={onChange}
       options={options}
       isMultiple={multiple}
       classNames={{
