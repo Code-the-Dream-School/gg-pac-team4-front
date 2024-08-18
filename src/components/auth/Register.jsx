@@ -12,7 +12,6 @@ const Register = () => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [isAdultNameRequired, setIsAdultNameRequired] = useState(false);
   const [adultName, setAdultName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
@@ -69,7 +68,7 @@ const Register = () => {
             "email": email,
             "password": password,
             "dateOfBirth": dateOfBirth,
-            "adultName": adultName
+            "adultName": adultName,
           };
           result = await registerStudent(studentData);
         } else {
@@ -89,6 +88,9 @@ const Register = () => {
       } catch (error) {
         console.log('ERROR');
         console.log(error);
+        if (error.message.includes("taken")) {
+          setEmailError(error.message);
+        }
       }
     }
 
@@ -123,10 +125,6 @@ const Register = () => {
   const handleAdultNameChange = (event) => {
     setAdultName(event.target.value);
   };
-
-  const handlePhoneChange = (event) => {
-    setPhoneNumber(event.target.value);
-  }
 
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
@@ -239,16 +237,6 @@ const Register = () => {
                 Adult Full Name
               </FormInput>
             </div>
-            <FormInput
-              type="tel"
-              id="phone"
-              label="phone"
-              value={phoneNumber}
-              onChange={handlePhoneChange}
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-              placeholder=" ">
-              Phone number
-            </FormInput>
           </>
         )}
         {emailError && <FormErrorMsg error={emailError} />}
