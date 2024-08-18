@@ -2,6 +2,7 @@ import ProfileNav from './ProfileNav';
 import loginIcon from '../../assets/icons/login.png';
 import searchIcon from '../../assets/icons/search.png';
 import { useAuth } from '../../AuthProvider';
+import useSearch from '../search/UseSearch';
 
 const DesktopNav = ({
   onSearch,
@@ -12,6 +13,14 @@ const DesktopNav = ({
   isJoin,
 }) => {
   const { isLoggedIn } = useAuth();
+  const {
+    classes,
+    currentPage,
+    totalPages,
+    handleSearch,
+    handlePageChange,
+    setCategory,
+  } = useSearch();
   return (
     <nav
       aria-label="desktop navbar"

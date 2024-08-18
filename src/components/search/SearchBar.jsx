@@ -21,7 +21,7 @@ const SearchBar = ({ onSearch }) => {
         className="border-2 bg-white border-white rounded-full h-12 w-3/4 flex justify-between ml-6 gap-1"
         onSubmit={handleSearch}
       >
-        <button type="submit" aria-label="Search">
+        <button type="submit">
           <img src={searchIcon} className="h-6 mx-3" alt="search icon" />
         </button>
         <input
@@ -32,17 +32,12 @@ const SearchBar = ({ onSearch }) => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button
-          type="button"
-          onClick={handleClear}
-          aria-label="Clear search input"
-        >
-          <img src={deleteSearchIcon} className="" alt="clear search icon" />
+        <button type="button" onClick={handleClear}>
+          <img src={deleteSearchIcon} alt="clear search icon" />
         </button>
         <button
           type="submit"
           className="bg-darkGreen text-white font-roboto text-lg sm:text-xl md:text-2xl lg:text-3xl w-2/5 sm:w-1/2 md:w-1/3 lg:w-1/6 rounded-full"
-          aria-label="Search"
         >
           Search
         </button>

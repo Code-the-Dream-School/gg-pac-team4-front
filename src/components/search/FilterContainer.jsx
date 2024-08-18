@@ -1,7 +1,7 @@
 import React from 'react';
 import iconsArrowDown from '../../assets/icons/icon.svg';
 import iconsSort from '../../assets/icons/icon-sort.svg';
-//filter functionality will work after backend will fin
+//filter functionality will work after backend will finalize their dependencies
 const buttons = [
   { label: 'Specialties', filter: 'specialties', icon: iconsArrowDown },
   { label: 'Age', filter: 'age', icon: iconsArrowDown },

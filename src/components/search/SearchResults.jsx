@@ -1,13 +1,19 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthProvider';
 import AgeIcon from '../../assets/icons/icon-age.svg';
 import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
 import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 
 const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
   const handleClick = () => {
-    navigate('/register');
+    if (isLoggedIn) {
+      navigate('/classes'); //didn't test this feature yet
+    } else {
+      navigate('/login');
+    }
   };
   return (
     <div className="container m-auto ">
@@ -21,14 +27,14 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
                 onClick={() => handleClick()}
               >
                 <div className="flex  flex-col md:flex-row lg:flex-row md:w-full lg:w-[80%] xl:w-[85%] pb-4">
-                  <div className="flex w-full lg:w-[40%] justify-center items-center p-4 rounded-lg">
+                  <div className="flex w-full md:w-[30%] justify-center items-center rounded-lg">
                     <img
-                      className="md:w-full lg:w-full h-auto max-w-full object-cover rounded-lg"
+                      className="rounded-lg"
                       src={classItem.classImageUrl}
                       alt={classItem.classTitle}
                     />
                   </div>
-                  <div className="flex flex-col justify-around px-4 text-black">
+                  <div className="flex flex-col w-full md:w-[70%] justify-around px-4 text-black">
                     <h2 className="font-roboto font-medium text-2xl mt-4">
                       {classItem.classTitle}
                     </h2>
@@ -73,24 +79,31 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
               </div>
             ))}
           </div>
+
           <div className="flex justify-center m-6">
-            <button
-              className="bg-darkGreen text-white px-4 py-2 rounded-full"
-              disabled={currentPage === 1}
-              onClick={() => onPageChange(currentPage - 1)}
-            >
-              Previous
-            </button>
-            <span className="flex items-center mx-4">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              className="bg-darkGreen text-white px-4 py-2 rounded-full"
-              disabled={currentPage === totalPages}
-              onClick={() => onPageChange(currentPage + 1)}
-            >
-              Next
-            </button>
+            {totalPages > 1 && (
+              <>
+                {currentPage > 1 && (
+                  <button
+                    className="bg-darkGreen text-white px-4 py-2 rounded-full"
+                    onClick={() => onPageChange(currentPage - 1)}
+                  >
+                    Previous
+                  </button>
+                )}
+                <span className="flex items-center mx-4">
+                  Page {currentPage} of {totalPages}
+                </span>
+                {currentPage < totalPages && (
+                  <button
+                    className="bg-darkGreen text-white px-4 py-2 rounded-full"
+                    onClick={() => onPageChange(currentPage + 1)}
+                  >
+                    Next
+                  </button>
+                )}
+              </>
+            )}
           </div>
         </div>
       ) : (
