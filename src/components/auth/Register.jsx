@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { registerStudent, registerTeacher } from '../../util/DataBaseRequests';
 import FormInput from '../common/FormInput';
 import FormSubmitBtn from '../common/FormSubmitBtn';
 import FormErrorMsg from '../common/FormErrorMsg';
@@ -22,35 +23,76 @@ const Register = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
 
-
-  const handleUserRegistration = (event) => {
+  const handleUserRegistration = async (event) => {
     event.preventDefault();
-    console.log('SUBMIT FORM');
-    console.log(`Create ${userRole} account`);
+
+    let isDataValid = true;
 
     if (email.trim() === '') {
       setEmailError('Email is required');
+      isDataValid = false;
     } else {
       setEmailError('');
     }
 
     if (email !== confirmEmail) {
       setConfirmEmailError('Emails do not match');
+      isDataValid = false;
     } else {
       setConfirmEmailError('');
     }
 
     if (password.trim() === '') {
       setPasswordError('Password is required');
+      isDataValid = false;
     } else {
       setPasswordError('');
     }
 
     if (password !== confirmPassword) {
       setConfirmPasswordError('Passwords do not match');
+      isDataValid = false;
     } else {
       setConfirmPasswordError('');
     }
+
+    if (isDataValid) {
+      console.log('SUBMIT FORM');
+      console.log(`Create ${userRole} account`);
+
+      try {
+        let result;
+        if (userRole == 'student') {
+          let studentData = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "password": password,
+            "dateOfBirth": dateOfBirth,
+            "adultName": adultName
+          };
+          result = await registerStudent(studentData);
+        } else {
+          let teacherData = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "password": password,
+            "subject": "Programming"
+          };
+          result = await registerTeacher(teacherData);
+        }
+        console.log(result);
+        if (result.status === 200) {
+          console.log(result);
+        }
+      } catch (error) {
+        console.log('ERROR');
+        console.log(error);
+      }
+    }
+
+
   }
 
   const switchUserRole = () => {
@@ -89,7 +131,7 @@ const Register = () => {
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
-    if(newEmail.trim() !== '') {
+    if (newEmail.trim() !== '') {
       setEmailError('');
     }
   }
@@ -101,7 +143,7 @@ const Register = () => {
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
-    if(newPassword.trim() !== '') {
+    if (newPassword.trim() !== '') {
       setPasswordError('');
     }
   }
@@ -209,7 +251,7 @@ const Register = () => {
             </FormInput>
           </>
         )}
-        {emailError && <FormErrorMsg error={emailError}/>}
+        {emailError && <FormErrorMsg error={emailError} />}
         <FormInput
           type="email"
           id="email"
@@ -219,7 +261,7 @@ const Register = () => {
           placeholder=" ">
           Email Address
         </FormInput>
-        {confirmEmailError && <FormErrorMsg error={confirmEmailError}/>}
+        {confirmEmailError && <FormErrorMsg error={confirmEmailError} />}
         <FormInput
           type="email"
           id="email2"
@@ -229,7 +271,7 @@ const Register = () => {
           placeholder=" ">
           Confirm Email Address
         </FormInput>
-        {passwordError && <FormErrorMsg error={passwordError}/>}
+        {passwordError && <FormErrorMsg error={passwordError} />}
         <FormInput
           type="password"
           id="password"
@@ -239,7 +281,7 @@ const Register = () => {
           placeholder=" ">
           Password
         </FormInput>
-        {confirmPasswordError && <FormErrorMsg error={confirmPasswordError}/>}
+        {confirmPasswordError && <FormErrorMsg error={confirmPasswordError} />}
         <FormInput
           type="password"
           id="password2"
