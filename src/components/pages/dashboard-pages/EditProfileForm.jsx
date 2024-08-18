@@ -71,6 +71,7 @@ const EditProfileForm = ({
             Experience
           </FormInput>
         )}
+        {formErrors.subjectArea && <p className="text-red text-sm font-spartan">{formErrors.subjectArea}</p>}
         <SelectDropdown
           options={options}
           multiple={true}

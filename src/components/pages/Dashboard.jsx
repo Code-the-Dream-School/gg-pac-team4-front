@@ -10,14 +10,12 @@ const Dashboard = () => {
     const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
     const [error, setError] = useState({});
     const { userData } = useAuth();
-    
-console.log(profile)
 
     useEffect(()=>{
         console.log('use effect')
         setProfile(userData);
-    },[])
-
+    },[userData])
+    
     return (
         <div aria-label={userData.role === 'teacher' ? 'teacher dashboard' : 'student dashboard'} className="flex flex-col items-center w-full h-full bg-lightBlue">
             <DashboardNav/>

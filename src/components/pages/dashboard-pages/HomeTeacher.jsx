@@ -31,12 +31,12 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
         {error.message && <p>{error.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Speacialty</h3>
-          <p>{subjectArea.length > 0 ? subjectArea : 'Please edit your profile'}</p>
+          <p>{subjectArea.length > 0 ? <>{subjectArea.join(' | ')}</> : 'Please edit your profile'}</p>
           <h3 className="font-spartan font-bold text-xl text-center">
             Education & Experience
           </h3>
-          <p>{education ? education : 'Please edit your profile'}</p>
-          <p>{experience}</p>
+          <p className='px-2'>{education ? education : 'Please edit your profile'}</p>
+          <p className='px-2'>{experience}</p>
         </div>
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">
           <h3 className="font-spartan font-bold text-xl">About</h3>

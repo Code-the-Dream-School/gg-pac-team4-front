@@ -22,7 +22,7 @@ const HomeStudent = ({ profile, onNavigate, error }) => {
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
-  console.log(studentAge);
+  console.log(subjectArea.join(','));
 
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
@@ -54,10 +54,10 @@ const HomeStudent = ({ profile, onNavigate, error }) => {
             Interests
           </h3>
           <p>
-            {subjectArea.length > 0 ? subjectArea : 'Please edit your profile'}
+            {subjectArea.length > 0 ? <>{subjectArea.join(' | ')}</> : 'Please edit your profile'}
           </p>
           <h3 className="font-spartan font-bold text-xl">About</h3>
-          <p>{aboutMe ? aboutMe : 'Please edit your profile'}</p>
+          <p className='px-2'>{aboutMe ? aboutMe : 'Please edit your profile'}</p>
         </div>
         {studentAge < 16 ? (
           <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">

@@ -51,7 +51,7 @@ export const sendResetLink = async ({ email }) => {
     }
 };
 
-export const updateProfile = async (id, token, formData) => {
+export const updateUser = async (id, token, formData) => {
     try {
         const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
             headers: {
@@ -59,7 +59,8 @@ export const updateProfile = async (id, token, formData) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        return response.data;
+        console.log(response.config.data)
+        return response.config.data;
     } catch (error) {
         throw error.response.data;
     }

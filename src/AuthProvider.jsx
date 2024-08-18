@@ -23,6 +23,11 @@ export const AuthProvider = ({ children}) => {
         setIsLoggedIn(status);
         setUserData(data);
     };
+
+    useEffect(()=>{
+        sessionStorage.setItem('user', JSON.stringify(userData));
+    },[userData])
+    console.log('authprovider', userData);
     
     const clearUserSession = () => {
         sessionStorage.removeItem('user');
@@ -30,5 +35,5 @@ export const AuthProvider = ({ children}) => {
         setUserData({});
     };
 
-    return <AuthContext.Provider value={{isLoggedIn, userData, setUserSession, clearUserSession}}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{isLoggedIn, userData, setUserSession, clearUserSession, setUserData}}>{children}</AuthContext.Provider>;
 };
