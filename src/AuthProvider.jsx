@@ -26,8 +26,7 @@ export const AuthProvider = ({ children}) => {
 
     useEffect(()=>{
         sessionStorage.setItem('user', JSON.stringify(userData));
-    },[userData])
-    console.log('authprovider', userData);
+    },[userData]);
     
     const clearUserSession = () => {
         sessionStorage.removeItem('user');

@@ -59,9 +59,8 @@ export const updateUser = async (id, token, formData) => {
                 Authorization: `Bearer ${token}`
             }
         });
-        console.log(response.config.data)
         return response.config.data;
     } catch (error) {
         throw error.response.data;
     }
-}
+};

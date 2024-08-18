@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import EditProfileForm from './EditProfileForm';
 import subjectOptions from '../../../data/subjects';
 import { updateUser } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const EditProfile = () => {
   const { userData, setUserData } = useAuth();
@@ -66,10 +65,7 @@ const EditProfile = () => {
         subjectArea: newData.subjectArea,
         aboutMe: newData.aboutMe,
       }));
-      
-
       navigate('/dashboard');
-      console.log('result userdata', userData);
     } catch (error) {
       setFormErrors({
         ...formErrors,

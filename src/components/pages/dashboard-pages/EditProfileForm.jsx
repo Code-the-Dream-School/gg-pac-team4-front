@@ -24,6 +24,7 @@ const EditProfileForm = ({
       <form className="mt-4 p-4 sm:w-2/5 w-4/5 h-full" onSubmit={onSubmit}>
         {formErrors.firstName && <p className="text-red text-sm font-spartan">{formErrors.firstName}</p>}
         {formErrors.lastName && <p className="text-red text-sm font-spartan">{formErrors.lastName}</p>}
+        {formErrors.form && <p className="text-red text-sm font-spartan">{formErrors.form}</p>}
         <div className="flex gap-8">
           <FormInput
             placeholder=" "
@@ -71,7 +72,6 @@ const EditProfileForm = ({
             Experience
           </FormInput>
         )}
-        {formErrors.subjectArea && <p className="text-red text-sm font-spartan">{formErrors.subjectArea}</p>}
         <SelectDropdown
           options={options}
           multiple={true}

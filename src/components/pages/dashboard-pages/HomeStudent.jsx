@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const HomeStudent = ({ profile, onNavigate, error }) => {
+const HomeStudent = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
     lastName,
@@ -22,7 +22,6 @@ const HomeStudent = ({ profile, onNavigate, error }) => {
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
-  console.log(subjectArea.join(','));
 
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
@@ -41,12 +40,12 @@ const HomeStudent = ({ profile, onNavigate, error }) => {
         <div className="w-3/4 flex justify-center">
           <button
             onClick={onNavigate}
-            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-xl rounded-lg transition duration-300 easy-in"
+            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
           >
             Edit Profile
           </button>
         </div>
-        {error.message && <p>{error.message}</p>}
+        {profileError.message && <p>{profileError.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Date Of Birth</h3>
           <p>{editedDateOfBirth}</p>
