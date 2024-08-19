@@ -28,16 +28,21 @@ const Classes = () => {
           <img src={ClassImg} alt="Class image full" className="w-44 sm:w-72" />
           <div className="mr-12">
             <p className=" text-2xl sm:text-3xl font-bold">$35</p>
-            <p className='text-sm sm:text-base'>per session</p>
+            <p className="text-sm sm:text-base">per session</p>
             <p className="text-sm sm:text-base py-2">Age</p>
             <p className="text-sm sm:text-base py-2">Online or offline</p>
             <p className="text-sm sm:text-base py-2">Weekly</p>
           </div>
         </div>
         <div>
-          <h2 className='font-medium text-lg text-center'>1:1 Personalize Watercolor Drawing Lesson - Art for Beginners</h2>
-          <p className='p-5'>This small, private class focuses on technique building and exploration of watercolor as a creative arts medium.</p>
-          <p className='p-5'>Other information about the class.</p>
+          <h2 className="font-medium text-lg text-center">
+            1:1 Personalize Watercolor Drawing Lesson - Art for Beginners
+          </h2>
+          <p className="p-5">
+            This small, private class focuses on technique building and
+            exploration of watercolor as a creative arts medium.
+          </p>
+          <p className="p-5">Other information about the class.</p>
         </div>
         <div className="flex gap-8 justify-center">
           <button

@@ -49,7 +49,7 @@ const TeacherNewClassForm = () => {
               </FormInput>
             </div>
             <div className="flex gap-4 my-4">
-              <p className='w-2/5'>Select the type of the class:</p>
+              <p className="w-2/5">Select the type of the class:</p>
               <div className="w-1/2 flex justify-around">
                 <label className="flex gap-1 items-center">
                   <input
@@ -73,7 +73,7 @@ const TeacherNewClassForm = () => {
               </div>
             </div>
             <div className="flex gap-4 my-4">
-              <p className='w-2/5'>Select the type of the lesson:</p>
+              <p className="w-2/5">Select the type of the lesson:</p>
               <div className="w-1/2 flex justify-around">
                 <label className="flex gap-1 items-center">
                   <input

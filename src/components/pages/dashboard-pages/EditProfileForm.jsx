@@ -24,16 +24,16 @@ const EditProfileForm = ({ options, role, cancel }) => {
         <FormInput placeholder=" " name="email">
           Email
         </FormInput>
-        {role === 'teacher' && 
+        {role === 'teacher' && (
           <FormInput placeholder=" " name="education">
             Education
           </FormInput>
-        }
-        {role === 'teacher' && 
+        )}
+        {role === 'teacher' && (
           <FormInput placeholder=" " name="experience">
             Experience
           </FormInput>
-        }
+        )}
         <SelectDropdown
           options={options}
           multiple={true}

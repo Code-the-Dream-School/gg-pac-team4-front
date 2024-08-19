@@ -26,9 +26,15 @@ const ProfileNav = () => {
     }
   };
   return (
-    <nav aria-label="profile navbar" className="relative flex flex-row my-4 gap-2 items-center">
+    <nav
+      aria-label="profile navbar"
+      className="relative flex flex-row my-4 gap-2 items-center"
+    >
       <Link to="dashboard">
-        <div id="user-photo" className="h-6 w-6 md:h-10 md:w-10 rounded-full bg-lightGreen"></div>
+        <div
+          id="user-photo"
+          className="h-6 w-6 md:h-10 md:w-10 rounded-full bg-lightGreen"
+        ></div>
       </Link>
       <Link to="dashboard">
         <p className="font-spartan text-sm md:text-lg font-semibold">

@@ -21,7 +21,7 @@ const HomePage = () => {
     navigate('/search');
   };
   return (
-    <div className="flex flex-col w-10/12 my-auto lg:mx-auto mt-4 md:mt-12 my-12">
+    <div className="flex flex-col w-full lg:w-10/12 my-auto lg:mx-auto mt-4 md:mt-12 my-12">
       <section className="flex flex-col lg:flex-row lg:justify-between xl:justify-between justify-center items-center">
         <div className="lg:text-left  text-center lg:w-2/5 items-center justify-center xl:justify-between">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-4xl xl:text-5xl items-center font-spartan font-semibold tracking-wide leading-tight pt-3 mb-8">
