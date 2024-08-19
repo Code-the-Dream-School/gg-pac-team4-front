@@ -13,14 +13,14 @@ const DesktopNav = ({
   isJoin,
 }) => {
   const { isLoggedIn } = useAuth();
-  const {
-    classes,
-    currentPage,
-    totalPages,
-    handleSearch,
-    handlePageChange,
-    setCategory,
-  } = useSearch();
+  // const {
+  //   classes,
+  //   currentPage,
+  //   totalPages,
+  //   handleSearch,
+  //   handlePageChange,
+  //   setCategory,
+  // } = useSearch();
   return (
     <nav
       aria-label="desktop navbar"

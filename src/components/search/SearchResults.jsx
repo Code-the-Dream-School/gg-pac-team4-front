@@ -9,11 +9,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
   const handleClick = () => {
-    if (isLoggedIn) {
-      navigate('/classes'); //didn't test this feature yet
-    } else {
-      navigate('/login');
-    }
+    navigate('/login');
   };
   return (
     <div className="container m-auto ">
