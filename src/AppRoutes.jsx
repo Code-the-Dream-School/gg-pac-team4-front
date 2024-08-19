@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   Classes,
@@ -23,6 +24,7 @@ import Register from './components/auth/Register.jsx';
 import SearchBar from './components/search/SearchBar.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
+import Loader from './components/common/Loader.jsx'; //for testing purposes
 
 const AppRoutes = () => {
   return (
@@ -34,6 +36,7 @@ const AppRoutes = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/loader" element={<Loader />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="edit-profile" element={<EditProfile />} />
@@ -49,7 +52,10 @@ const AppRoutes = () => {
           </Route>
           <Route path="/search" element={<SearchBar />} />
           <Route path="/payment" element={<PaymentForm />} />
-          <Route path="/forgot-password" element={<RequestPasswordResetForm/>} />
+          <Route
+            path="/forgot-password"
+            element={<RequestPasswordResetForm />}
+          />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
         </Routes>
       </main>
