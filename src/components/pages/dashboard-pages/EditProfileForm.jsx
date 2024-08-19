@@ -94,30 +94,22 @@ const EditProfileForm = ({
           Email
         </FormInput>
         {role === 'teacher' && (
-<<<<<<< HEAD
           <FormInput
             placeholder=" "
             name="education"
             value={formData.education}
             onChange={onChange}
           >
-=======
-          <FormInput placeholder=" " name="education">
->>>>>>> 260b01e2b168d8a388bfaa52deb2d1b96043c834
             Education
           </FormInput>
         )}
         {role === 'teacher' && (
-<<<<<<< HEAD
           <FormInput
             placeholder=" "
             name="experience"
             value={formData.experience}
             onChange={onChange}
           >
-=======
-          <FormInput placeholder=" " name="experience">
->>>>>>> 260b01e2b168d8a388bfaa52deb2d1b96043c834
             Experience
           </FormInput>
         )}
