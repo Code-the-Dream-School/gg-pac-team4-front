@@ -26,7 +26,10 @@ const ProfileNav = () => {
     }
   };
   return (
-    <nav aria-label="profile navbar" className="relative flex flex-row my-4 gap-2 items-center">
+    <nav
+      aria-label="profile navbar"
+      className="relative flex flex-row my-4 gap-2 items-center"
+    >
       <Link to="dashboard">
         <img alt="user photo" className="h-6 w-6 md:h-10 md:w-10 rounded-full bg-lightGreen" src={userData.profileImageUrl}/>
       </Link>

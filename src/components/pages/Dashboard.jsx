@@ -1,5 +1,5 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import DashboardNav from "../navbars/DashboardNav";
 import { Home } from "./dashboard-pages/index";

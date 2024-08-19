@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+<<<<<<< HEAD
 const HomeStudent = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
@@ -23,6 +24,13 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
 
+=======
+const HomeStudent = ({ profile, onNavigate, error }) => {
+  const { firstName, lastName, dateOfBirth, adultName } = profile;
+  let studentAge =
+    (new Date().getTime() - new Date(dateOfBirth)) /
+    (24 * 3600 * 365.25 * 1000);
+>>>>>>> 260b01e2b168d8a388bfaa52deb2d1b96043c834
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
@@ -40,7 +48,11 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
         <div className="w-3/4 flex justify-center">
           <button
             onClick={onNavigate}
+<<<<<<< HEAD
             className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
+=======
+            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-xl rounded-lg transition duration-300 easy-in"
+>>>>>>> 260b01e2b168d8a388bfaa52deb2d1b96043c834
           >
             Edit Profile
           </button>
