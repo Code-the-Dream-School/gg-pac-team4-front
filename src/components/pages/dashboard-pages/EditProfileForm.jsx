@@ -10,21 +10,60 @@ const EditProfileForm = ({
   onSetSubjects,
   selectValue,
   onSubmit,
-  formErrors
+  formErrors,
+  userPhotoSrc,
+  onPhotoChange,
+  onPhotoSubmit,
+  isUpload,
+  setIsUpload,
 }) => {
   return (
     <div className="w-full h-full md:h-screen flex flex-grow items-center sm:items-start sm:justify-center sm:flex-row flex-col overflow-y-hidden">
-      <div className="sm:w-1/5 w-4/5 flex flex-col items-center gap-4 mt-4 p-4">
-        {/* div for user's photo */}
-        <div className="h-24 w-24 bg-grey rounded-full"></div>
-        <button className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/3 sm:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-lg rounded-lg transition duration-300 easy-in">
-          Add Photo
-        </button>
+      <div className="sm:w-1/4 w-4/5 flex flex-col items-center gap-4 mt-4 p-4">
+        <img
+          className="h-24 w-24 rounded-full"
+          src={userPhotoSrc}
+          alt="user photo"
+        />
+        {!isUpload && 
+          <button
+            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/3 sm:w-3/4 md:w-1/2 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
+            onClick={() => setIsUpload(!isUpload)}
+          >
+            Add Photo
+          </button>
+        }
+
+        {isUpload && 
+          <>
+            <form
+              onSubmit={onPhotoSubmit}
+              className="flex flex-col items-center"
+            >
+              <FormInput type="file" onChange={onPhotoChange} />
+              <button
+                type="submit"
+                className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 sm:w-3/4 md:w-1/2 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
+              >
+                Upload
+              </button>
+            </form>
+            {formErrors.image && <p className="text-red text-sm font-spartan">{formErrors.image}</p>}
+          </>
+        }
       </div>
       <form className="mt-4 p-4 sm:w-2/5 w-4/5 h-full" onSubmit={onSubmit}>
-        {formErrors.firstName && <p className="text-red text-sm font-spartan">{formErrors.firstName}</p>}
-        {formErrors.lastName && <p className="text-red text-sm font-spartan">{formErrors.lastName}</p>}
-        {formErrors.form && <p className="text-red text-sm font-spartan">{formErrors.form}</p>}
+        {formErrors.firstName && (
+          <p className="text-red text-sm font-spartan">
+            {formErrors.firstName}
+          </p>
+        )}
+        {formErrors.lastName && (
+          <p className="text-red text-sm font-spartan">{formErrors.lastName}</p>
+        )}
+        {formErrors.form && (
+          <p className="text-red text-sm font-spartan">{formErrors.form}</p>
+        )}
         <div className="flex gap-8">
           <FormInput
             placeholder=" "
@@ -43,7 +82,9 @@ const EditProfileForm = ({
             Last name
           </FormInput>
         </div>
-        {formErrors.email && <p className="text-red text-sm font-spartan">{formErrors.email}</p>}
+        {formErrors.email && (
+          <p className="text-red text-sm font-spartan">{formErrors.email}</p>
+        )}
         <FormInput
           placeholder=" "
           name="email"

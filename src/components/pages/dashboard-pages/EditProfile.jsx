@@ -1,6 +1,11 @@
+import {
+  getUserData,
+  updateUser,
+  updateUserPhoto,
+} from '../../../util/DataBaseRequests';
+
 import EditProfileForm from './EditProfileForm';
 import subjectOptions from '../../../data/subjects';
-import { updateUser } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -17,7 +22,9 @@ const EditProfile = () => {
     subjectArea: userData.subjectArea || category,
     aboutMe: userData.aboutMe,
   });
+  const [file, setFile] = useState();
   const [formErrors, setFormErrors] = useState({});
+  const [isUpload, setIsUpload] = useState(false);
   const navigate = useNavigate();
   const options = subjectOptions;
 
@@ -25,21 +32,18 @@ const EditProfile = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormErrors({ ...formErrors, [e.target.name]: '', form: '' });
   };
-
+  console.log(formData);
   const setSubjects = (value) => {
     let result;
     if (value !== null) {
-      result = value.map((item) => item.value)
+      result = value.map((item) => item.value);
     }
     setCategory(value);
     setFormData({ ...formData, subjectArea: result });
   };
 
-  const cancelEditing = () => navigate('/dashboard');
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('handleSubmit', formData);
 
     if (!formData.firstName || !formData.lastName || !formData.email) {
       setFormErrors({
@@ -73,9 +77,44 @@ const EditProfile = () => {
       });
     }
   };
+
+  const handlePhotoChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handlePhotoSubmit = async (e) => {
+    e.preventDefault();
+    const formPhotoData = new FormData();
+    formPhotoData.append('profileImage', file);
+    try {
+      const result = await updateUserPhoto(
+        userData._id,
+        userData.token,
+        formPhotoData
+      );
+      if (result.status === 200) {
+        const uploadedFileURL = await getUserData(userData._id, userData.token);
+        setUserData((userData) => ({
+          ...userData,
+          profileImageUrl: uploadedFileURL.data.profileImageUrl,
+        }));
+      }
+      navigate('/dashboard');
+      setIsUpload(false);
+    } catch (error) {
+      setFormErrors({
+        ...formErrors,
+        image: 'Cannot update image',
+      });
+    }
+  };
+
+  const cancelEditing = () => navigate('/dashboard');
+
   return (
     <EditProfileForm
       onSubmit={handleSubmit}
+      onPhotoSubmit={handlePhotoSubmit}
       options={options}
       role={userData.role}
       cancel={cancelEditing}
@@ -84,6 +123,10 @@ const EditProfile = () => {
       onSetSubjects={setSubjects}
       selectValue={category}
       formErrors={formErrors}
+      userPhotoSrc={userData.profileImageUrl}
+      onPhotoChange={handlePhotoChange}
+      isUpload={isUpload}
+      setIsUpload={setIsUpload}
     />
   );
 };

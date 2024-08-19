@@ -51,6 +51,19 @@ export const sendResetLink = async ({ email }) => {
     }
 };
 
+export const getUserData = async ( id, token ) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/${id}`, { 
+            headers: { 
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
 export const updateUser = async (id, token, formData) => {
     try {
         const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
@@ -62,5 +75,19 @@ export const updateUser = async (id, token, formData) => {
         return response.config.data;
     } catch (error) {
         throw error.response.data;
+    }
+};
+
+export const updateUserPhoto = async (id, token, formData) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error.response;
     }
 };
