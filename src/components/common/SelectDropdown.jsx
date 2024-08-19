@@ -1,7 +1,7 @@
 import Select from 'react-tailwindcss-select';
 import { useState } from 'react';
 
-const SelectDropdown = ({ options, placeholder,multiple }) => {
+const SelectDropdown = ({ options, placeholder, multiple }) => {
   const [category, setCategory] = useState(null);
 
   const handleChange = (value) => {

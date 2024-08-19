@@ -20,9 +20,9 @@ import NotFound from './components/pages/NotFound.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import Register from './components/auth/Register.jsx';
-import SearchBar from './components/search/SearchBar.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
+import SearchPage from './components/search/SearchPage';
 
 const AppRoutes = () => {
   return (
@@ -47,9 +47,12 @@ const AppRoutes = () => {
               <Route path="payments" element={<Payments />} />
             </Route>
           </Route>
-          <Route path="/search" element={<SearchBar />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path="/payment" element={<PaymentForm />} />
-          <Route path="/forgot-password" element={<RequestPasswordResetForm/>} />
+          <Route
+            path="/forgot-password"
+            element={<RequestPasswordResetForm />}
+          />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
         </Routes>
       </main>

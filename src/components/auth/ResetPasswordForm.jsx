@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import FormInput from "../common/FormInput";
-import { useNavigate } from "react-router-dom";
+import FormInput from '../common/FormInput';
+import { useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../util/DataBaseRequests';
 
 const ResetPasswordForm = () => {
@@ -16,7 +16,9 @@ const ResetPasswordForm = () => {
     if (urlToken) {
       setToken(urlToken);
     } else {
-      setMessage('There was a processing error. Please try again or contact support.');
+      setMessage(
+        'There was a processing error. Please try again or contact support.'
+      );
     }
   }, []);
 
@@ -50,9 +52,13 @@ const ResetPasswordForm = () => {
   return (
     <div className="flex items-center justify-center mt-10">
       <div className="w-full max-w-md p-8 space-y-6 ">
-        <h2 className="font-spartan text-3xl text-center flex-grow">Reset Password</h2>
+        <h2 className="font-spartan text-3xl text-center flex-grow">
+          Reset Password
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {message && <p className="text-red text-sm font-spartan">{message}</p>}
+          {message && (
+            <p className="text-red text-sm font-spartan">{message}</p>
+          )}
           <FormInput
             type="password"
             placeholder=" "

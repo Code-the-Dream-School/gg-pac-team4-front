@@ -58,7 +58,6 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
           </button>
         </div>
       </div>
-      
     </div>
   );
 };
