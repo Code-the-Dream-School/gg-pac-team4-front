@@ -7,8 +7,9 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
     experience, 
     subjectArea, 
     profileImageUrl, 
-    profilePortfolioImages, 
-    profilePortfolioVideos } = profile;
+    // profilePortfolioImages, 
+    // profilePortfolioVideos 
+  } = profile;
   
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around">
@@ -53,7 +54,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Portfolio
           </h2>
-          <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p>
+          {/* <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p> */}
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
@@ -62,7 +63,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Video Portfolio
           </h2>
-          <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p>
+          {/* <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p> */}
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
