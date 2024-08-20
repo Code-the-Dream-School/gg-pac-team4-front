@@ -12,7 +12,6 @@ const Dashboard = () => {
     const { userData } = useAuth();
 
     useEffect(()=>{
-        console.log('use effect')
         if(!userData) {
             setProfileError({message: "The profile is unavailable. Try again later please"})
         }

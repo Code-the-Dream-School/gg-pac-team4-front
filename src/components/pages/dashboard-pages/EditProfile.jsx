@@ -32,7 +32,7 @@ const EditProfile = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setFormErrors({ ...formErrors, [e.target.name]: '', form: '' });
   };
-  console.log(formData);
+  
   const setSubjects = (value) => {
     let result;
     if (value !== null) {
