@@ -99,7 +99,7 @@ const EditProfile = () => {
           profileImageUrl: uploadedFileURL.data.profileImageUrl,
         }));
       }
-      navigate('/dashboard');
+      //navigate('/dashboard');
       setIsUpload(false);
     } catch (error) {
       setFormErrors({

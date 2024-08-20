@@ -1,38 +1,52 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
 export const useAuth = () => {
-    return useContext(AuthContext);
+  return useContext(AuthContext);
 };
 
-export const AuthProvider = ({ children}) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userData, setUserData] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
-    
-    useEffect(() => {
-        if (userData.token) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
-        }
-    }, [userData.token]);
+export const AuthProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(
+    JSON.parse(sessionStorage.getItem('user')) || {}
+  );
 
-    const setUserSession = (status, data) => {
-        sessionStorage.setItem('user', JSON.stringify(data));
-        setIsLoggedIn(status);
-        setUserData(data);
-    };
+  useEffect(() => {
+    if (userData.token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [userData.token]);
 
-    useEffect(()=>{
-        sessionStorage.setItem('user', JSON.stringify(userData));
-    },[userData]);
-    
-    const clearUserSession = () => {
-        sessionStorage.removeItem('user');
-        setIsLoggedIn(false);
-        setUserData({});
-    };
+  const setUserSession = (status, data) => {
+    sessionStorage.setItem('user', JSON.stringify(data));
+    setIsLoggedIn(status);
+    setUserData(data);
+  };
 
-    return <AuthContext.Provider value={{isLoggedIn, userData, setUserSession, clearUserSession, setUserData}}>{children}</AuthContext.Provider>;
+  useEffect(() => {
+    sessionStorage.setItem('user', JSON.stringify(userData));
+  }, [userData]);
+
+  const clearUserSession = () => {
+    sessionStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUserData({});
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        userData,
+        setUserSession,
+        clearUserSession,
+        setUserData,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };

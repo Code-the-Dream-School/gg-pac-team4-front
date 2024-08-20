@@ -138,8 +138,10 @@ const EditProfileForm = ({
         <div className="flex gap-8 mt-2">
           <button
             type="submit"
-            className="bg-darkGreen w-full hover:bg-pureWhite hover:text-darkGreen hover:border-2 hover:border-darkGreen text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+            className={`w-full text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in ${!isUpload ? 'bg-darkGreen hover:bg-pureWhite hover:text-darkGreen hover:border-2 hover:border-darkGreen ' : 'bg-lightGreen cursor-not-allowed'}`}
+            disabled={isUpload}
           >
+            {/* {`w-full text-white font-spartan font-semibold text-lg py-1 px-7 rounded-lg ${email ? 'bg-darkGreen hover:bg-darkGreen-darker' : 'bg-lightGreen cursor-not-allowed'}`} */}
             Save
           </button>
           <button

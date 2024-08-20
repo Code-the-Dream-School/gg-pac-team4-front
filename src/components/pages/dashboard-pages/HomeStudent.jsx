@@ -47,7 +47,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
         </div>
         {profileError.message && <p>{profileError.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
-          <h3 className="font-spartan font-bold text-xl">Date Of Birth</h3>
+          <h3 className="font-spartan font-bold text-xl">Date of birth</h3>
           <p>{editedDateOfBirth}</p>
           <h3 className="font-spartan font-bold text-xl text-center">
             Interests
