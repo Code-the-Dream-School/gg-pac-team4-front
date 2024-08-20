@@ -9,7 +9,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     profileImageUrl,
     subjectArea,
     aboutMe,
-    myClasses,
+    myLessons,
   } = profile;
 
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
@@ -74,11 +74,11 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
           </h2>
           <div>
             <p className="px-4">
-              {myClasses.length > 0 ? myClasses : 'No lessons booked yet'}
+              {myLessons.length > 0 ? myClasses : 'No lessons booked yet'}
             </p>
           </div>
           {
-            myClasses.length > 0 
+            myLessons.length > 0 
               ? 
                 <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
                   See more lessons
