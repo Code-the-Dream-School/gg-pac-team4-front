@@ -6,8 +6,10 @@ const useSearch = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const fetchClasses = async (searchTerm = '', page = 1) => {
+    setLoading(true);
     try {
       const limit = 5;
       const sortBy = 'classTitle';
@@ -28,6 +30,8 @@ const useSearch = () => {
       setCurrentPage(data.currentPage || 1);
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,6 +57,7 @@ const useSearch = () => {
     handleSearch,
     handlePageChange,
     setCategory,
+    loading,
   };
 };
 

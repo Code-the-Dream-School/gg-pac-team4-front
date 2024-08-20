@@ -3,6 +3,7 @@ import useSearch from './UseSearch';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import FilterButtons from './FilterContainer';
+import Loader from '../common/Loader';
 
 const SearchPage = () => {
   const {
@@ -12,18 +13,23 @@ const SearchPage = () => {
     handleSearch,
     handlePageChange,
     setCategory,
+    loading,
   } = useSearch();
 
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
       <FilterButtons setCategory={setCategory} />
-      <SearchResults
-        classes={classes}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        <SearchResults
+          classes={classes}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };
