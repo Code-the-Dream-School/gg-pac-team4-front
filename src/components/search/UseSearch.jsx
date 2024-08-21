@@ -1,11 +1,14 @@
 import { getClassesData } from '../../util/DataBaseRequests';
 import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 const useSearch = () => {
   const [classes, setClasses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
 
   const fetchClasses = async (searchTerm = '', page = 1) => {
@@ -14,7 +17,6 @@ const useSearch = () => {
       const limit = 5;
       const sortBy = 'classTitle';
       const sortOrder = 'asc';
-
       const data = await getClassesData(
         searchTerm,
         '',
@@ -34,6 +36,13 @@ const useSearch = () => {
       setLoading(false);
     }
   };
+  //this is the way it works for both MainPage(DesktopNav) and SearchPage page
+
+  useEffect(() => {
+    if (search) {
+      fetchClasses(search, currentPage);
+    }
+  }, [search, currentPage, category]);
 
   useEffect(() => {
     fetchClasses(search, currentPage);
@@ -41,6 +50,7 @@ const useSearch = () => {
 
   const handleSearch = (searchTerm) => {
     setSearch(searchTerm);
+    setSearchParams({ query: searchTerm });
     setCurrentPage(1);
   };
 

@@ -1,8 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import ProfileNav from './ProfileNav';
 import loginIcon from '../../assets/icons/login.png';
 import searchIcon from '../../assets/icons/search.png';
 import { useAuth } from '../../AuthProvider';
-import useSearch from '../search/UseSearch';
 
 const DesktopNav = ({
   onSearch,
@@ -13,24 +14,33 @@ const DesktopNav = ({
   isJoin,
 }) => {
   const { isLoggedIn } = useAuth();
-  // const {
-  //   classes,
-  //   currentPage,
-  //   totalPages,
-  //   handleSearch,
-  //   handlePageChange,
-  //   setCategory,
-  // } = useSearch();
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?page=1&query=${searchTerm}`);
+      setSearchTerm('');
+    }
+  };
+
   return (
     <nav
       aria-label="desktop navbar"
       className="w-2/3 hidden relative py-6 sm:flex justify-between items-center"
     >
       {isSearch ? (
-        <form className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1">
+        <form
+          className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1"
+          onSubmit={handleSearch}
+        >
           <input
             className="focus:outline-none w-2/3"
             aria-label="Search"
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search classes or teachers..."
           />
           <button onClick={onSearch} aria-label="Search">

@@ -1,13 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../../AuthProvider';
 import AgeIcon from '../../assets/icons/icon-age.svg';
 import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
 import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 
 const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
-  // const { isLoggedIn } = useAuth();
   const handleClick = () => {
     navigate('/login');
   };
