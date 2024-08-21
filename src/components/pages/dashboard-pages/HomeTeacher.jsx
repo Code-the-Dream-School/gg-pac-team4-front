@@ -1,11 +1,21 @@
-const HomeTeacher = ({ profile, onNavigate, error }) => {
-  const { firstName, lastName } = profile;
-  //console.log(profile)
+const HomeTeacher = ({ profile, onNavigate, profileError }) => {
+  const { 
+    firstName, 
+    lastName, 
+    aboutMe, 
+    education, 
+    experience, 
+    subjectArea, 
+    profileImageUrl, 
+    // profilePortfolioImages, 
+    // profilePortfolioVideos 
+  } = profile;
+  
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
-          <div className="w-20 h-20 bg-grey rounded-full"></div>
+          <img className="w-20 h-20 rounded-full" src={profileImageUrl} alt="user photo"/>
           <div className="font-spartan font-semibold text-2xl text-center xl:text-left">
             <p>{firstName}</p>
             <p>{lastName}</p>
@@ -13,24 +23,25 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
         </div>
         <div className="w-3/4 flex justify-center">
           <button
-            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-base sm:text-xl rounded-lg transition duration-300 easy-in"
+            className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
             onClick={onNavigate}
           >
             Edit Profile
           </button>
         </div>
-        {error.message && <p>{error.message}</p>}
+        {profileError.message && <p>{profileError.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
-          <h3 className="font-spartan font-bold text-xl">Speacialty</h3>
-          <p></p>
+          <h3 className="font-spartan font-bold text-xl">Specialty</h3>
+          <p>{subjectArea.length > 0 ? <>{subjectArea.join(' | ')}</> : 'Please edit your profile'}</p>
           <h3 className="font-spartan font-bold text-xl text-center">
             Education & Experience
           </h3>
-          <p></p>
+          <p className='px-2'>{education ? education : 'Please edit your profile'}</p>
+          <p className='px-2'>{experience}</p>
         </div>
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">
           <h3 className="font-spartan font-bold text-xl">About</h3>
-          <p></p>
+          <p>{aboutMe ? aboutMe : 'Please edit your profile'}</p>
         </div>
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 self-center mt-2">
@@ -43,7 +54,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Portfolio
           </h2>
-          <p>Here will be some pictures</p>
+          {/* <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p> */}
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>
@@ -52,7 +63,7 @@ const HomeTeacher = ({ profile, onNavigate, error }) => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Video Portfolio
           </h2>
-          <p>Here will be some videos</p>
+          {/* <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p> */}
           <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
             Add More
           </button>

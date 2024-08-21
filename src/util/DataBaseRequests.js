@@ -95,3 +95,32 @@ export const getClassesData = async (
     throw error;
   }
 };
+
+
+export const updateUser = async (id, token, formData) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response.config.data;
+    } catch (error) {
+        throw error.response.data;
+    }
+};
+
+export const updateUserPhoto = async (id, token, formData) => {
+    try {
+        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        throw error.response;
+    }
+};
