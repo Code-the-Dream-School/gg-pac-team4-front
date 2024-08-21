@@ -11,7 +11,7 @@ import { useState } from 'react';
 
 const useEditProfile = () => {
   const { userData, setUserData } = useAuth();
-  
+
   const [category, setCategory] = useState(null); //state for select
   const [formData, setFormData] = useState({
     firstName: userData.firstName,
@@ -26,7 +26,7 @@ const useEditProfile = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isUpload, setIsUpload] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const navigate = useNavigate();
 
   //handle the text and select fields of the form
@@ -46,7 +46,7 @@ const useEditProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!formData.firstName || !formData.lastName || !formData.email) {
       setFormErrors({
         ...formErrors,
@@ -56,7 +56,7 @@ const useEditProfile = () => {
       });
       return;
     }
-    
+
     setIsLoading(true);
     try {
       const result = await updateUser(userData._id, userData.token, formData);
@@ -74,12 +74,12 @@ const useEditProfile = () => {
       }));
       navigate('/dashboard');
     } catch (error) {
-        handleError(error, setFormErrors);;
-    } finally{
-        setIsLoading(false);
+      handleError(error, setFormErrors);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
+
   //handle the uploading of the profile image
   const handlePhotoChange = (e) => {
     setFile(e.target.files[0]);
@@ -88,7 +88,7 @@ const useEditProfile = () => {
   const handlePhotoSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     const formPhotoData = new FormData();
     formPhotoData.append('profileImage', file);
     try {
@@ -107,11 +107,12 @@ const useEditProfile = () => {
       setIsUpload(false);
     } catch (error) {
       handleError(error, setFormErrors);
-    } finally{
-        setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+      setFormErrors({});
     }
   };
-  
+
   return {
     handleSubmit,
     handlePhotoSubmit,
@@ -123,7 +124,7 @@ const useEditProfile = () => {
     handlePhotoChange,
     isUpload,
     setIsUpload,
-    isLoading
+    isLoading,
   };
 };
 
