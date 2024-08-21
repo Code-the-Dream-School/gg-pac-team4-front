@@ -2,7 +2,7 @@ import FormInput from '../../common/FormInput';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
 
-const TeacherNewClassForm = () => {
+const ClassForm = () => {
   const options = subjectOptions;
   // this is a layout
   return (
@@ -13,7 +13,7 @@ const TeacherNewClassForm = () => {
       <form className="flex flex-col w-3/4">
         <div className="flex lg:flex-row flex-col gap-8">
           <div className="lg:w-1/2">
-            <FormInput placeholder=" " name="className">
+            <FormInput placeholder=" " name="classTitle">
               Class name
             </FormInput>
             <SelectDropdown
@@ -29,6 +29,7 @@ const TeacherNewClassForm = () => {
               aria-label="Class description"
               className="mt-4 mb-2 p-2 w-full h-24 text-sm placeholder:text-xs placeholder:text-grey text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
               placeholder="Class description"
+              name="description"
             />
             <FormInput type="file" name="downloadFile" />
             <FormInput type="number" placeholder=" " name="price">
@@ -54,7 +55,7 @@ const TeacherNewClassForm = () => {
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
-                    name="typeClass"
+                    name="type"
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     defaultChecked
@@ -64,7 +65,7 @@ const TeacherNewClassForm = () => {
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
-                    name="typeClass"
+                    name="type"
                     value="offline"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                   />
@@ -99,16 +100,16 @@ const TeacherNewClassForm = () => {
             <FormInput type="text" placeholder="" name="goal">
               Learning goals of the class
             </FormInput>
-            <FormInput type="text" placeholder="" name="studentExpirience">
+            <FormInput type="text" placeholder="" name="experience">
               Required student experience for this class
             </FormInput>
-            <FormInput type="text" placeholder="" name="details">
+            <FormInput type="text" placeholder="" name="other">
               Other details
             </FormInput>
             <div className="flex gap-4 lg:flex-row flex-col">
               <p className="w-full">Select your availability for this class:</p>
               <FormInput type="date" name="date" />
-              <FormInput type="time" name="time" />
+              <FormInput type="startTime" name="time" />
             </div>
           </div>
         </div>
@@ -128,4 +129,4 @@ const TeacherNewClassForm = () => {
   );
 };
 
-export default TeacherNewClassForm;
+export default ClassForm;
