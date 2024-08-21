@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import { Modal } from 'react-modal';
 import { registerStudent, registerTeacher } from '../../util/DataBaseRequests';
 import FormInput from '../common/FormInput';
 import FormSubmitBtn from '../common/FormSubmitBtn';
@@ -12,6 +13,7 @@ const Register = () => {
   const [dateOfBirth, setDateOfBirth] = useState('');
   const [isAdultNameRequired, setIsAdultNameRequired] = useState(false);
   const [adultName, setAdultName] = useState('');
+  const [adultNameError, setAdultNameError] = useState('');
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [confirmEmail, setConfirmEmail] = useState('');
@@ -55,6 +57,13 @@ const Register = () => {
       setConfirmPasswordError('');
     }
 
+    if (isAdultNameRequired && adultName.trim() === '') {
+      setAdultNameError('Adult name is required for students under 16');
+      isDataValid = false;
+    } else {
+      setAdultNameError('');
+    }
+
     if (isDataValid) {
       console.log('SUBMIT FORM');
       console.log(`Create ${userRole} account`);
@@ -63,12 +72,12 @@ const Register = () => {
         let result;
         if (userRole == 'student') {
           let studentData = {
-            "firstName": firstName,
-            "lastName": lastName,
-            "email": email,
+            "firstName": firstName.trim(),
+            "lastName": lastName.trim(),
+            "email": email.trim(),
             "password": password,
             "dateOfBirth": dateOfBirth,
-            "adultName": adultName,
+            "adultName": adultName.trim(),
           };
           result = await registerStudent(studentData);
         } else {
@@ -77,7 +86,6 @@ const Register = () => {
             "lastName": lastName,
             "email": email,
             "password": password,
-            "subject": "Programming"
           };
           result = await registerTeacher(teacherData);
         }
@@ -120,6 +128,7 @@ const Register = () => {
     setDateOfBirth(newBirthDate);
     const age = calculateAge(newBirthDate);
     setIsAdultNameRequired(age < 16);
+    setAdultNameError('');
   };
 
   const handleAdultNameChange = (event) => {
@@ -214,28 +223,32 @@ const Register = () => {
         </div>
         {userRole === 'student' && (
           <>
-            <div className="flex w-full gap-x-4">
-              <FormInput
-                type="date"
-                id="dob"
-                label="dob"
-                value={dateOfBirth}
-                onChange={handleDateOfBirthChange}
-                placeholder=" "
-                className="basis-2/4">
-                Date of Birth
-              </FormInput>
-              <FormInput
-                type="text"
-                id="adult-name"
-                label="adult-name"
-                value={adultName}
-                onChange={handleAdultNameChange}
-                placeholder=" "
-                className="basis-2/4"
-                disabled={!isAdultNameRequired}>
-                Adult Full Name
-              </FormInput>
+            <div className="flex w-full gap-x-4 items-end">
+              <div className="basis-2/4">
+                <FormInput
+                  type="date"
+                  id="dob"
+                  label="dob"
+                  value={dateOfBirth}
+                  onChange={handleDateOfBirthChange}
+                  placeholder=" "
+                >
+                  Date of Birth
+                </FormInput>
+              </div>
+              <div className="basis-2/4">
+                {adultNameError && <FormErrorMsg error={adultNameError} />}
+                <FormInput
+                  type="text"
+                  id="adult-name"
+                  label="adult-name"
+                  value={adultName}
+                  onChange={handleAdultNameChange}
+                  placeholder=" "
+                  disabled={!isAdultNameRequired}>
+                  Adult Full Name
+                </FormInput>
+              </div>
             </div>
           </>
         )}
