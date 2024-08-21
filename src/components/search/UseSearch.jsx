@@ -33,7 +33,9 @@ const useSearch = () => {
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
     } finally {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 200);
     }
   };
   //this is the way it works for both MainPage(DesktopNav) and SearchPage page

@@ -101,7 +101,12 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
           </div>
         </div>
       ) : (
-        <p>No results found.</p>
+        <div className="text-center text-lg mt-10">
+          <p>
+            Sorry, we couldn't find any classes that match your search criteria.
+          </p>
+          <p>Please try adjusting your search terms or filters.</p>
+        </div>
       )}
     </div>
   );
