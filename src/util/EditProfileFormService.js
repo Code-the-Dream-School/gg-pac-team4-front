@@ -77,7 +77,6 @@ const useEditProfile = () => {
       handleError(error, setFormErrors);
     } finally {
       setIsLoading(false);
-      setFormErrors({});
     }
   };
 
