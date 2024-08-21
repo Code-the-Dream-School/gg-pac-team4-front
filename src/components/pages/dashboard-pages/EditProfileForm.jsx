@@ -7,8 +7,8 @@ const EditProfileForm = ({
   cancel,
   formData,
   onChange,
-  onSetSubjects,
-  selectValue,
+  onHandleSubjects,
+  category,
   onSubmit,
   formErrors,
   userPhotoSrc,
@@ -25,16 +25,15 @@ const EditProfileForm = ({
           src={userPhotoSrc}
           alt="user photo"
         />
-        {!isUpload && 
+        {!isUpload && (
           <button
             className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/3 sm:w-3/4 md:w-1/2 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
             onClick={() => setIsUpload(!isUpload)}
           >
             Add Photo
           </button>
-        }
-
-        {isUpload && 
+        )}
+        {isUpload && (
           <>
             <form
               onSubmit={onPhotoSubmit}
@@ -48,9 +47,8 @@ const EditProfileForm = ({
                 Upload
               </button>
             </form>
-            {formErrors.image && <p className="text-red text-sm font-spartan">{formErrors.image}</p>}
           </>
-        }
+        )}
       </div>
       <form className="mt-4 p-4 sm:w-2/5 w-4/5 h-full" onSubmit={onSubmit}>
         {formErrors.firstName && (
@@ -121,8 +119,8 @@ const EditProfileForm = ({
               ? 'Select your specialty'
               : 'Select subjects you are interested in'
           }
-          onChange={onSetSubjects}
-          value={selectValue}
+          onChange={onHandleSubjects}
+          value={category}
         />
         <label htmlFor="about" className="hidden">
           About yourself
