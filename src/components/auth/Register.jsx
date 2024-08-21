@@ -1,6 +1,7 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-// import { Modal } from 'react-modal';
+import Modal from 'react-modal';
 import { registerStudent, registerTeacher } from '../../util/DataBaseRequests';
 import FormInput from '../common/FormInput';
 import FormSubmitBtn from '../common/FormSubmitBtn';
@@ -22,6 +23,8 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
 
   const handleUserRegistration = async (event) => {
@@ -90,8 +93,8 @@ const Register = () => {
           result = await registerTeacher(teacherData);
         }
         console.log(result);
-        if (result.status === 200) {
-          console.log(result);
+        if (result.status === 201) {
+          setIsModalOpen(true);
         }
       } catch (error) {
         console.log('ERROR');
@@ -159,6 +162,10 @@ const Register = () => {
     setConfirmPassword(event.target.value);
   }
 
+  const handleGotoLogin = () => {
+    setIsModalOpen(false);
+    navigate('/login');
+  }
 
   const calculateAge = (birthdate) => {
     const birthDate = new Date(birthdate);
@@ -296,7 +303,29 @@ const Register = () => {
           value={`Create ${userRole} account`}
         />
       </form>
-    </section >
+
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={handleGotoLogin}
+        contentLabel="Confirmation Modal"
+        className="fixed inset-0 flex items-center justify-center z-100"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-70"
+      >
+        <div className="bg-white rounded-lg p-8 max-w-md mx-auto z-100">
+          <h2 className="text-2xl font-bold mb-4 text-center">Registration completed successfully</h2>
+          <p className="mb-8 text-center">
+            Please login to continue.
+          </p>
+          <button
+            onClick={handleGotoLogin} // Close modal on click and redirect on login page
+            className="w-full text-white font-spartan font-semibold text-lg py-1 rounded-lg bg-darkGreen hover:bg-darkGreen-darker"
+          >
+            Log In
+          </button>
+        </div>
+      </Modal>
+
+    </section>
   );
 };
 
