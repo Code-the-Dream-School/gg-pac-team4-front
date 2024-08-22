@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ProfileNav from './ProfileNav';
 import loginIcon from '../../assets/icons/login.png';
 import searchIcon from '../../assets/icons/search.png';
 import { useAuth } from '../../AuthProvider';
+import useSearch from '../search/UseSearch';
 
 const DesktopNav = ({
   onSearch,
@@ -16,11 +17,13 @@ const DesktopNav = ({
   const { isLoggedIn } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
+  const { handleSearch } = useSearch();
 
-  const handleSearch = (event) => {
+  const handleSearchSubmit = (event) => {
     event.preventDefault();
     if (searchTerm.trim()) {
-      navigate(`/search?page=1&query=${searchTerm}`);
+      handleSearch(searchTerm);
+      navigate(`/search?query=${searchTerm}`);
       setSearchTerm('');
     }
   };
@@ -33,7 +36,7 @@ const DesktopNav = ({
       {isSearch ? (
         <form
           className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1"
-          onSubmit={handleSearch}
+          onSubmit={handleSearchSubmit}
         >
           <input
             className="focus:outline-none w-2/3"
@@ -43,7 +46,7 @@ const DesktopNav = ({
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search classes or teachers..."
           />
-          <button onClick={onSearch} aria-label="Search">
+          <button type="submit" aria-label="Search">
             <img src={searchIcon} className="h-6" alt="search icon" />
           </button>
         </form>

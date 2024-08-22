@@ -3,7 +3,6 @@ import { useSearchParams } from 'react-router-dom';
 import useSearch from './UseSearch';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import FilterContainer from './FilterContainer';
 import Loader from '../common/Loader';
 
 const SearchPage = () => {
@@ -39,7 +38,6 @@ const SearchPage = () => {
         }}
         initialSearchTerm={initialSearchTerm}
       />
-      <FilterContainer setCategory={setCategory} />
       {loading ? (
         <Loader />
       ) : (
