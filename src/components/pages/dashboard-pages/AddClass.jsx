@@ -1,7 +1,6 @@
 import ClassForm from "./ClassForm";
 
 const AddClass = () => {
-    
     return(
         <ClassForm/>
     );
