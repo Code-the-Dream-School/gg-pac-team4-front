@@ -10,8 +10,11 @@ import FormErrorMsg from '../common/FormErrorMsg';
 const Register = () => {
   const [userRole, setUserRole] = useState('student');
   const [firstName, setFirstName] = useState('');
+  const [firstNameError, setFirstNameError] = useState('');
   const [lastName, setLastName] = useState('');
+  const [lastNameError, setLastNameError] = useState('');
   const [dateOfBirth, setDateOfBirth] = useState('');
+  const [dateOfBirthError, setDateOfBirthError] = useState('');
   const [isAdultNameRequired, setIsAdultNameRequired] = useState(false);
   const [adultName, setAdultName] = useState('');
   const [adultNameError, setAdultNameError] = useState('');
@@ -67,10 +70,14 @@ const Register = () => {
       setAdultNameError('');
     }
 
-    if (isDataValid) {
-      console.log('SUBMIT FORM');
-      console.log(`Create ${userRole} account`);
+    if (dateOfBirth == '') {
+      setDateOfBirthError('Date of birth is required');
+      isDataValid = false;
+    } else {
+      setDateOfBirthError('');
+    }
 
+    if (isDataValid) {
       try {
         let result;
         if (userRole == 'student') {
@@ -97,15 +104,33 @@ const Register = () => {
           setIsModalOpen(true);
         }
       } catch (error) {
-        console.log('ERROR');
         console.log(error);
-        if (error.message.includes("taken")) {
-          setEmailError(error.message);
-        }
+        parseErrorMessage(error.message);
       }
     }
+  }
 
+  const parseErrorMessage = (message) => {
+    setFirstNameError(getErrorForField('firstName', message));
+    setLastNameError(getErrorForField('lastName', message));
+    setDateOfBirthError(getErrorForField('dateOfBirth', message));
+    setAdultNameError(getErrorForField('adultName', message));
+    setEmailError(getErrorForField('email', message));
+    setPasswordError(getErrorForField('password', message));
+  }
 
+  const getErrorForField = (field, message) => {
+    field += ':';
+    if (message.includes(field)) {
+      const idx1 = message.lastIndexOf(field) + field.length;
+      const idx2 = message.indexOf(',', idx1);
+      if (idx2 > idx1) {
+        return message.substring(idx1 + 1, idx2);
+      } else {
+        return message.substring(idx1 + 1);
+      }
+    }
+    return '';
   }
 
   const switchUserRole = () => {
@@ -206,32 +231,39 @@ const Register = () => {
 
 
       <form className="w-full px-2" onSubmit={handleUserRegistration}>
-        <div className="flex w-full gap-x-4">
-          <FormInput
-            type="text"
-            id="first-name"
-            label="first-name"
-            value={firstName}
-            onChange={handleFirstNameChange}
-            placeholder=" "
-            className="basis-2/4">
-            First Name
-          </FormInput>
-          <FormInput
-            type="text"
-            id="last-name"
-            label="last-name"
-            value={lastName}
-            onChange={handleLastNameChange}
-            placeholder=" "
-            className="basis-2/4">
-            Last Name
-          </FormInput>
+        <div className="flex w-full gap-x-4 items-end">
+          <div className="basis-2/4">
+            {firstNameError && <FormErrorMsg error={firstNameError} />}
+            <FormInput
+              type="text"
+              id="first-name"
+              label="first-name"
+              value={firstName}
+              onChange={handleFirstNameChange}
+              placeholder=" "
+              className="basis-2/4">
+              First Name
+            </FormInput>
+          </div>
+          <div className="basis-2/4">
+            {lastNameError && <FormErrorMsg error={lastNameError} />}
+            <FormInput
+              type="text"
+              id="last-name"
+              label="last-name"
+              value={lastName}
+              onChange={handleLastNameChange}
+              placeholder=" "
+              className="basis-2/4">
+              Last Name
+            </FormInput>
+          </div>
         </div>
         {userRole === 'student' && (
           <>
             <div className="flex w-full gap-x-4 items-end">
               <div className="basis-2/4">
+                {dateOfBirthError && <FormErrorMsg error={dateOfBirthError} />}
                 <FormInput
                   type="date"
                   id="dob"
