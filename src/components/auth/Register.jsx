@@ -32,8 +32,57 @@ const Register = () => {
 
   const handleUserRegistration = async (event) => {
     event.preventDefault();
+    let isDataValid = formValidation();
 
+    if (isDataValid) {
+      try {
+        let result;
+        if (userRole == 'student') {
+          let studentData = {
+            "firstName": firstName.trim(),
+            "lastName": lastName.trim(),
+            "email": email.trim(),
+            "password": password,
+            "dateOfBirth": dateOfBirth,
+            "adultName": adultName.trim(),
+          };
+          result = await registerStudent(studentData);
+        } else {
+          let teacherData = {
+            "firstName": firstName,
+            "lastName": lastName,
+            "email": email,
+            "password": password,
+          };
+          result = await registerTeacher(teacherData);
+        }
+        console.log(result);
+        if (result.status === 201) {
+          setIsModalOpen(true);
+        }
+      } catch (error) {
+        parseErrorMessage(error.message);
+      }
+    }
+  }
+
+  const formValidation = () => {
     let isDataValid = true;
+
+    if (firstName.trim() === '') {
+      setFirstNameError('First Name is required');
+      isDataValid = false;
+    } else {
+      setFirstNameError('');
+    }
+
+    if (lastName.trim() === '') {
+      setLastNameError('Last Name is required');
+      isDataValid = false;
+    } else {
+      setLastNameError('');
+    }
+
 
     if (email.trim() === '') {
       setEmailError('Email is required');
@@ -77,37 +126,9 @@ const Register = () => {
       setDateOfBirthError('');
     }
 
-    if (isDataValid) {
-      try {
-        let result;
-        if (userRole == 'student') {
-          let studentData = {
-            "firstName": firstName.trim(),
-            "lastName": lastName.trim(),
-            "email": email.trim(),
-            "password": password,
-            "dateOfBirth": dateOfBirth,
-            "adultName": adultName.trim(),
-          };
-          result = await registerStudent(studentData);
-        } else {
-          let teacherData = {
-            "firstName": firstName,
-            "lastName": lastName,
-            "email": email,
-            "password": password,
-          };
-          result = await registerTeacher(teacherData);
-        }
-        console.log(result);
-        if (result.status === 201) {
-          setIsModalOpen(true);
-        }
-      } catch (error) {
-        console.log(error);
-        parseErrorMessage(error.message);
-      }
-    }
+
+
+    return isDataValid;
   }
 
   const parseErrorMessage = (message) => {
