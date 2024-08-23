@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ProfileNav from './ProfileNav';
 import loginIcon from '../../assets/icons/login.png';
@@ -6,27 +5,10 @@ import searchIcon from '../../assets/icons/search.png';
 import { useAuth } from '../../AuthProvider';
 import useSearch from '../search/UseSearch';
 
-const DesktopNav = ({
-  onSearch,
-  onLogin,
-  onJoin,
-  isSearch,
-  isLogin,
-  isJoin,
-}) => {
+const DesktopNav = ({ onLogin, onJoin, isSearch, isLogin, isJoin }) => {
   const { isLoggedIn } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
-  const { handleSearch } = useSearch();
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    if (searchTerm.trim()) {
-      handleSearch(searchTerm);
-      navigate(`/search?query=${searchTerm}`);
-      setSearchTerm('');
-    }
-  };
+  const { handleSearchSubmit } = useSearch(() => setSearchTerm(''));
 
   return (
     <nav
@@ -36,7 +18,7 @@ const DesktopNav = ({
       {isSearch ? (
         <form
           className="border-2 border-red rounded-full h-10 w-2/4 flex justify-between items-center px-4 ml-6 gap-1"
-          onSubmit={handleSearchSubmit}
+          onSubmit={(event) => handleSearchSubmit(event, searchTerm)}
         >
           <input
             className="focus:outline-none w-2/3"
