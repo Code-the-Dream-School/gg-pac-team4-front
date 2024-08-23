@@ -34,6 +34,10 @@ export const AuthProvider = ({ children }) => {
     setUserData({});
   };
 
+  useEffect(()=>{
+    sessionStorage.setItem('user', JSON.stringify(userData));
+  },[userData])
+
   return (
     <AuthContext.Provider
       value={{ isLoggedIn, userData, setUserSession, clearUserSession, setUserData }}

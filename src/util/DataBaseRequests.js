@@ -72,7 +72,7 @@ export const getClassesData = async (
   description = '',
   category = '',
   page = 1,
-  limit = 5,
+  limit = 50,// 
   sortBy = 'classTitle',
   sortOrder = 'asc'
 ) => {
@@ -125,11 +125,13 @@ export const updateUserPhoto = async (id, token, formData) => {
     }
 };
 
-export const getTeacherClasses = async (id) => {
+export const getClass = async (id, token) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/classes`);
-    return response
+    const response = await axios.get(`${API_BASE_URL}/classes/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
   } catch (error) {
-    throw error.response;
+    throw error.response.data;
   }
-};
+}
