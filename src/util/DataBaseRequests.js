@@ -124,3 +124,12 @@ export const updateUserPhoto = async (id, token, formData) => {
         throw error.response;
     }
 };
+
+export const getTeacherClasses = async (id) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/classes`);
+    return response
+  } catch (error) {
+    throw error.response;
+  }
+};

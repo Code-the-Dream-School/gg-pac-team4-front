@@ -2,7 +2,7 @@ import FormInput from '../../common/FormInput';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
 
-const ClassForm = () => {
+const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
   const options = subjectOptions;
   // this is a layout
   return (
@@ -10,16 +10,18 @@ const ClassForm = () => {
       <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
         Add a new class
       </h1>
-      <form className="flex flex-col w-3/4">
+      <form className="flex flex-col w-3/4" onSubmit={onSubmit}>
         <div className="flex lg:flex-row flex-col gap-8">
           <div className="lg:w-1/2">
-            <FormInput placeholder=" " name="classTitle">
+            <FormInput placeholder=" " name="classTitle" onChange={onChange}>
               Class name
             </FormInput>
             <SelectDropdown
               options={options}
               multiple={false}
               placeholder="Select the category of the class"
+              onChange={onHandleSubjects}
+              value={category}
             />
             <label htmlFor="classDescription" className="hidden ">
               Class Description
@@ -30,22 +32,45 @@ const ClassForm = () => {
               className="mt-4 mb-2 p-2 w-full h-24 text-sm placeholder:text-xs placeholder:text-grey text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
               placeholder="Class description"
               name="description"
+              onChange={onChange}
             />
-            <FormInput type="file" name="downloadFile" />
-            <FormInput type="number" placeholder=" " name="price">
+            <FormInput type="file" onChange={onChange} name="classImage" />
+            <FormInput
+              type="number"
+              placeholder=" "
+              name="price"
+              onChange={onChange}
+            >
               Price per session
             </FormInput>
-            <FormInput type="number" placeholder=" " name="duration">
+            <FormInput
+              type="number"
+              placeholder=" "
+              name="duration"
+              onChange={onChange}
+            >
               Lesson duration
             </FormInput>
           </div>
           <div className="lg:w-1/2">
             <div className="flex gap-6">
               <p className="w-full">Specify required student age:</p>
-              <FormInput type="number" placeholder=" " min="1" name="ageMin">
+              <FormInput
+                type="number"
+                placeholder=" "
+                min="1"
+                name='minAge'
+                onChange={onChange}
+              >
                 Minimum
               </FormInput>
-              <FormInput type="number" placeholder=" " min="1" name="ageMax">
+              <FormInput
+                type="number"
+                placeholder=" "
+                min="1"
+                name="maxAge"
+                onChange={onChange}
+              >
                 Maximum
               </FormInput>
             </div>
@@ -58,7 +83,8 @@ const ClassForm = () => {
                     name="type"
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    defaultChecked
+                    //defaultChecked
+                    onChange={onChange}
                   />
                   Online
                 </label>
@@ -68,6 +94,7 @@ const ClassForm = () => {
                     name="type"
                     value="offline"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                    onChange={onChange}
                   />
                   Offline
                 </label>
@@ -80,9 +107,10 @@ const ClassForm = () => {
                   <input
                     type="radio"
                     name="lessonType"
-                    value="group"
+                    value="Group"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    defaultChecked
+                    //defaultChecked
+                    onChange={onChange}
                   />
                   Group
                 </label>
@@ -90,26 +118,42 @@ const ClassForm = () => {
                   <input
                     type="radio"
                     name="lessonType"
-                    value="oneToOne"
+                    value="1:1"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
+                    onChange={onChange}
                   />
                   1:1
                 </label>
               </div>
             </div>
-            <FormInput type="text" placeholder="" name="goal">
+            <FormInput
+              type="text"
+              placeholder=""
+              name="goal"
+              onChange={onChange}
+            >
               Learning goals of the class
             </FormInput>
-            <FormInput type="text" placeholder="" name="experience">
+            <FormInput
+              type="text"
+              placeholder=""
+              name="experience"
+              onChange={onChange}
+            >
               Required student experience for this class
             </FormInput>
-            <FormInput type="text" placeholder="" name="other">
+            <FormInput
+              type="text"
+              placeholder=""
+              name="other"
+              onChange={onChange}
+            >
               Other details
             </FormInput>
             <div className="flex gap-4 lg:flex-row flex-col">
               <p className="w-full">Select your availability for this class:</p>
-              <FormInput type="date" name="date" />
-              <FormInput type="startTime" name="time" />
+              <FormInput type="date" name="date" onChange={onChange} />
+              <FormInput type="time" name="startTime" onChange={onChange} />
             </div>
           </div>
         </div>

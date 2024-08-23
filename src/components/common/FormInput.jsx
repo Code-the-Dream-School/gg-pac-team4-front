@@ -6,6 +6,8 @@ const FormInput = ({
   onChange,
   placeholder,
   children,
+  min, 
+  max
 }) => {
   return (
     <>
@@ -18,6 +20,8 @@ const FormInput = ({
           onChange={onChange}
           className="block py-2 px-4 w-full text-sm text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black peer"
           placeholder={placeholder}
+          min={min}
+          max={max}
         />
         <label
           htmlFor={id}

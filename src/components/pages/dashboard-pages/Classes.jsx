@@ -1,20 +1,63 @@
+import { useEffect, useState } from 'react';
+
 import ClassImg from '../../../assets/ClassImg.jpg';
+import { getTeacherClasses } from '../../../util/DataBaseRequests';
+import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
+
 const Classes = () => {
   const navigate = useNavigate();
   const addClass = () => navigate('/dashboard/add-class');
+  const { userData } = useAuth();
+  const [classes, setClasses] = useState();
+  const [selectedClass, setSelectedClass] = useState(null);
+  
+
+  useEffect(() => {
+    console.log('use effect');
+    const getClasses = async () => {
+      try {
+        const result = await getTeacherClasses(userData._id);
+        if (result.status === 200) {
+          let classesData = result.data.classes;
+          setClasses(classesData);
+          console.log(classesData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getClasses();
+  }, [userData]);
+
+  
+
   return (
     <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 w-full justify-evenly p-4 items-start mb-10">
       <div className="bg-pureWhite w-full sm:w-1/4 flex flex-col items-center">
         <h1 className="text-black font-semibold text-xl font-spartan text-center py-4">
           My Classes
         </h1>
-        <div className="flex flex-wrap w-full justify-center gap-4 items-center p-2 hover:bg-lightGreen transition duration-300 easy-in">
-          <img src={ClassImg} className="w-24" alt="class image small" />
-          <p className="font-spartan font-semibold sm:text-lg text-center">
-            1-1 Watercolor class
-          </p>
-        </div>
+        {classes ? (
+          <>
+            {classes.map((item) => {
+              return (
+                <div key={item._id} className="flex flex-wrap w-full justify-center gap-4 items-center p-2 hover:bg-lightGreen transition duration-300 easy-in">
+                  <img
+                    src={item.classImageUrl}
+                    className="w-24"
+                    alt="class image small"
+                  />
+                  <p className="font-spartan font-semibold sm:text-lg text-center">
+                    {item.classTitle}
+                  </p>
+                </div>
+              );
+            })}
+          </>
+        ) : (
+          <p>You have not added classes yet</p>
+        )}
         <button
           onClick={addClass}
           aria-label="Add a new class"

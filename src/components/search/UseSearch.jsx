@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react';
+
 import { getClassesData } from '../../util/DataBaseRequests';
-import { useState, useEffect } from 'react';
+
 const useSearch = () => {
   const [classes, setClasses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
