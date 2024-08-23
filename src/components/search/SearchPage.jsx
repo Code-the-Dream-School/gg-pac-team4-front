@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useSearch from './UseSearch';
 import SearchBar from './SearchBar';
@@ -16,22 +16,13 @@ const SearchPage = () => {
     totalPages,
     handleSearch,
     handlePageChange,
-    setCategory,
     loading,
   } = useSearch();
-
-  useEffect(() => {
-    if (initialSearchTerm) {
-      handleSearch(initialSearchTerm);
-    }
-    if (category) {
-      setCategory(category);
-    }
-  }, [initialSearchTerm, category]);
 
   return (
     <div>
       <SearchBar
+        //still need this functionality as it is connected with  searchBar input element and its clearing
         onSearch={(searchTerm) => {
           handleSearch(searchTerm);
           setSearchParams({ query: searchTerm });
