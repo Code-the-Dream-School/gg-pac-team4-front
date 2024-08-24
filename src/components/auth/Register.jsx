@@ -250,8 +250,8 @@ const Register = () => {
 
   return (
     <section className="w-full max-w-xl mx-auto px-10 py-5">
-      <h1 className="text-black font-medium text-3xl sm:text-4xl md:text-5xl font-spartan text-center mt-10 mb-5">Sign Up</h1>
-      <p className="text-black font-spartan font-regular text-xl text-left px-2 mb-2">Already have an account?&nbsp;
+      <h1 className="text-black text-3xl font-spartan text-center mt-10 mb-5">Sign Up</h1>
+      <p className="text-black font-spartan font-regular text-left px-2 mb-2">Already have an account?&nbsp;
         <Link to="/login" className="underline">Log In</Link>
       </p>
 

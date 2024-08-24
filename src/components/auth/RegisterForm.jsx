@@ -1,5 +1,5 @@
 import FormInput from '../common/FormInput';
-import FormSubmitBtn from '../common/FormSubmitBtn';
+import FormSubmitButton from '../common/FormSubmitButton';
 import FormErrorMsg from '../common/FormErrorMsg';
 
 const RegisterForm = ({
@@ -35,12 +35,12 @@ const RegisterForm = ({
   return (
     <>
       {userRole === 'student' ? (
-        <div className="flex w-full font-spartan font-medium text-3xl text-grey text-center mb-5">
+        <div className="flex w-full font-spartan text-2xl text-grey text-center mb-5">
           <button className="basis-2/4 text-black border-b-[3px] border-black">as a Student</button>
           <button className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Teacher</button>
         </div>
       ) : (
-        <div className="flex w-full font-spartan font-medium text-3xl text-grey text-center mb-5">
+        <div className="flex w-full font-spartan text-2xl text-grey text-center mb-5">
           <h2 className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Student</h2>
           <h2 className="basis-2/4 text-black border-b-[3px] border-black">as a Teacher</h2>
         </div>
@@ -148,7 +148,7 @@ const RegisterForm = ({
           placeholder=" ">
           Confirm Password
         </FormInput>
-        <FormSubmitBtn
+        <FormSubmitButton
           value={`Create ${userRole} account`}
         />
       </form>
