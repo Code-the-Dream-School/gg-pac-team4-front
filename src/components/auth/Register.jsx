@@ -121,7 +121,14 @@ const Register = () => {
       setDateOfBirthError('Date of birth is required');
       isDataValid = false;
     } else {
-      setDateOfBirthError('');
+      const currentDate = new Date();
+      const birthDate = new Date(dateOfBirth);
+      if (birthDate > currentDate) {
+        setDateOfBirthError('Date of birth must be in the past');
+        isDataValid = false;
+      } else {
+        setDateOfBirthError('');
+      }
     }
 
     return isDataValid;
@@ -176,7 +183,13 @@ const Register = () => {
     const newBirthDate = event.target.value;
     setDateOfBirth(newBirthDate);
     const age = calculateAge(newBirthDate);
-    setIsAdultNameRequired(age < 16);
+    if (age >= 0 && age < 16) {
+      setIsAdultNameRequired(true);
+    } else {
+      setIsAdultNameRequired(false);
+      setAdultName('');
+      setAdultNameError('');
+    }
     setAdultNameError('');
   };
 
@@ -216,6 +229,10 @@ const Register = () => {
   const calculateAge = (birthdate) => {
     const birthDate = new Date(birthdate);
     const currentDate = new Date();
+
+    if (birthDate > currentDate) {
+      return -1;
+    }
 
     let age = currentDate.getFullYear() - birthDate.getFullYear();
 
