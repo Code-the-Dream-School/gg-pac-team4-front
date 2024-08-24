@@ -125,13 +125,16 @@ export const updateUserPhoto = async (id, token, formData) => {
     }
 };
 
-export const getClass = async (id, token) => {
+export const addClassForm = async (token, formData) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/classes/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response;
+      const response = await axios.post(`${API_BASE_URL}/classes/`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`
+          }
+      });
+      return response;
   } catch (error) {
-    throw error.response.data;
+      throw error.response;
   }
-}
+};
