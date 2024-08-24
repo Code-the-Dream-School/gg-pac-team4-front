@@ -7,13 +7,14 @@ const useSearch = (clearSearchTerm) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const searchTerm = searchParams.get('query') || '';
   const category = searchParams.get('category') || '';
 
   const fetchClasses = async (searchTerm = '', page = 1) => {
+    setIsLoading(true);
     try {
       const limit = 5;
       const sortBy = 'classTitle';
@@ -34,7 +35,7 @@ const useSearch = (clearSearchTerm) => {
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +51,6 @@ const useSearch = (clearSearchTerm) => {
   const handleSearchSubmit = (event, searchTerm) => {
     event.preventDefault();
     if (searchTerm.trim()) {
-      setLoading(true);
       handleSearch(searchTerm);
       navigate(`/search?query=${searchTerm}`);
       clearSearchTerm();
@@ -70,7 +70,7 @@ const useSearch = (clearSearchTerm) => {
     handleSearch,
     handleSearchSubmit,
     handlePageChange,
-    loading,
+    isLoading,
   };
 };
 
