@@ -96,31 +96,52 @@ export const getClassesData = async (
   }
 };
 
+export const getClassDetails = async (classId, token) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/classes/${classId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching class details:', error);
+    throw error.response.data || { message: 'Error fetching class details' };
+  }
+};
 
 export const updateUser = async (id, token, formData) => {
-    try {
-        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response.config.data;
-    } catch (error) {
-        throw error.response.data;
-    }
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.config.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 export const updateUserPhoto = async (id, token, formData) => {
-    try {
-        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response;
-    } catch (error) {
-        throw error.response;
-    }
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
 };

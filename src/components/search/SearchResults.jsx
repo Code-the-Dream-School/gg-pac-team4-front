@@ -1,15 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../../AuthProvider';
+import { useAuth } from '../../AuthProvider';
 import AgeIcon from '../../assets/icons/icon-age.svg';
 import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
 import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 
 const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
-  // const { isLoggedIn } = useAuth();
-  const handleClick = () => {
-    navigate('/login');
+  const { isLoggedIn } = useAuth();
+
+  const handleClick = (classId) => {
+    if (isLoggedIn) {
+      navigate(`/class-info/${classId}`);
+    } else {
+      navigate('/login');
+    }
   };
   return (
     <div className="container m-auto ">
@@ -20,7 +25,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
               <div
                 key={classItem._id}
                 className="flex flex-col lg:flex-row  border  rounded-lg  border-gray p-0  py-5 lg:p-5 hover:shadow-lg cursor-pointer "
-                onClick={() => handleClick()}
+                onClick={() => handleClick(classItem._id)}
               >
                 <div className="flex  flex-col md:flex-row lg:flex-row md:w-full lg:w-[80%] xl:w-[85%] pb-4">
                   <div className="flex w-full md:w-[30%] justify-center items-center rounded-lg">
