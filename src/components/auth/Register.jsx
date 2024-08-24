@@ -59,6 +59,7 @@ const Register = () => {
           setIsModalOpen(true);
         }
       } catch (error) {
+        console.log(error);
         parseErrorMessage(error.message);
       }
     }
@@ -80,7 +81,6 @@ const Register = () => {
     } else {
       setLastNameError('');
     }
-
 
     if (email.trim() === '') {
       setEmailError('Email is required');
@@ -128,12 +128,16 @@ const Register = () => {
   }
 
   const parseErrorMessage = (message) => {
-    setFirstNameError(getErrorForField('firstName', message));
-    setLastNameError(getErrorForField('lastName', message));
-    setDateOfBirthError(getErrorForField('dateOfBirth', message));
-    setAdultNameError(getErrorForField('adultName', message));
-    setEmailError(getErrorForField('email', message));
-    setPasswordError(getErrorForField('password', message));
+    if (!message.includes(':')) {
+      setEmailError(message);
+    } else {
+      setFirstNameError(getErrorForField('firstName', message));
+      setLastNameError(getErrorForField('lastName', message));
+      setDateOfBirthError(getErrorForField('dateOfBirth', message));
+      setAdultNameError(getErrorForField('adultName', message));
+      setEmailError(getErrorForField('email', message));
+      setPasswordError(getErrorForField('password', message));
+    }
   }
 
   const getErrorForField = (field, message) => {
