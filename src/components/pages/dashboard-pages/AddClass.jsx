@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import ClassForm from './ClassForm';
 import { addClassForm } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const AddClass = () => {
   const { userData, setUserData } = useAuth();
@@ -24,6 +25,7 @@ const AddClass = () => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     if (e.target.name === 'classImage') {
@@ -113,25 +115,21 @@ const AddClass = () => {
     e.preventDefault();
 
     checkFormErrors(formData);
-    // //   setIsLoading(true);
-    // console.log('error form', formErrors);
-    // const multiFormData = new FormData();
+    
     const postedForm = createMultipartForm(formData);
-
-    // try {
-    //   const response = await addClassForm(userData.token, postedForm);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log('error', error);
-    // }
-    // } finally {
-    //   setIsLoading(false);
-    // }
+    setIsLoading(true);
+    try {
+      const response = await addClassForm(userData.token, postedForm);
+      console.log(response);
+      if(response.status === 201) navigate('/dashboard/classes');
+    } catch (error) {
+      console.log('error', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   console.log('form', formData);
-  // console.log('ages', ages);
-  // console.log('lesson',lessonTime);
 
   return (
     <ClassForm

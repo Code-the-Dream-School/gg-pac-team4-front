@@ -163,7 +163,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
             {formErrors.startTime && <p className='text-red text-sm'>{formErrors.startTime}</p>}
             <div className="flex gap-4 lg:flex-row flex-col">
               <p className="w-full">Select your availability for this class:</p>
-              <FormInput type="date" name="date" onChange={onChange} />
+              <FormInput type="date" name="date" onChange={onChange} min={new Date().toISOString().split('T')[0]}/>
               <FormInput type="time" name="startTime" onChange={onChange} />
             </div>
           </div>
