@@ -2,7 +2,7 @@ import FormInput from '../../common/FormInput';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
 
-const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
+const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}) => {
   const options = subjectOptions;
   // this is a layout
   return (
@@ -13,9 +13,11 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
       <form className="flex flex-col w-3/4" onSubmit={onSubmit}>
         <div className="flex lg:flex-row flex-col gap-8">
           <div className="lg:w-1/2">
+          {formErrors.classTitle && <p className='text-red text-sm'>{formErrors.classTitle}</p>}
             <FormInput placeholder=" " name="classTitle" onChange={onChange}>
               Class name
             </FormInput>
+            {formErrors.category && <p className='text-red text-sm'>{formErrors.category}</p>}  
             <SelectDropdown
               options={options}
               multiple={false}
@@ -23,6 +25,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
               onChange={onHandleSubjects}
               value={category}
             />
+            {formErrors.description && <p className='text-red text-sm'>{formErrors.description}</p>}  
             <label htmlFor="classDescription" className="hidden ">
               Class Description
             </label>
@@ -35,6 +38,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
               onChange={onChange}
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
+            {formErrors.price && <p className='text-red text-sm'>{formErrors.price}</p>} 
             <FormInput
               type="number"
               placeholder=" "
@@ -43,6 +47,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
             >
               Price per session
             </FormInput>
+            {formErrors.duration && <p className='text-red text-sm'>{formErrors.duration}</p>}
             <FormInput
               type="number"
               placeholder=" "
@@ -53,6 +58,8 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
             </FormInput>
           </div>
           <div className="lg:w-1/2">
+            {formErrors.maxAge && <p className='text-red text-sm'>{formErrors.maxAge}</p>}
+            {formErrors.minAge && <p className='text-red text-sm'>{formErrors.minAge}</p>}
             <div className="flex gap-6">
               <p className="w-full">Specify required student age:</p>
               <FormInput
@@ -74,6 +81,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
                 Maximum
               </FormInput>
             </div>
+            {formErrors.type && <p className='text-red text-sm'>{formErrors.type}</p>}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the class:</p>
               <div className="w-1/2 flex justify-around">
@@ -100,6 +108,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
                 </label>
               </div>
             </div>
+            {formErrors.lessonType && <p className='text-red text-sm'>{formErrors.lessonType}</p>}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the lesson:</p>
               <div className="w-1/2 flex justify-around">
@@ -140,7 +149,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
               name="experience"
               onChange={onChange}
             >
-              Required student experience for this class
+              Class experience
             </FormInput>
             <FormInput
               type="text"
@@ -150,6 +159,8 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit}) => {
             >
               Other details
             </FormInput>
+            {formErrors.date && <p className='text-red text-sm'>{formErrors.date}</p>}
+            {formErrors.startTime && <p className='text-red text-sm'>{formErrors.startTime}</p>}
             <div className="flex gap-4 lg:flex-row flex-col">
               <p className="w-full">Select your availability for this class:</p>
               <FormInput type="date" name="date" onChange={onChange} />
