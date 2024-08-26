@@ -1,10 +1,10 @@
-import { addClassForm, getClassesData, getUserData } from '../../../util/DataBaseRequests';
-import { useEffect, useState } from 'react';
+import { addClassForm, getUserData } from '../../../util/DataBaseRequests';
 
 import ClassForm from './ClassForm';
-import handleError from '../../../util/errorMessages';
+import Loader from '../../common/Loader';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const AddClass = () => {
   const { userData, setUserData } = useAuth();
@@ -60,35 +60,6 @@ const AddClass = () => {
     setFormData({ ...formData, category: value.value });
   };
 
-  const checkFormErrors = (formData) => {
-    if (!formData.classTitle || !formData.description || !formData.price || !formData.duration || !formData.ages.minAge || !formData.ages.maxAge || !formData.type || !formData.lessonType || !formData.availableTime.date || !formData.availableTime.startTime) {
-      setFormErrors({
-        ...formErrors,
-        classTitle: !formData.classTitle
-          ? 'Please provide your class title'
-          : '',
-        category: !formData.category ? 'Please provide the category of the class' : '',
-        description: !formData.description
-          ? 'Please provide your class description'
-          : '',
-        price: !formData.price ? 'Please provide the class price' : '',
-        duration: !formData.duration ? 'Please provide the duration' : '',
-        minAge: !formData.ages.minAge ? 'Please provide the minimum age' : '',
-        maxAge: !formData.ages.maxAge ? 'Please provide the maximum age' : '',
-        lessonType: !formData.lessonType
-          ? 'Please specify the lesson type'
-          : '',
-        type: !formData.type ? 'Please provide the type of class' : '',
-        date: !formData.availableTime.date ? 'Please provide the date' : '',
-        startTime: !formData.availableTime.startTime
-          ? 'Please provide the start time'
-          : '',
-        
-      });
-      return;
-    }
-  };
-
   const createMultipartForm = (data) => {
     const multipartForm = new FormData();
 
@@ -115,41 +86,81 @@ const AddClass = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    checkFormErrors(formData);
-    
+    if (
+      !formData.classTitle ||
+      !formData.description ||
+      !formData.price ||
+      !formData.duration ||
+      !formData.ages.minAge ||
+      !formData.ages.maxAge ||
+      !formData.type ||
+      !formData.lessonType ||
+      !formData.availableTime.date ||
+      !formData.availableTime.startTime
+    ) {
+      setFormErrors({
+        ...formErrors,
+        classTitle: !formData.classTitle
+          ? 'Please provide your class title'
+          : '',
+        category: !formData.category
+          ? 'Please provide the category of the class'
+          : '',
+        description: !formData.description
+          ? 'Please provide your class description'
+          : '',
+        price: !formData.price ? 'Please provide the class price' : '',
+        duration: !formData.duration ? 'Please provide the duration' : '',
+        minAge: !formData.ages.minAge ? 'Please provide the minimum age' : '',
+        maxAge: !formData.ages.maxAge ? 'Please provide the maximum age' : '',
+        lessonType: !formData.lessonType
+          ? 'Please specify the lesson type'
+          : '',
+        type: !formData.type ? 'Please provide the type of class' : '',
+        date: !formData.availableTime.date ? 'Please provide the date' : '',
+        startTime: !formData.availableTime.startTime
+          ? 'Please provide the start time'
+          : '',
+      });
+      return;
+    }
+
     const postedForm = createMultipartForm(formData);
-    setIsLoading(true);
+
     try {
       const response = await addClassForm(userData.token, postedForm);
       console.log(response);
-      if(response.status === 201){
-        const response =  await getUserData(userData._id, userData.token);
+      if (response.status === 201) {
+        setIsLoading(true);
+        const response = await getUserData(userData._id, userData.token);
         setUserData((userData) => ({
           ...userData,
           myClasses: response.data.myClasses,
         }));
         navigate('/dashboard/classes');
         setIsLoading(false);
-        setFormErrors({})
-      } 
+        setFormErrors({});
+      }
     } catch (error) {
       console.log('error', error.data.error);
-      setFormErrors({...formErrors, form: error.data.error})
-    } 
+      setFormErrors({ ...formErrors, form: error.data.error });
+    }
   };
 
   return (
     <>
-     {isLoading ? <Loader/> : <ClassForm
-      onChange={handleChange}
-      onHandleSubjects={handleSubjects}
-      category={category}
-      onSubmit={handleSubmit}
-      formErrors={formErrors}
-    />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <ClassForm
+          onChange={handleChange}
+          onHandleSubjects={handleSubjects}
+          category={category}
+          onSubmit={handleSubmit}
+          formErrors={formErrors}
+        />
+      )}
     </>
-   
-    
   );
 };
 
