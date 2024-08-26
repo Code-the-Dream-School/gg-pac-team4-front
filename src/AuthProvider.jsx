@@ -28,19 +28,25 @@ export const AuthProvider = ({ children }) => {
     setUserData(data);
   };
 
+  useEffect(() => {
+    sessionStorage.setItem('user', JSON.stringify(userData));
+  }, [userData]);
+
   const clearUserSession = () => {
     sessionStorage.removeItem('user');
     setIsLoggedIn(false);
     setUserData({});
   };
 
-  useEffect(()=>{
-    sessionStorage.setItem('user', JSON.stringify(userData));
-  },[userData])
-
   return (
     <AuthContext.Provider
-      value={{ isLoggedIn, userData, setUserSession, clearUserSession, setUserData }}
+      value={{
+        isLoggedIn,
+        userData,
+        setUserSession,
+        clearUserSession,
+        setUserData,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -62,7 +62,7 @@ const Classes = () => {
       >
         <img
           src={classImageUrl}
-          className="w-32 md:w-24 rounded"
+          className="w-32 md:w-24 rounded aspect-[4/3]"
           alt="class image small"
         />
         <p className="font-spartan font-semibold sm:text-lg text-center w-full">
@@ -97,9 +97,9 @@ const Classes = () => {
               <img
                 src={selectedClass[0].classImageUrl}
                 alt="Class image full"
-                className="w-44 sm:w-1/2 rounded object-contain"
+                className="w-44 sm:w-1/2 rounded object-contain md:aspect-[4/3]"
               />
-              <div className="mr-12 h-contain flex flex-col justify-between">
+              <div className="mr-12 h-contain flex flex-col justify-around">
                 <p className="text-2xl sm:text-3xl font-bold">
                   ${selectedClass[0].price}
                 </p>

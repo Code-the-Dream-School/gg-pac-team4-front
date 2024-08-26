@@ -1,7 +1,8 @@
+import { addClassForm, getClassesData, getUserData } from '../../../util/DataBaseRequests';
 import { useEffect, useState } from 'react';
 
 import ClassForm from './ClassForm';
-import { addClassForm } from '../../../util/DataBaseRequests';
+import handleError from '../../../util/errorMessages';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 
@@ -121,24 +122,34 @@ const AddClass = () => {
     try {
       const response = await addClassForm(userData.token, postedForm);
       console.log(response);
-      if(response.status === 201) navigate('/dashboard/classes');
+      if(response.status === 201){
+        const response =  await getUserData(userData._id, userData.token);
+        setUserData((userData) => ({
+          ...userData,
+          myClasses: response.data.myClasses,
+        }));
+        navigate('/dashboard/classes');
+        setIsLoading(false);
+        setFormErrors({})
+      } 
     } catch (error) {
-      console.log('error', error);
-    } finally {
-      setIsLoading(false);
-    }
+      console.log('error', error.data.error);
+      setFormErrors({...formErrors, form: error.data.error})
+    } 
   };
 
-  console.log('form', formData);
-
   return (
-    <ClassForm
+    <>
+     {isLoading ? <Loader/> : <ClassForm
       onChange={handleChange}
       onHandleSubjects={handleSubjects}
       category={category}
       onSubmit={handleSubmit}
       formErrors={formErrors}
-    />
+    />}
+    </>
+   
+    
   );
 };
 

@@ -10,14 +10,16 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
       <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
         Add a new class
       </h1>
+      {formErrors.form && <p className="text-red font-spartan">{formErrors.form}</p>}
       <form className="flex flex-col w-3/4" onSubmit={onSubmit}>
+      
         <div className="flex lg:flex-row flex-col gap-8">
           <div className="lg:w-1/2">
-          {formErrors.classTitle && <p className='text-red text-sm'>{formErrors.classTitle}</p>}
+          {formErrors.classTitle && <p className='text-red text-sm font-spartan'>{formErrors.classTitle}</p>}
             <FormInput placeholder=" " name="classTitle" onChange={onChange} min='2' max='100'>
               Class name
             </FormInput>
-            {formErrors.category && <p className='text-red text-sm'>{formErrors.category}</p>}  
+            {formErrors.category && <p className='text-red text-sm font-spartan'>{formErrors.category}</p>}  
             <SelectDropdown
               options={options}
               multiple={false}
@@ -25,7 +27,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               onChange={onHandleSubjects}
               value={category}
             />
-            {formErrors.description && <p className='text-red text-sm'>{formErrors.description}</p>}  
+            {formErrors.description && <p className='text-red text-sm font-spartan'>{formErrors.description}</p>}  
             <label htmlFor="classDescription" className="hidden ">
               Class Description
             </label>
@@ -40,7 +42,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               max='200'
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
-            {formErrors.price && <p className='text-red text-sm'>{formErrors.price}</p>} 
+            {formErrors.price && <p className='text-red text-sm font-spartan'>{formErrors.price}</p>} 
             <FormInput
               type="number"
               placeholder=" "
@@ -50,7 +52,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
             >
               Price per session
             </FormInput>
-            {formErrors.duration && <p className='text-red text-sm'>{formErrors.duration}</p>}
+            {formErrors.duration && <p className='text-red text-sm font-spartan'>{formErrors.duration}</p>}
             <FormInput
               type="number"
               placeholder=" "
@@ -62,8 +64,8 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
             </FormInput>
           </div>
           <div className="lg:w-1/2">
-            {formErrors.maxAge && <p className='text-red text-sm'>{formErrors.maxAge}</p>}
-            {formErrors.minAge && <p className='text-red text-sm'>{formErrors.minAge}</p>}
+            {formErrors.maxAge && <p className='text-red text-sm font-spartan'>{formErrors.maxAge}</p>}
+            {formErrors.minAge && <p className='text-red text-sm font-spartan'>{formErrors.minAge}</p>}
             <div className="flex gap-6">
               <p className="w-full">Specify required student age:</p>
               <FormInput
@@ -85,7 +87,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
                 Maximum
               </FormInput>
             </div>
-            {formErrors.type && <p className='text-red text-sm'>{formErrors.type}</p>}
+            {formErrors.type && <p className='text-red text-sm font-spartan'>{formErrors.type}</p>}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the class:</p>
               <div className="w-1/2 flex justify-around">
@@ -112,7 +114,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
                 </label>
               </div>
             </div>
-            {formErrors.lessonType && <p className='text-red text-sm'>{formErrors.lessonType}</p>}
+            {formErrors.lessonType && <p className='text-red text-sm font-spartan'>{formErrors.lessonType}</p>}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the lesson:</p>
               <div className="w-1/2 flex justify-around">
@@ -166,8 +168,8 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
             >
               Other details
             </FormInput>
-            {formErrors.date && <p className='text-red text-sm'>{formErrors.date}</p>}
-            {formErrors.startTime && <p className='text-red text-sm'>{formErrors.startTime}</p>}
+            {formErrors.date && <p className='text-red text-sm font-spartan'>{formErrors.date}</p>}
+            {formErrors.startTime && <p className='text-red text-sm font-spartan'>{formErrors.startTime}</p>}
             <div className="flex gap-4 lg:flex-row flex-col">
               <p className="w-full">Select your availability for this class:</p>
               <FormInput type="date" name="date" onChange={onChange} min={new Date().toISOString().split('T')[0]}/>
