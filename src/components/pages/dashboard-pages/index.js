@@ -6,7 +6,6 @@ import Lessons from './Lessons';
 import Messages from './Messages';
 import Notifications from './Notifications';
 import Payments from './Payments';
-import Schedule from './Schedule';
 import Students from './Students';
 
 export {
@@ -16,7 +15,6 @@ export {
   Notifications,
   Lessons,
   Classes,
-  Schedule,
   Students,
   Payments,
   AddClass,

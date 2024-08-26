@@ -6,7 +6,6 @@ import {
   Messages,
   Notifications,
   Payments,
-  Schedule,
   Students,
 } from './components/pages/dashboard-pages/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -41,7 +40,6 @@ const AppRoutes = () => {
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<AddClass />} />
               <Route path="students" element={<Students />} />
-              <Route path="schedule" element={<Schedule />} />
               <Route path="lessons" element={<Lessons />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="messages" element={<Messages />} />
