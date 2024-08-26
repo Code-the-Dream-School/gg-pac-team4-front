@@ -14,7 +14,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
         <div className="flex lg:flex-row flex-col gap-8">
           <div className="lg:w-1/2">
           {formErrors.classTitle && <p className='text-red text-sm'>{formErrors.classTitle}</p>}
-            <FormInput placeholder=" " name="classTitle" onChange={onChange}>
+            <FormInput placeholder=" " name="classTitle" onChange={onChange} min='2' max='100'>
               Class name
             </FormInput>
             {formErrors.category && <p className='text-red text-sm'>{formErrors.category}</p>}  
@@ -36,6 +36,8 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder="Class description"
               name="description"
               onChange={onChange}
+              min='2'
+              max='200'
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
             {formErrors.price && <p className='text-red text-sm'>{formErrors.price}</p>} 
@@ -44,6 +46,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder=" "
               name="price"
               onChange={onChange}
+              min='0'
             >
               Price per session
             </FormInput>
@@ -53,6 +56,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder=" "
               name="duration"
               onChange={onChange}
+              min='0'
             >
               Lesson duration
             </FormInput>
@@ -140,6 +144,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder=""
               name="goal"
               onChange={onChange}
+              max='200'
             >
               Learning goals of the class
             </FormInput>
@@ -148,6 +153,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder=""
               name="experience"
               onChange={onChange}
+              max='200'
             >
               Class experience
             </FormInput>
@@ -156,6 +162,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               placeholder=""
               name="other"
               onChange={onChange}
+              max='200'
             >
               Other details
             </FormInput>
