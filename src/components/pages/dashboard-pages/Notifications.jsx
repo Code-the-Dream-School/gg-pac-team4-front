@@ -127,7 +127,7 @@ const Notifications = ({ socket }) => {
                   >
                     <div className="flex w-1/4 justify-center items-center">
                       <img
-                        className="rounded-lg w-32 h-32"
+                        className="rounded-lg w-30 h-35 "
                         src={applicantDetails ? applicantDetails.profileImageUrl : '/default-profile.png'}
                         alt={applicantDetails ? `${applicantDetails.firstName} ${applicantDetails.lastName}` : 'Unknown'}
                       />
@@ -145,13 +145,13 @@ const Notifications = ({ socket }) => {
                     </div>
                     <div className="flex flex-col w-1/4 px-4">
                       <button
-                        className="bg-darkGreen text-white px-4 py-2 rounded mb-2"
+                        className="bg-darkGreen text-white px-4 py-2 rounded mb-2 font-spartan font-semibold "
                         onClick={() => handleApprove(classInfo._id, application._id)}
                       >
                         Approve
                       </button>
                       <button
-                        className="bg-red text-white px-4 py-2 rounded"
+                        className="bg-red text-white px-4 py-2 rounded font-spartan font-semibold "
                         onClick={() => handleDecline(classInfo._id, application._id)}
                       >
                         Decline
