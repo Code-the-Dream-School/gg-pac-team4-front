@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
   Classes,
@@ -20,6 +19,7 @@ import Login from './components/auth/Login.jsx';
 import NotFound from './components/pages/NotFound.jsx';
 import PaymentForm from './components/payment/PaymentForm.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
+import React from 'react';
 import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
@@ -29,7 +29,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex-grow">
+      <main className="flex-1">
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<HomePage />} />

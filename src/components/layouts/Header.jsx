@@ -24,7 +24,7 @@ const Header = () => {
   const register = () => navigate('/register');
 
   return (
-    <header className="h-20 w-full flex items-center px-4 lg:px-20 justify-between">
+    <header className="h-20 w-full flex items-center px-4 lg:px-16 xl:px-14 2xl:px-20 justify-between">
       <Link
         className="text-black font-spartan font-semibold text-xl sm:text-3xl w-1/3"
         to="/"
