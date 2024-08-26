@@ -9,7 +9,7 @@ const socket = io.connect('http://localhost:8000')
 const App = () => {
   return (
     <AuthProvider>
-      <AppRoutes />
+      <AppRoutes socket={socket}/>
     </AuthProvider>
   );
 };

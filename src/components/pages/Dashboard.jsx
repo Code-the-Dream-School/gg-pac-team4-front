@@ -5,7 +5,7 @@ import DashboardNav from "../navbars/DashboardNav";
 import { Home } from "./dashboard-pages/index";
 import { useAuth } from "../../AuthProvider";
 
-const Dashboard = () => {
+const Dashboard = ({socket}) => {
     const location = useLocation();
     const [profile, setProfile] = useState(JSON.parse(sessionStorage.getItem('user')) || {});
     const [profileError, setProfileError] = useState({});
@@ -20,7 +20,7 @@ const Dashboard = () => {
     
     return (
         <div aria-label={userData.role === 'teacher' ? 'teacher dashboard' : 'student dashboard'} className="flex flex-col items-center w-full h-full bg-lightBlue">
-            <DashboardNav/>
+            <DashboardNav socket={socket}/>
             {location.pathname==="/dashboard" ? <Home profile={profile} profileError={profileError}/> : <Outlet/>}
         </div>
     );

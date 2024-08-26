@@ -10,6 +10,11 @@ const Notifications = ({ socket }) => {
   const [applicantsError, setApplicantsError] = useState(null);
 
   useEffect(() => {
+    if (userData.role !== 'teacher') {
+      // Optionally handle non-teacher roles here
+      return;
+    }
+
     const getTeacherClasses = async () => {
       try {
         const response = await getClassesData();
@@ -37,6 +42,11 @@ const Notifications = ({ socket }) => {
   }, [userData]);
 
   useEffect(() => {
+    if (userData.role !== 'teacher' || classes.length === 0) {
+      // Skip fetching student info if not a teacher or no classes
+      return;
+    }
+
     const getStudentInfo = async () => {
       try {
         const token = userData.token;
@@ -59,9 +69,7 @@ const Notifications = ({ socket }) => {
       }
     };
 
-    if (classes.length > 0) {
-      getStudentInfo();
-    }
+    getStudentInfo();
   }, [classes, userData]);
 
   const formatDateWithWeekday = (dateString) => {
@@ -98,6 +106,10 @@ const Notifications = ({ socket }) => {
     // Handle the decline action here
     console.log('Declined:', classId, applicationId);
   };
+
+  if (userData.role !== 'teacher') {
+    return <p>Coming soon...</p>;
+  }
 
   return (
     <div className="container mt-10">
@@ -163,7 +175,7 @@ const Notifications = ({ socket }) => {
             </div>
           ))
         ) : (
-          <p>No applications found</p>
+          <p>No applications</p>
         )}
       </div>
     </div>
