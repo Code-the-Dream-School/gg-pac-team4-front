@@ -34,9 +34,8 @@ const useSearch = (clearSearchTerm) => {
       setCurrentPage(data.currentPage || 1);
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
-    } finally {
-      setIsLoading(false);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
