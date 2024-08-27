@@ -1,6 +1,4 @@
-const FormSubmitButton = ({
-  value,
-}) => {
+const FormSubmitButton = ({ value }) => {
   return (
     <input
       type="submit"

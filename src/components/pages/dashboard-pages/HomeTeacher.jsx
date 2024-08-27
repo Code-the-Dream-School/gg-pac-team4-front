@@ -1,21 +1,25 @@
 const HomeTeacher = ({ profile, onNavigate, profileError }) => {
-  const { 
-    firstName, 
-    lastName, 
-    aboutMe, 
-    education, 
-    experience, 
-    subjectArea, 
-    profileImageUrl, 
-    // profilePortfolioImages, 
-    // profilePortfolioVideos 
+  const {
+    firstName,
+    lastName,
+    aboutMe,
+    education,
+    experience,
+    subjectArea,
+    profileImageUrl,
+    // profilePortfolioImages,
+    // profilePortfolioVideos
   } = profile;
-  
+
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
-          <img className="w-20 h-20 rounded-full" src={profileImageUrl} alt="user photo"/>
+          <img
+            className="w-20 h-20 rounded-full"
+            src={profileImageUrl}
+            alt="user photo"
+          />
           <div className="font-spartan font-semibold text-2xl text-center xl:text-left">
             <p>{firstName}</p>
             <p>{lastName}</p>
@@ -32,12 +36,20 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
         {profileError.message && <p>{profileError.message}</p>}
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite ">
           <h3 className="font-spartan font-bold text-xl">Specialty</h3>
-          <p>{subjectArea.length > 0 ? <>{subjectArea.join(' | ')}</> : 'Please edit your profile'}</p>
+          <p>
+            {subjectArea.length > 0 ? (
+              <>{subjectArea.join(' | ')}</>
+            ) : (
+              'Please edit your profile'
+            )}
+          </p>
           <h3 className="font-spartan font-bold text-xl text-center">
             Education & Experience
           </h3>
-          <p className='px-2'>{education ? education : 'Please edit your profile'}</p>
-          <p className='px-2'>{experience}</p>
+          <p className="px-2">
+            {education ? education : 'Please edit your profile'}
+          </p>
+          <p className="px-2">{experience}</p>
         </div>
         <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">
           <h3 className="font-spartan font-bold text-xl">About</h3>

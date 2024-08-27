@@ -30,22 +30,35 @@ const RegisterForm = ({
   handlePasswordChange,
   confirmPassword,
   confirmPasswordError,
-  handleConfirmPasswordChange
+  handleConfirmPasswordChange,
 }) => {
   return (
     <>
       {userRole === 'student' ? (
         <div className="flex w-full font-spartan text-2xl text-grey text-center mb-5">
-          <button className="basis-2/4 text-black border-b-[3px] border-black">as a Student</button>
-          <button className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Teacher</button>
+          <button className="basis-2/4 text-black border-b-[3px] border-black">
+            as a Student
+          </button>
+          <button
+            className="basis-2/4 border-b-[3px] border-grey"
+            onClick={switchUserRole}
+          >
+            as a Teacher
+          </button>
         </div>
       ) : (
         <div className="flex w-full font-spartan text-2xl text-grey text-center mb-5">
-          <h2 className="basis-2/4 border-b-[3px] border-grey" onClick={switchUserRole}>as a Student</h2>
-          <h2 className="basis-2/4 text-black border-b-[3px] border-black">as a Teacher</h2>
+          <h2
+            className="basis-2/4 border-b-[3px] border-grey"
+            onClick={switchUserRole}
+          >
+            as a Student
+          </h2>
+          <h2 className="basis-2/4 text-black border-b-[3px] border-black">
+            as a Teacher
+          </h2>
         </div>
       )}
-
 
       <form className="w-full px-2" onSubmit={onSubmit}>
         <div className="flex w-full gap-x-4 items-end">
@@ -58,7 +71,8 @@ const RegisterForm = ({
               value={firstName}
               onChange={handleFirstNameChange}
               placeholder=" "
-              className="basis-2/4">
+              className="basis-2/4"
+            >
               First Name
             </FormInput>
           </div>
@@ -71,7 +85,8 @@ const RegisterForm = ({
               value={lastName}
               onChange={handleLastNameChange}
               placeholder=" "
-              className="basis-2/4">
+              className="basis-2/4"
+            >
               Last Name
             </FormInput>
           </div>
@@ -101,7 +116,8 @@ const RegisterForm = ({
                   value={adultName}
                   onChange={handleAdultNameChange}
                   placeholder=" "
-                  disabled={!isAdultNameRequired}>
+                  disabled={!isAdultNameRequired}
+                >
                   Adult Full Name
                 </FormInput>
               </div>
@@ -115,7 +131,8 @@ const RegisterForm = ({
           label="email"
           value={email}
           onChange={handleEmailChange}
-          placeholder=" ">
+          placeholder=" "
+        >
           Email Address
         </FormInput>
         {confirmEmailError && <FormErrorMsg error={confirmEmailError} />}
@@ -125,7 +142,8 @@ const RegisterForm = ({
           label="email2"
           value={confirmEmail}
           onChange={handleConfirmEmailChange}
-          placeholder=" ">
+          placeholder=" "
+        >
           Confirm Email Address
         </FormInput>
         {passwordError && <FormErrorMsg error={passwordError} />}
@@ -135,7 +153,8 @@ const RegisterForm = ({
           label="password"
           value={password}
           onChange={handlePasswordChange}
-          placeholder=" ">
+          placeholder=" "
+        >
           Password
         </FormInput>
         {confirmPasswordError && <FormErrorMsg error={confirmPasswordError} />}
@@ -145,12 +164,11 @@ const RegisterForm = ({
           label="password2"
           value={confirmPassword}
           onChange={handleConfirmPasswordChange}
-          placeholder=" ">
+          placeholder=" "
+        >
           Confirm Password
         </FormInput>
-        <FormSubmitButton
-          value={`Create ${userRole} account`}
-        />
+        <FormSubmitButton value={`Create ${userRole} account`} />
       </form>
     </>
   );

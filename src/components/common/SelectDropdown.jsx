@@ -1,6 +1,12 @@
 import Select from 'react-tailwindcss-select';
 
-const SelectDropdown = ({ options, placeholder,multiple, onChange, value}) => {
+const SelectDropdown = ({
+  options,
+  placeholder,
+  multiple,
+  onChange,
+  value,
+}) => {
   return (
     <Select
       placeholder={placeholder}

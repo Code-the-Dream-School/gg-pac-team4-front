@@ -27,7 +27,6 @@ const Register = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-
   const handleUserRegistration = async (event) => {
     event.preventDefault();
     let isDataValid = formValidation();
@@ -37,20 +36,20 @@ const Register = () => {
         let result;
         if (userRole == 'student') {
           let studentData = {
-            "firstName": firstName.trim(),
-            "lastName": lastName.trim(),
-            "email": email.trim(),
-            "password": password,
-            "dateOfBirth": dateOfBirth,
-            "adultName": adultName.trim(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            email: email.trim(),
+            password: password,
+            dateOfBirth: dateOfBirth,
+            adultName: adultName.trim(),
           };
           result = await registerStudent(studentData);
         } else {
           let teacherData = {
-            "firstName": firstName,
-            "lastName": lastName,
-            "email": email,
-            "password": password,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            password: password,
           };
           result = await registerTeacher(teacherData);
         }
@@ -63,7 +62,7 @@ const Register = () => {
         parseErrorMessage(error.message);
       }
     }
-  }
+  };
 
   const formValidation = () => {
     let isDataValid = true;
@@ -132,7 +131,7 @@ const Register = () => {
     }
 
     return isDataValid;
-  }
+  };
 
   const parseErrorMessage = (message) => {
     if (!message.includes(':')) {
@@ -145,7 +144,7 @@ const Register = () => {
       setEmailError(getErrorForField('email', message));
       setPasswordError(getErrorForField('password', message));
     }
-  }
+  };
 
   const getErrorForField = (field, message) => {
     field += ':';
@@ -159,7 +158,7 @@ const Register = () => {
       }
     }
     return '';
-  }
+  };
 
   const switchUserRole = () => {
     if (userRole === 'student') {
@@ -167,17 +166,17 @@ const Register = () => {
     } else {
       setUserRole('student');
     }
-  }
+  };
 
   const handleFirstNameChange = (event) => {
     const newFirstName = event.target.value;
     setFirstName(newFirstName);
-  }
+  };
 
   const handleLastNameChange = (event) => {
     const newLastName = event.target.value;
     setLastName(newLastName);
-  }
+  };
 
   const handleDateOfBirthChange = (event) => {
     const newBirthDate = event.target.value;
@@ -203,11 +202,11 @@ const Register = () => {
     if (newEmail.trim() !== '') {
       setEmailError('');
     }
-  }
+  };
 
   const handleConfirmEmailChange = (event) => {
     setConfirmEmail(event.target.value);
-  }
+  };
 
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
@@ -215,16 +214,16 @@ const Register = () => {
     if (newPassword.trim() !== '') {
       setPasswordError('');
     }
-  }
+  };
 
   const handleConfirmPasswordChange = (event) => {
     setConfirmPassword(event.target.value);
-  }
+  };
 
   const handleGotoLogin = () => {
     setIsModalOpen(false);
     navigate('/login');
-  }
+  };
 
   const calculateAge = (birthdate) => {
     const birthDate = new Date(birthdate);
@@ -241,18 +240,26 @@ const Register = () => {
     const month = birthDate.getMonth();
     const day = birthDate.getDay();
 
-    if (currentMonth < month - 1 || (currentMonth === month - 1 && currentDay < day)) {
+    if (
+      currentMonth < month - 1 ||
+      (currentMonth === month - 1 && currentDay < day)
+    ) {
       age--;
     }
 
     return age;
-  }
+  };
 
   return (
     <section className="w-full max-w-xl mx-auto px-10 py-5">
-      <h1 className="text-black text-3xl font-spartan text-center mt-10 mb-5">Sign Up</h1>
-      <p className="text-black font-spartan font-regular text-left px-2 mb-2">Already have an account?&nbsp;
-        <Link to="/login" className="underline">Log In</Link>
+      <h1 className="text-black text-3xl font-spartan text-center mt-10 mb-5">
+        Sign Up
+      </h1>
+      <p className="text-black font-spartan font-regular text-left px-2 mb-2">
+        Already have an account?&nbsp;
+        <Link to="/login" className="underline">
+          Log In
+        </Link>
       </p>
 
       <RegisterForm
@@ -294,10 +301,10 @@ const Register = () => {
         overlayClassName="fixed inset-0 bg-black bg-opacity-70"
       >
         <div className="bg-white rounded-lg p-8 max-w-md mx-auto z-100">
-          <h2 className="text-2xl font-bold mb-4 text-center">Registration completed successfully</h2>
-          <p className="mb-8 text-center">
-            Please login to continue.
-          </p>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            Registration completed successfully
+          </h2>
+          <p className="mb-8 text-center">Please login to continue.</p>
           <button
             onClick={handleGotoLogin} // Close modal on click and redirect on login page
             className="w-full text-white font-spartan font-semibold text-lg py-1 rounded-lg bg-darkGreen hover:bg-darkGreen-darker"
@@ -306,7 +313,6 @@ const Register = () => {
           </button>
         </div>
       </Modal>
-
     </section>
   );
 };
