@@ -19,13 +19,7 @@ const SearchPage = () => {
 
   return (
     <div>
-      <SearchBar
-        onSearch={(searchTerm) => {
-          handleSearch(searchTerm);
-          setSearchParams({ query: searchTerm });
-        }}
-        initialSearchTerm={initialSearchTerm}
-      />
+      <SearchBar initialSearchTerm={initialSearchTerm} />
       {isLoading ? (
         <Loader />
       ) : (
