@@ -9,12 +9,66 @@ import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 import IconClock from '../../assets/icons/icon-clock.png';
 import IconDegree from '../../assets/icons/icons-degree.png';
 
+const TeacherInfo = ({ teacherInfo }) => {
+  const [showFullExperience, setShowFullExperience] = useState(false);
+  //handle ReadMore button
+  const handleToggleExperience = () => {
+    setShowFullExperience(!showFullExperience);
+  };
+  return (
+    <div className="mt-6">
+      <p className="text-3xl font-spartan font-medium  mb-4">
+        Meet the Teacher
+      </p>
+      <div className="flex flex-row">
+        <img
+          src={teacherInfo.profileImageUrl}
+          alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
+          className="w-20 h-20 rounded-full"
+        />
+
+        <div className="flex text-center items-center justify-center  pl-4">
+          <p className="font-roboto font-medium text-xl">{`${teacherInfo.firstName} ${teacherInfo.lastName}`}</p>
+        </div>
+      </div>
+      <div className="flex flex-row mt-4 gap-4">
+        <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+          Profile
+        </button>
+        <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+          Send Message
+        </button>
+      </div>
+      <div className="mt-6">
+        <p className="text-3xl font-spartan font-medium my-4">
+          Teacher education and experience
+        </p>
+        <div className="flex flex-row gap-2">
+          <img src={IconDegree} alt="Icon degree" className="w-6 h-6" />
+          <p className="font-roboto text-xl">{teacherInfo.education}</p>
+        </div>
+        <p className="font-roboto leading-7 text-xl pt-4 w-2/3">
+          {showFullExperience
+            ? teacherInfo.experience
+            : `${teacherInfo.experience.substring(0, 100)}...`}
+        </p>
+        <button
+          onClick={handleToggleExperience}
+          className="text-black font-semibold underline hover:text-darkGreen"
+        >
+          {showFullExperience ? 'Show Less' : 'Read More'}
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const ClassInfoPage = () => {
   const { token } = useAuth();
   const { classId } = useParams();
   const [classItem, setClassItem] = useState(null);
   const [teacherInfo, setTeacherInfo] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -46,19 +100,19 @@ const ClassInfoPage = () => {
     }
   }, [classId, token]);
 
-  if (loading) return <Loader />;
+  if (isLoading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!classItem) return <p>Class not found.</p>;
 
   return (
     <div className="container m-auto py-20">
-      <div className="flex flex-col w-full   justify-between text-black">
-        <h2 className="font-spartan font-medium text-4xl">
-          {classItem.classTitle}
-        </h2>
-        <div className="flex justify-between pt-8">
-          <div className=" flex  flex-col w-[75%] md:flex-row lg:flex-row  pb-4">
-            <div className="w-[60%] font-roboto text-xl mt-2">
+      <div className="flex flex-col w-full text-black">
+        <div className="flex">
+          <div className=" flex  flex-col w-[75%] md:flex-row lg:flex-row pb-4">
+            <div className="w-[60%] font-roboto text-xl">
+              <h2 className="font-spartan font-medium text-4xl pb-8">
+                {classItem.classTitle}
+              </h2>
               <p className="w-[95%]">{classItem.description}</p>
             </div>
 
@@ -70,8 +124,8 @@ const ClassInfoPage = () => {
               />
             </div>
           </div>
-          <div></div>
-          <div className="flex flex-row w-[20%] lg:flex-col text-black border-2 border-lightGreen rounded-xl m-4">
+
+          <div className="flex flex-row w-[15%] lg:flex-col text-black border-2 border-lightGreen rounded-xl m-4">
             <div>
               <div className="flex flex-col text-center items-center justify-center  text-black p-4 bg-lightGreen">
                 <p className="flex text-3xl items-center font-bold">
@@ -113,6 +167,11 @@ const ClassInfoPage = () => {
           </div>
         </div>
       </div>
+      <div className="flex justify-end mr-4">
+        <button className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-4 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
+          Book lesson
+        </button>
+      </div>
 
       <div className="mt-6">
         <p className="text-3xl font-spartan font-medium mb-4">
@@ -146,50 +205,7 @@ const ClassInfoPage = () => {
         )}
       </div>
 
-      <div className="flex flex-col mt-6">
-        <p className="text-3xl font-spartan font-medium  mb-4">
-          Meet the Teacher
-        </p>
-
-        <div className="flex flex-row">
-          <img
-            src={teacherInfo.profileImageUrl}
-            alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
-            className="w-20 h-20 rounded-full"
-          />
-          <div className="flex text-center items-center justify-center  pl-4">
-            <p className="font-roboto font-medium text-xl">{`${teacherInfo.firstName} ${teacherInfo.lastName}`}</p>
-          </div>
-        </div>
-
-        <div></div>
-
-        <div>
-          <p className="text-3xl font-spartan font-medium  my-4">
-            Teacher education and experience
-          </p>
-          <div className="flex flex-row gap-2">
-            <img src={IconDegree} alt="Icon degree" className="w-6 h-6" />
-            <p className="font-roboto text-xl">{teacherInfo.education}</p>
-          </div>
-
-          <p className="font-roboto leading-7 text-xl pt-4 w-2/3">
-            {teacherInfo.experience}
-          </p>
-          <a
-            href="#more-info"
-            className="text-black font-semibold underline hover:text-darkGreen"
-          >
-            Read More
-          </a>
-        </div>
-      </div>
-      <button
-        className="bg-red hover:bg-pureWhite hover:text-red h-8 w-1/2 md:w-2/4 hover:border-2 hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 easy-in"
-        // onClick={onNavigate}
-      >
-        Edit Profile
-      </button>
+      {teacherInfo && <TeacherInfo teacherInfo={teacherInfo} />}
     </div>
   );
 };
