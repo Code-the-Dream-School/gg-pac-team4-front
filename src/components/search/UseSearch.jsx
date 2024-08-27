@@ -7,14 +7,14 @@ const useSearch = (clearSearchTerm) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   const searchTerm = searchParams.get('query') || '';
   const category = searchParams.get('category') || '';
 
   const fetchClasses = async (searchTerm = '', page = 1) => {
-    setIsLoading(true);
+    setIsLoading(false);
     try {
       const limit = 5;
       const sortBy = 'classTitle';
@@ -35,7 +35,6 @@ const useSearch = (clearSearchTerm) => {
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
     }
-    setIsLoading(false);
   };
 
   useEffect(() => {
