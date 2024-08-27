@@ -14,7 +14,6 @@ const useSearch = (clearSearchTerm) => {
   const category = searchParams.get('category') || '';
 
   const fetchClasses = async (searchTerm = '', page = 1) => {
-    setIsLoading(false);
     try {
       const limit = 5;
       const sortBy = 'classTitle';
@@ -32,8 +31,10 @@ const useSearch = (clearSearchTerm) => {
       setClasses(data.classes || []);
       setTotalPages(data.totalPages || 1);
       setCurrentPage(data.currentPage || 1);
+      setIsLoading(false);
     } catch (error) {
       console.error('Failed to fetch classes:', error.message);
+      setIsLoading(false);
     }
   };
 
