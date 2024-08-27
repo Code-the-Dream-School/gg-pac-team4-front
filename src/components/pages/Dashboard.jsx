@@ -3,49 +3,24 @@ import { useEffect, useState } from 'react';
 
 import DashboardNav from '../navbars/DashboardNav';
 import { Home } from './dashboard-pages/index';
-import { getUserData } from '../../util/DataBaseRequests';
 import { useAuth } from '../../AuthProvider';
 
 const Dashboard = () => {
   const location = useLocation();
-  const [profile, setProfile] = useState({});
-  const [error, setError] = useState({});
-  const { userData, clearUserSession } = useAuth();
+  const [profile, setProfile] = useState(
+    JSON.parse(sessionStorage.getItem('user')) || {}
+  );
+  const [profileError, setProfileError] = useState({});
+  const { userData } = useAuth();
 
   useEffect(() => {
-    console.log('useeffect');
-    const fetchUserProfileData = async () => {
-      try {
-        const result = await getUserData(userData._id, userData.token);
-        if (result.status === 200) {
-          setProfile({
-            firstName: result.data.firstName,
-            lastName: result.data.lastName,
-            email: result.data.email,
-            dateOfBirth:
-              new Date(result.data.dateOfBirth).toLocaleString('en-US', {
-                timeZone: 'UTC',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              }) || '',
-            adultName: result.data.adultName || '',
-            role: result.data.role,
-          });
-          setError({ message: '' });
-        }
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-        setError({
-          message: 'The profile is unavailable. Try again later please',
-        });
-        if (error.message === 'Authentication invalid') {
-          clearUserSession();
-        }
-      }
-    };
-    fetchUserProfileData();
-  }, []);
+    if (!userData) {
+      setProfileError({
+        message: 'The profile is unavailable. Try again later please',
+      });
+    }
+    setProfile(userData);
+  }, [userData]);
 
   return (
     <div
@@ -56,7 +31,7 @@ const Dashboard = () => {
     >
       <DashboardNav />
       {location.pathname === '/dashboard' ? (
-        <Home profile={profile} error={error} />
+        <Home profile={profile} profileError={profileError} />
       ) : (
         <Outlet />
       )}
