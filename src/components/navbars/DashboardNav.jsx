@@ -10,7 +10,7 @@ const DashboardNav = () => {
     userData.role === 'teacher' ? navbarItemsTeacher : navbarItemsStudent;
 
   return (
-    <nav className="h-16 md:h-24 w-full bg-lightGreen flex flex-wrap justify-evenly items-center">
+    <nav className="h-16 md:h-24 w-full bg-lightGreen flex flex-wrap justify-evenly items-center shrink-0">
       {currentNavbarContent.map(({ src, text, link }, index) => (
         <NavLink
           to={link}

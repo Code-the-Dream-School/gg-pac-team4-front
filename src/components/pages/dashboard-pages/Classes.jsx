@@ -44,7 +44,7 @@ const Classes = () => {
     };
     getTeacherClasses();
   }, [userData]);
-  
+
   useEffect(() => {
     if (selectedId) {
       const initialClass = classes.filter((classes) =>
@@ -82,26 +82,24 @@ const Classes = () => {
       {classesError && (
         <p className="text-red text-xl font-bold">{classesError.fetchError}</p>
       )}
-      <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 w-full justify-evenly p-4 items-start mb-10 h-full">
-        <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start">
-          <h1 className="text-black font-semibold text-xl font-spartan text-center py-4">
-            My Classes
-          </h1>
-          {classesError.noClassesError ? (
-            <div>
-              <p className='px-4 text-center'>{classesError.noClassesError} </p>
-            </div>
-          ) : (
-            classesList
-          )}
-          <button
-            onClick={addClass}
-            aria-label="Add a new class"
-            className="text-lg sm:text-3xl text-red border-2 border-red rounded w-1/5 my-2 hover:bg-red hover:text-white transition duration-300 easy-in"
-          >
-            +
-          </button>
-        </div>
+      <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
+        {classesError.noClassesError ? (
+          <></>
+        ) : (
+          <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start">
+            <h1 className="text-black font-semibold text-xl font-spartan text-center py-4">
+              My Classes
+            </h1>
+            {classesList}
+            <button
+              onClick={addClass}
+              aria-label="Add a new class"
+              className="text-lg sm:text-3xl text-red border-2 border-red rounded w-1/5 my-2 hover:bg-red hover:text-white transition duration-300 easy-in"
+            >
+              +
+            </button>
+          </div>
+        )}
         {selectedClass ? (
           <div className="bg-pureWhite w-10/12 sm:w-3/5 flex flex-col gap-4 pb-6 self-center sm:self-start items-center">
             <div className="flex flex-wrap justify-around gap-5 md:gap-1 mt-10 h-full">
@@ -181,15 +179,20 @@ const Classes = () => {
             </div>
           </div>
         ) : (
-          <div className="bg-pureWhite w-10/12 sm:w-3/5 flex flex-col h-full gap-4 pb-6 self-center sm:self-start items-center">
+          <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
             {classesError.noClassesError && (
+              <>
+                <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
+                  {classesError.noClassesError}{' '}
+                </p>
                 <button
                   onClick={addClass}
                   aria-label="Add a new class"
-                  className="md:text-xl font-medium font-spartan text-red border-2 border-red rounded md:w-1/3 my-10 hover:bg-red hover:text-white transition duration-300 easy-in px-4"
+                  className="md:text-xl font-medium font-spartan text-red border-2 border-red rounded md:w-1/3 hover:bg-red hover:text-white transition duration-300 easy-in px-4"
                 >
                   Add your first class
                 </button>
+              </>
             )}
           </div>
         )}
