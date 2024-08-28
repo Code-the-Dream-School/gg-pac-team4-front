@@ -28,6 +28,10 @@ export const AuthProvider = ({ children }) => {
     setUserData(data);
   };
 
+  useEffect(() => {
+    sessionStorage.setItem('user', JSON.stringify(userData));
+  }, [userData]);
+
   const clearUserSession = () => {
     sessionStorage.removeItem('user');
     setIsLoggedIn(false);
@@ -39,9 +43,13 @@ export const AuthProvider = ({ children }) => {
       value={{
         isLoggedIn,
         token: userData.token,
+
         userData,
+
         setUserSession,
+
         clearUserSession,
+
         setUserData,
       }}
     >

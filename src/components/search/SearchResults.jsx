@@ -48,7 +48,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
 
                 <div className="flex flex-row lg:flex-col  justify-around text-black px-4 py-4 md:py-4 border-t border-gray lg:border-none">
                   <div className="flex flex-col  gap-4  text-black">
-                    <p className="flex text-3xl font-medium items-center justify-center">
+                    <p className="flex text-2xl md:text-3xl font-medium items-center justify-center">
                       ${classItem.price}
                     </p>
                     <p className="text-xl flex  justify-center items-center">
@@ -109,7 +109,12 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
           </div>
         </div>
       ) : (
-        <p>No results found.</p>
+        <div className="text-center text-lg mt-10">
+          <p>
+            Sorry, we couldn't find any classes that match your search criteria.
+          </p>
+          <p>Please try adjusting your search terms or filters.</p>
+        </div>
       )}
     </div>
   );
