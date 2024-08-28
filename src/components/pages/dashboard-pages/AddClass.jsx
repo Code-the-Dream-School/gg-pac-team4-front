@@ -133,7 +133,6 @@ const AddClass = () => {
 
     try {
       const response = await addClassForm(userData.token, postedForm);
-      console.log(response);
       if (response.status === 201) {
         setIsLoading(true);
         const response = await getUserData(userData._id, userData.token);
