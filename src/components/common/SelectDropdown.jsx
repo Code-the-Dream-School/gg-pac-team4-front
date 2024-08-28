@@ -1,6 +1,12 @@
 import Select from 'react-tailwindcss-select';
 
-const SelectDropdown = ({ options, placeholder,multiple, onChange, value}) => {
+const SelectDropdown = ({
+  options,
+  placeholder,
+  multiple,
+  onChange,
+  value,
+}) => {
   return (
     <Select
       placeholder={placeholder}
@@ -10,7 +16,7 @@ const SelectDropdown = ({ options, placeholder,multiple, onChange, value}) => {
       isMultiple={multiple}
       classNames={{
         menuButton: ({ isDisabled }) =>
-          `flex text-xs text-grey border-2 border-grey rounded transition-all duration-300 focus:outline-none ${
+          `flex text-sm text-darkGray border-2 border-grey rounded transition-all duration-300 focus:outline-none ${
             isDisabled
               ? 'bg-white'
               : 'bg-pureWhite hover:border-gray-400 focus:border-darkGreen focus:ring focus:ring-darkGreen/20'

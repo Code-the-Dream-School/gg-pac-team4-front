@@ -18,7 +18,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     month: 'long',
     day: 'numeric',
   });
-  
+
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
@@ -53,10 +53,16 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
             Interests
           </h3>
           <p>
-            {subjectArea.length > 0 ? <>{subjectArea.join(' | ')}</> : 'Please edit your profile'}
+            {subjectArea.length > 0 ? (
+              <>{subjectArea.join(' | ')}</>
+            ) : (
+              'Please edit your profile'
+            )}
           </p>
           <h3 className="font-spartan font-bold text-xl">About</h3>
-          <p className='px-2'>{aboutMe ? aboutMe : 'Please edit your profile'}</p>
+          <p className="px-2">
+            {aboutMe ? aboutMe : 'Please edit your profile'}
+          </p>
         </div>
         {studentAge < 16 ? (
           <div className="flex flex-col w-3/4 p-2 items-center justify-center gap-4 bg-pureWhite">
@@ -77,17 +83,15 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
               {/* {myLessons.length > 0 ? myClasses : 'No lessons booked yet'} */}
             </p>
           </div>
-          {
-            myLessons.length > 0 
-              ? 
-                <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
-                  See more lessons
-                </Link>
-              : 
-                <Link className="p-4 underline mt-auto" to="/search">
-                  Search classes or teachers
-                </Link>
-          }
+          {myLessons.length > 0 ? (
+            <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
+              See more lessons
+            </Link>
+          ) : (
+            <Link className="p-4 underline mt-auto" to="/search">
+              Search classes or teachers
+            </Link>
+          )}
         </div>
       </div>
     </div>
