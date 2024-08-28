@@ -44,7 +44,7 @@ const Classes = () => {
     };
     getTeacherClasses();
   }, [userData]);
-  console.log(classesError);
+  
   useEffect(() => {
     if (selectedId) {
       const initialClass = classes.filter((classes) =>
