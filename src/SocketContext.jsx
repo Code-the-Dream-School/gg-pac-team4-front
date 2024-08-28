@@ -33,6 +33,18 @@ export const SocketProvider = ({ children }) => {
       setIsModalOpen(true);
     });
 
+    socketIo.on(`approveMessage-${userId}`, (data) => {
+      console.log('Received notification:', data.content);
+      setNotificationMessage(data.content);
+      setIsModalOpen(true);
+    });
+
+    socketIo.on(`rejectMessage-${userId}`, (data) => {
+      console.log('Received notification:', data.content);
+      setNotificationMessage(data.content);
+      setIsModalOpen(true);
+    });
+
     socketIo.on('disconnect', () => {
       console.log('Disconnected');
     });
