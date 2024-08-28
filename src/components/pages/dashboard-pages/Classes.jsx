@@ -4,7 +4,6 @@ import IconAge from '../../../assets/icons/icon-age.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
 import IconType from '../../../assets/icons/icon-type.png';
-import Loader from '../../common/Loader';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -27,19 +26,25 @@ const Classes = () => {
         const filteredClasses = allClasses.filter((classes) =>
           myClassIds.includes(classes._id)
         );
-        setClasses(filteredClasses);
-        setSelectedId(filteredClasses[0]._id);
-        setClassesError({ message: '' });
+        if (filteredClasses.length === 0) {
+          setClassesError({
+            noClassesError: `You haven't added any classes yet.`,
+          });
+        } else {
+          setClasses(filteredClasses);
+          setSelectedId(filteredClasses[0]._id);
+          setClassesError({ fetchError: '', noClassesError: '' });
+        }
       } catch (error) {
         console.error('Error fetching classes data:', error);
         setClassesError({
-          message: 'Failed to fetch classes. Please try again later.',
+          fetchError: 'Failed to fetch classes. Please try again later.',
         });
       }
     };
     getTeacherClasses();
   }, [userData]);
-
+  console.log(classesError);
   useEffect(() => {
     if (selectedId) {
       const initialClass = classes.filter((classes) =>
@@ -75,14 +80,20 @@ const Classes = () => {
   return (
     <>
       {classesError && (
-        <p className="text-red text-xl font-bold">{classesError.message}</p>
+        <p className="text-red text-xl font-bold">{classesError.fetchError}</p>
       )}
-      <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 w-full justify-evenly p-4 items-start mb-10">
+      <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 w-full justify-evenly p-4 items-start mb-10 h-full">
         <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start">
           <h1 className="text-black font-semibold text-xl font-spartan text-center py-4">
             My Classes
           </h1>
-          {classes ? classesList : <p>You have not added classes yet</p>}
+          {classesError.noClassesError ? (
+            <div>
+              <p className='px-4 text-center'>{classesError.noClassesError} </p>
+            </div>
+          ) : (
+            classesList
+          )}
           <button
             onClick={addClass}
             aria-label="Add a new class"
@@ -170,7 +181,17 @@ const Classes = () => {
             </div>
           </div>
         ) : (
-          <Loader />
+          <div className="bg-pureWhite w-10/12 sm:w-3/5 flex flex-col h-full gap-4 pb-6 self-center sm:self-start items-center">
+            {classesError.noClassesError && (
+                <button
+                  onClick={addClass}
+                  aria-label="Add a new class"
+                  className="md:text-xl font-medium font-spartan text-red border-2 border-red rounded md:w-1/3 my-10 hover:bg-red hover:text-white transition duration-300 easy-in px-4"
+                >
+                  Add your first class
+                </button>
+            )}
+          </div>
         )}
       </div>
     </>
