@@ -34,7 +34,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
             <textarea
               id="classDescription"
               aria-label="Class description"
-              className="mt-4 mb-2 p-2 w-full h-24 text-sm placeholder:text-xs placeholder:text-grey text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
+              className="mt-4 mb-2 p-2 w-full h-24 text-sm placeholder:text-darkGray text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
               placeholder="Class description"
               name="description"
               onChange={onChange}

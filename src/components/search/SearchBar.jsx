@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import searchIcon from '../../assets/icons/img_search.svg';
 import deleteSearchIcon from '../../assets/icons/delete-search.svg';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
+const SearchBar = ({ onSearch, initialSearchTerm }) => {
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
+
+  useEffect(() => {
+    setSearchTerm(initialSearchTerm);
+  }, [initialSearchTerm]);
 
   const handleSearch = (event) => {
     event.preventDefault();

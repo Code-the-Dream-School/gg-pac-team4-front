@@ -12,6 +12,8 @@ export default {
         pureWhite: '#FFFFFF',
         white: '#F5FFFF',
         grey: '#CCCCCC',
+        lightGray: '#E0E0E0',
+        darkGray: '#505050',
         red: '#F95C7B',
         lightGreen: '#8ADADD',
         darkGreen: '#10BEB8',

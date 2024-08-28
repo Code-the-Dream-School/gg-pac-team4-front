@@ -12,6 +12,7 @@ export const login = async ({ email, password }) => {
     throw error.response.data;
   }
 };
+
 export const logout = async () => {
   return await axios.post(`${API_BASE_URL}/logout`, {});
 };
@@ -96,33 +97,64 @@ export const getClassesData = async (
   }
 };
 
-
 export const updateUser = async (id, token, formData) => {
-    try {
-        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response.config.data;
-    } catch (error) {
-        throw error.response.data;
-    }
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.config.data;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 export const updateUserPhoto = async (id, token, formData) => {
-    try {
-        const response = await axios.patch(`${API_BASE_URL}/users/${id}`, formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${token}`
-            }
-        });
-        return response;
-    } catch (error) {
-        throw error.response;
-    }
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const registerStudent = async (studentData) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/register/student`,
+      studentData
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const registerTeacher = async (teacherData) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/register/teacher`,
+      teacherData
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
 };
 
 export const addClassForm = async (token, formData) => {

@@ -28,7 +28,7 @@ const AppRoutes = () => {
   return (
     <BrowserRouter>
       <Header />
-      <main className="flex-grow">
+      <main className="flex-1">
         <Routes>
           <Route path="*" element={<NotFound />} />
           <Route path="/" element={<HomePage />} />
