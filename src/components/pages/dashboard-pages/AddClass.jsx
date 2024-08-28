@@ -58,6 +58,10 @@ const AddClass = () => {
   const handleSubjects = (value) => {
     setCategory(value);
     setFormData({ ...formData, category: value.value });
+    setFormErrors((formErrors) => ({
+      ...formErrors,
+      category: ''
+  }));
   };
 
   const createMultipartForm = (data) => {

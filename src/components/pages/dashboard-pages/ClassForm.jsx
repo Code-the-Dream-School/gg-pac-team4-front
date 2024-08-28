@@ -71,7 +71,7 @@ const ClassForm = ({ onChange, onHandleSubjects, category, onSubmit, formErrors}
               <FormInput
                 type="number"
                 placeholder=" "
-                min="1"
+                min="0"
                 name='minAge'
                 onChange={onChange}
               >
