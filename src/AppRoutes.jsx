@@ -1,15 +1,14 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import {
+  AddClass,
   Classes,
   EditProfile,
   Lessons,
   Messages,
-  NewClassForm,
   Notifications,
   Payments,
-  Schedule,
   Students,
 } from './components/pages/dashboard-pages/index.js';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Dashboard from './components/pages/Dashboard.jsx';
 import Footer from './components/layouts/Footer.jsx';
@@ -39,9 +38,8 @@ const AppRoutes = () => {
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
-              <Route path="add-class" element={<NewClassForm />} />
+              <Route path="add-class" element={<AddClass />} />
               <Route path="students" element={<Students />} />
-              <Route path="schedule" element={<Schedule />} />
               <Route path="lessons" element={<Lessons />} />
               <Route path="notifications" element={<Notifications />} />
               <Route path="messages" element={<Messages />} />

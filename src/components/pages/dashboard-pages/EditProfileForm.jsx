@@ -130,7 +130,7 @@ const EditProfileForm = ({
           name="aboutMe"
           value={formData.aboutMe}
           onChange={onChange}
-          className="mt-4 p-2 w-full text-sm placeholder:text-xs placeholder:text-grey text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
+          className="mt-4 p-2 w-full text-sm placeholder:text-darkGray placeholder:text-sm placeholder:text-black text-black bg-pureWhite rounded border-2 border-grey appearance-none focus:outline-none focus:ring-0 focus:border-black"
           placeholder="Tell more about yourself"
         />
         <div className="flex gap-8 mt-2">

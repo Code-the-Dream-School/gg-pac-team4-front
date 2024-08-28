@@ -73,7 +73,7 @@ export const getClassesData = async (
   description = '',
   category = '',
   page = 1,
-  limit = 5,
+  limit = 50,// 
   sortBy = 'classTitle',
   sortOrder = 'asc'
 ) => {
@@ -154,5 +154,19 @@ export const registerTeacher = async (teacherData) => {
     return response;
   } catch (error) {
     throw error.response.data;
+  }
+};
+
+export const addClassForm = async (token, formData) => {
+  try {
+      const response = await axios.post(`${API_BASE_URL}/classes/`, formData, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`
+          }
+      });
+      return response;
+  } catch (error) {
+      throw error.response;
   }
 };
