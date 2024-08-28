@@ -105,9 +105,9 @@ const ClassInfoPage = () => {
   if (!classItem) return <p>Class not found.</p>;
 
   return (
-    <div className="container m-auto py-20">
+    <div className="container m-auto p-10">
       <div className="flex flex-col w-full text-black">
-        <div className="flex">
+        <div className="flex justify-between">
           <div className=" flex  flex-col w-[75%] md:flex-row lg:flex-row pb-4">
             <div className="w-[60%] font-roboto text-xl">
               <h2 className="font-spartan font-medium text-4xl pb-8">
@@ -167,7 +167,7 @@ const ClassInfoPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-end mr-4">
+      <div className="flex">
         <button className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-36 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
           Book lesson
         </button>
@@ -196,8 +196,7 @@ const ClassInfoPage = () => {
         {classItem.availableTime && classItem.availableTime.length > 0 ? (
           classItem.availableTime.map((timeSlot) => (
             <div key={timeSlot._id}>
-              <p>Date: {new Date(timeSlot.date).toLocaleDateString()}</p>
-              <p>Start Time: {timeSlot.startTime}</p>
+              <p>{`${new Date(timeSlot.date).toLocaleDateString()} ${timeSlot.startTime}`}</p>
             </div>
           ))
         ) : (

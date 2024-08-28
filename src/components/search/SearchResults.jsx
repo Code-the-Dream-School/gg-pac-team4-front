@@ -13,9 +13,10 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
     if (isLoggedIn) {
       navigate(`/class-info/${classId}`);
     } else {
-      navigate('/login');
+      navigate('/login', { state: { from: `/class-info/${classId}` } });
     }
   };
+
   return (
     <div className="container m-auto ">
       {classes.length > 0 ? (
