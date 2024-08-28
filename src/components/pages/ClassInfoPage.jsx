@@ -90,7 +90,7 @@ const ClassInfoPage = () => {
         } catch (error) {
           setError(error.message);
         } finally {
-          setLoading(false);
+          setIsLoading(false);
         }
       };
 
@@ -168,7 +168,7 @@ const ClassInfoPage = () => {
         </div>
       </div>
       <div className="flex justify-end mr-4">
-        <button className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-4 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
+        <button className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-36 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
           Book lesson
         </button>
       </div>
