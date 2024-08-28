@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { getClassesData, getAllUsersInfo } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
-import { useState, useEffect } from 'react';
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -10,31 +10,31 @@ const Notifications = ({ socket }) => {
   const [applicantsError, setApplicantsError] = useState(null);
 
   useEffect(() => {
-    if (userData.role !== 'teacher') {
-      // Optionally handle non-teacher roles here
-      return;
-    }
+    if (userData.role !== 'teacher') return;
 
     const getTeacherClasses = async () => {
       try {
         const response = await getClassesData();
         const allClasses = response.classes || [];
+        const myClassIds = userData.myClasses.map(id => id);
 
-        const myClassIds = userData.myClasses.map((id) => id);
-
-        const filteredClasses = allClasses.filter(
-          (classInfo) =>
-            myClassIds.includes(classInfo._id) &&
-            Array.isArray(classInfo.applications) &&
-            classInfo.applications.length > 0
+        const filteredClasses = allClasses.filter(classInfo =>
+          myClassIds.includes(classInfo._id) &&
+          Array.isArray(classInfo.applications) &&
+          classInfo.applications.length > 0
         );
-        setClasses(filteredClasses);
+
+        // Sort applications within each class
+        const classesWithSortedApplications = sortClassesByApplicationDate(filteredClasses);
+
+        // Now sort the classes based on the earliest application date
+        const sortedClasses = sortClassesByEarliestApplicationDate(classesWithSortedApplications);
+
+        setClasses(sortedClasses);
         setClassesError(null);
       } catch (error) {
         console.error('Error fetching classes data:', error);
-        setClassesError({
-          message: 'Failed to fetch classes. Please try again later.',
-        });
+        setClassesError({ message: 'Failed to fetch classes. Please try again later.' });
       }
     };
 
@@ -42,10 +42,7 @@ const Notifications = ({ socket }) => {
   }, [userData]);
 
   useEffect(() => {
-    if (userData.role !== 'teacher' || classes.length === 0) {
-      // Skip fetching student info if not a teacher or no classes
-      return;
-    }
+    if (userData.role !== 'teacher' || classes.length === 0) return;
 
     const getStudentInfo = async () => {
       try {
@@ -54,23 +51,38 @@ const Notifications = ({ socket }) => {
         const allApplicants = response || [];
         const myApplicantIds = classes.flatMap(classInfo =>
           classInfo.applications.map(application => application.userId)
-        ) || [];
+        );
 
         const filteredApplicants = allApplicants.filter(response =>
           myApplicantIds.includes(response._id)
         );
+
         setApplicants(filteredApplicants);
         setApplicantsError(null);
       } catch (error) {
         console.error('Error fetching student data:', error);
-        setApplicantsError({
-          message: 'Failed to fetch students. Please try again later.',
-        });
+        setApplicantsError({ message: 'Failed to fetch students. Please try again later.' });
       }
     };
 
     getStudentInfo();
   }, [classes, userData]);
+
+  const sortClassesByApplicationDate = (classes) => {
+    return classes.map(classInfo => ({
+      ...classInfo,
+      applications: classInfo.applications.slice().sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt)) // Descending
+    }));
+  };
+
+  const sortClassesByEarliestApplicationDate = (classes) => {
+    return classes.slice().sort((a, b) => {
+      const earliestDateA = a.applications.length > 0 ? new Date(Math.min(...a.applications.map(app => new Date(app.appliedAt)))) : new Date();
+      const earliestDateB = b.applications.length > 0 ? new Date(Math.min(...b.applications.map(app => new Date(app.appliedAt)))) : new Date();
+
+      return earliestDateB - earliestDateA; // Descending order
+    });
+  };
 
   const formatDateWithWeekday = (dateString) => {
     const date = new Date(dateString);
@@ -98,12 +110,10 @@ const Notifications = ({ socket }) => {
   };
 
   const handleApprove = (classId, applicationId) => {
-    // Handle the approve action here
     console.log('Approved:', classId, applicationId);
   };
 
   const handleDecline = (classId, applicationId) => {
-    // Handle the decline action here
     console.log('Declined:', classId, applicationId);
   };
 

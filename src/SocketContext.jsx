@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from './AuthProvider';
+import NotificationModal from '../src/components/common/notificationModal';
 
 const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
   const { userData } = useAuth();
   const [socket, setSocket] = useState(null);
-  const [notifications, setNotifications] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
 
   useEffect(() => {
     if (!userData) {
@@ -27,7 +29,8 @@ export const SocketProvider = ({ children }) => {
 
     socketIo.on(`applications-${userId}`, (data) => {
       console.log('Received notification:', data.content);
-      setNotifications((prevNotifications) => [...prevNotifications, data.content]);
+      setNotificationMessage(data.content);
+      setIsModalOpen(true);
     });
 
     socketIo.on('disconnect', () => {
@@ -38,13 +41,22 @@ export const SocketProvider = ({ children }) => {
 
     return () => {
       socketIo.disconnect();
-      setNotifications([]); 
+      setSocket(null); // Set socket to null on cleanup
     };
   }, [userData]);
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <SocketContext.Provider value={{ socket, notifications }}>
+    <SocketContext.Provider value={{ socket }}>
       {children}
+      <NotificationModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        message={notificationMessage}
+      />
     </SocketContext.Provider>
   );
 };
