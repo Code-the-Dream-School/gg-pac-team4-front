@@ -18,10 +18,10 @@ const EditProfileForm = ({
   setIsUpload,
 }) => {
   return (
-    <div className="w-full h-full md:h-screen flex flex-grow items-center sm:items-start sm:justify-center sm:flex-row flex-col overflow-y-hidden">
+    <div className="w-full h-full flex flex-grow items-center sm:items-start sm:justify-center sm:flex-row flex-col overflow-y-hidden">
       <div className="sm:w-1/4 w-4/5 flex flex-col items-center gap-4 mt-4 p-4">
         <img
-          className="h-24 w-24 rounded-full"
+          className="h-24 w-24 rounded-full object-cover"
           src={userPhotoSrc}
           alt="user photo"
         />
