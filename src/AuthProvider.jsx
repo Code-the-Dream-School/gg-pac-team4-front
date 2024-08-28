@@ -43,13 +43,9 @@ export const AuthProvider = ({ children }) => {
       value={{
         isLoggedIn,
         token: userData.token,
-
         userData,
-
         setUserSession,
-
         clearUserSession,
-
         setUserData,
       }}
     >

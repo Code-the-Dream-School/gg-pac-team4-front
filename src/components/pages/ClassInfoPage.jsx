@@ -108,7 +108,7 @@ const ClassInfoPage = () => {
     <div className="container m-auto p-10">
       <div className="flex flex-col w-full text-black">
         <div className="flex justify-between flex-col lg:flex-row">
-          <div className=" flex  flex-col w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
+          <div className=" flex  flex-col  w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
             <div className="w-full m:w-[60%] font-roboto text-xl">
               <h2 className="font-spartan font-medium text-4xl pb-8">
                 {classItem.classTitle}
@@ -116,7 +116,7 @@ const ClassInfoPage = () => {
               <p className="w-full md:w-[95%]">{classItem.description}</p>
             </div>
 
-            <div className="flex w-full md:w-[40%]">
+            <div className="flex w-full lg:w-3/4 pl-0  md:pl-2">
               <img
                 className="rounded-lg"
                 src={classItem.classImageUrl}
