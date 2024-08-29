@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { getAllData } from './util/index';
+import React from 'react';
+import AppRoutes from './AppRoutes';
+import { AuthProvider } from './AuthProvider';
 
-const URL = 'http://localhost:8000/api/v1/';
-
-function App() {
-  
-  const [message, setMessage] = useState(''); 
-
-  useEffect(() => {
-
-    (async () => {
-      const myData = await getAllData(URL)
-      setMessage(myData.data);
-    })();
-      
-    return () => {
-      console.log('unmounting');
-    }
-
-  }, []);
-
+const App = () => {
   return (
-    <>
-      <h1>{message}</h1>
-    </>
+    <AuthProvider>
+      <AppRoutes />
+    </AuthProvider>
   );
+};
 
-}
-
-export default App
+export default App;
