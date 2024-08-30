@@ -8,7 +8,7 @@ import TetianaImg from '../assets/team/Tetiana-Andriyanova.jpg';
 import ElenaImg from '../assets/team/Elena-Bychenkova.jpg';
 
 const teamMembers = [
-  { src: DanImg, alt: 'Dan', name: 'Acting Skills', title: 'Full-Stack Developer' },
+  { src: DanImg, alt: 'Dan Polityka', name: 'Dan Polityka', title: 'Full-Stack Developer' },
   { src: JoannesImg, alt: 'Joannes Figueroa', name: 'Joannes Figueroa', title: 'Front-End Developer' },
   { src: AnnaImg, alt: 'Anna Pestova', name: 'Anna Pestova', title: 'Full-Stack Developer' },
   { src: OksanaImg, alt: 'Oksana Feterovskaya', name: 'Oksana Feterovskaya', title: 'Full-Stack Developer' },
