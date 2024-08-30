@@ -80,7 +80,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
           </h2>
           <div>
             <p className="px-4">
-              {myLessons.length > 0 ? myClasses : 'No lessons booked yet'}
+            {myLessons.length > 0 ? myLessons : 'No lessons booked yet'}
             </p>
           </div>
           {myLessons.length > 0 ? (
