@@ -21,50 +21,61 @@ const TeacherInfo = ({ teacherInfo }) => {
         Meet the Teacher
       </p>
       <div className="flex flex-row">
-        <img
-          src={teacherInfo.profileImageUrl}
-          alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
-          className="w-20 h-20 rounded-full"
-        />
-
+        {teacherInfo.profileImageUrl && (
+          <img
+            src={teacherInfo.profileImageUrl}
+            alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
+            className="w-20 h-20 rounded-full"
+          />
+        )}
         <div className="flex text-center items-center justify-center  pl-4">
-          <p className="font-roboto font-medium text-xl">{`${teacherInfo.firstName} ${teacherInfo.lastName}`}</p>
+          <p className="font-roboto font-medium text-xl">{`${teacherInfo.firstName || ''} ${teacherInfo.lastName || ''}`}</p>
         </div>
       </div>
       <div className="flex flex-row mt-4 gap-4">
-        <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
-          Profile
-        </button>
+        {teacherInfo.profileImageUrl && (
+          <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+            Profile
+          </button>
+        )}
         <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
           Send Message
         </button>
       </div>
       <div className="mt-6">
-        <p className="text-3xl font-spartan font-medium lg:my-4">
-          Teacher education and experience
-        </p>
-        <div className="flex flex-row gap-2">
-          <img src={IconDegree} alt="Icon degree" className="w-6 h-6" />
-          <p className="font-roboto text-xl">{teacherInfo.education}</p>
-        </div>
-        <p className="font-roboto leading-7 text-xl pt-4 w-2/3">
-          {showFullExperience
-            ? teacherInfo.experience
-            : `${teacherInfo.experience.substring(0, 100)}...`}
-        </p>
-        <button
-          onClick={handleToggleExperience}
-          className="text-black font-semibold underline hover:text-darkGreen"
-        >
-          {showFullExperience ? 'Show Less' : 'Read More'}
-        </button>
+        {teacherInfo.education && (
+          <>
+            <p className="text-3xl font-spartan font-medium lg:my-4">
+              Teacher education and experience
+            </p>
+            <div className="flex flex-row gap-2">
+              <img src={IconDegree} alt="Icon degree" className="w-6 h-6" />
+              <p className="font-roboto text-xl">{teacherInfo.education}</p>
+            </div>
+          </>
+        )}
+        {teacherInfo.experience && (
+          <>
+            <p className="font-roboto leading-7 text-xl pt-4 w-2/3">
+              {showFullExperience
+                ? teacherInfo.experience
+                : `${teacherInfo.experience.substring(0, 100)}...`}
+            </p>
+            <button
+              onClick={handleToggleExperience}
+              className="text-black font-semibold underline hover:text-darkGreen"
+            >
+              {showFullExperience ? 'Show Less' : 'Read More'}
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
 };
 
 const ClassInfoPage = () => {
-  const { token } = useAuth();
+  const { userData } = useAuth();
   const { classId } = useParams();
   const [classItem, setClassItem] = useState(null);
   const [teacherInfo, setTeacherInfo] = useState(null);
@@ -72,18 +83,18 @@ const ClassInfoPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (token) {
+    if (userData) {
       const fetchClassAndTeacher = async () => {
         try {
           // Fetch the class details
-          const classData = await getClassDetails(classId, token);
+          const classData = await getClassDetails(classId, userData.token);
           setClassItem(classData.class);
 
           // Fetch the teacher details
           if (classData.class.createdBy) {
             const teacherData = await getUserData(
               classData.class.createdBy,
-              token
+              userData.token
             );
             setTeacherInfo(teacherData.data);
           }
@@ -98,7 +109,7 @@ const ClassInfoPage = () => {
     } else {
       console.error('No token found, user might not be logged in.');
     }
-  }, [classId, token]);
+  }, [classId, userData]);
 
   if (isLoading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
@@ -126,7 +137,7 @@ const ClassInfoPage = () => {
           </div>
 
           <div className="flex flex-row w-full lg:w-[15%] lg:flex-col text-black border-2 border-lightGreen rounded-xl mt-4 mb-8 lg:m-4">
-            <div className="flex flex-row flex-wrap justify-between p-1 lg:flex-col">
+            <div className="flex flex-row flex-wrap justify-between lg:flex-col">
               <div className="flex flex-col text-center items-center justify-center  text-black p-4 lg:bg-lightGreen">
                 <p className="flex text-3xl items-center font-bold">
                   ${classItem.price}
