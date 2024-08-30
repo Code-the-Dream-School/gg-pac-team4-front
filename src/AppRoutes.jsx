@@ -23,6 +23,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
+import TeamPage from './components/pages/TeamPage.jsx';
 
 const AppRoutes = () => {
   return (
@@ -53,6 +54,7 @@ const AppRoutes = () => {
             element={<RequestPasswordResetForm />}
           />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
       </main>
       <Footer />
