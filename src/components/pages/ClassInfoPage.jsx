@@ -8,6 +8,8 @@ import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
 import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 import IconClock from '../../assets/icons/icon-clock.png';
 import IconDegree from '../../assets/icons/icons-degree.png';
+import { bookLesson } from '../../util/DataBaseRequests';
+import ApplyModal from '../common/applyModal';
 
 const TeacherInfo = ({ teacherInfo }) => {
   const [showFullExperience, setShowFullExperience] = useState(false);
@@ -81,6 +83,8 @@ const ClassInfoPage = () => {
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTimeId, setSelectedTimeId] = useState(null);
 
   useEffect(() => {
     if (userData) {
@@ -98,6 +102,10 @@ const ClassInfoPage = () => {
             );
             setTeacherInfo(teacherData.data);
           }
+          const applicationInfo = classData.class.availableTime;
+          const availableTimeId = applicationInfo
+            .map((availableTime) => availableTime._id)
+            .toString();
         } catch (error) {
           setError(error.message);
         } finally {
@@ -114,6 +122,27 @@ const ClassInfoPage = () => {
   if (isLoading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
   if (!classItem) return <p>Class not found.</p>;
+
+  const handleTimeSelection = (selectedId) => {
+    setSelectedTimeId(selectedId);
+  };
+  const handleBookLesson = async () => {
+    try {
+      if (selectedTimeId) {
+        await bookLesson(userData.token, classId, selectedTimeId);
+        alert('Lesson booked successfully!');
+        closeModal();
+      } else {
+        alert('Please select a time slot.');
+      }
+    } catch (error) {
+      console.error('Error booking lesson:', error);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="container m-auto p-10">
@@ -174,9 +203,19 @@ const ClassInfoPage = () => {
         </div>
       </div>
       <div className="flex">
-        <button className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-36 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
-          Book lesson
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-36 py-2 border-2 border-transparent hover:border-red text-white font-roboto text-xl rounded-md"
+        >
+          Book Lesson
         </button>
+        <ApplyModal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          applicationInfo={classItem.availableTime}
+          onTimeSelect={handleTimeSelection}
+          onBookLesson={handleBookLesson}
+        />
       </div>
 
       <div className="mt-6">

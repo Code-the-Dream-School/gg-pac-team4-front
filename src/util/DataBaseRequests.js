@@ -208,18 +208,23 @@ export const addClassForm = async (token, formData) => {
   }
 };
 
-export const bookLesson = async (token, classId,  availableTimeId) => {
+export const bookLesson = async (token, classId, availableTimeId) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/classes/${classId}/apply`, 
-      {availableTimeId},
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/apply`, 
+      { availableTimeId },
       {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response;
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
-    throw error.response;
+    if (error.response) {
+      throw new Error(`Error ${error.response.status}: ${error.response.data.message || error.response.statusText}`);
+    } else {
+      throw new Error('Network error or server is down');
+    }
   }
 };
