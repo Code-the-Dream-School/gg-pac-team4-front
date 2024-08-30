@@ -207,3 +207,19 @@ export const addClassForm = async (token, formData) => {
     throw error.response;
   }
 };
+
+export const bookLesson = async (token, classId,  availableTimeId) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/classes/${classId}/apply`, 
+      {availableTimeId},
+      {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
