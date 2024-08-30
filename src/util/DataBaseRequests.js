@@ -73,7 +73,7 @@ export const getClassesData = async (
   description = '',
   category = '',
   page = 1,
-  limit = 50,// 
+  limit = 50, //
   sortBy = 'classTitle',
   sortOrder = 'asc'
 ) => {
@@ -94,6 +94,19 @@ export const getClassesData = async (
   } catch (error) {
     console.error('Error during search:', error);
     throw error;
+  }
+};
+export const getClassDetails = async (classId, token) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/classes/${classId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching class details:', error);
+    throw error.response.data || { message: 'Error fetching class details' };
   }
 };
 
@@ -159,14 +172,14 @@ export const registerTeacher = async (teacherData) => {
 
 export const addClassForm = async (token, formData) => {
   try {
-      const response = await axios.post(`${API_BASE_URL}/classes/`, formData, {
-          headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${token}`
-          }
-      });
-      return response;
+    const response = await axios.post(`${API_BASE_URL}/classes/`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
   } catch (error) {
-      throw error.response;
+    throw error.response;
   }
 };
