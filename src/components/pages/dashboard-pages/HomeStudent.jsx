@@ -1,3 +1,4 @@
+import CountdownTimer from '../../../util/LessonsTimer';
 import { Link } from 'react-router-dom';
 import Loader from '../../common/Loader';
 import useLessonsData from '../../../util/LessonsService';
@@ -13,7 +14,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     aboutMe,
     myLessons,
   } = profile;
-  
+
   const { isLoading, nextTwoLessons } = useLessonsData();
 
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
@@ -26,9 +27,9 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
-  
+
   if (isLoading) return <Loader />;
-    
+
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
@@ -78,63 +79,82 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
             <p>{adultName}</p>
           </div>
         ) : null}
-      </div>     
-      <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start h-full">
-        <div className="sm:h-2/5 flex flex-col">
+      </div>
+      <div className="flex flex-col w-9/12 sm:w-7/12 gap-2 mt-4 self-center sm:self-start h-full">
           <h2 className="font-spartan font-semibold text-2xl p-4">
             Your upcoming lessons
           </h2>
-              {nextTwoLessons.length > 0 ? (
-                <div className="flex gap-8">
-                    {nextTwoLessons.map((lesson) => {
-                      return(
-                        <div
-                        key={lesson._id}
-                        className="bg-pureWhite w-1/3 rounded p-4"
-                      >
-                        <div className='flex gap-4 p-2'>
-                          <img src={lesson.teacherPhoto} alt="teacher photo" className='rounded-full w-20 h-20 object-cover' />
-                          <div className='flex flex-col justify-around w-2/3'>
-                            <p className='font-medium'>{lesson.teacherFirstName} {lesson.teacherLastName.slice(0,1)}.</p>
-                            <p>{lesson.teacherCategory.join('& ')} teacher</p>
-                          </div>
-                        </div>
-                        <h3 className="text-lg font-medium my-2 h-1/4">
-                          {lesson.lessonTitle}
-                        </h3>
-                        <p className="mb-2">
-                          {lesson.duration} min {lesson.type} lesson
+          {nextTwoLessons.length > 0 ? (
+            <div className="flex gap-8 flex-col lg:flex-row">
+              {nextTwoLessons.map((lesson) => {
+                const lessonDate = new Date(lesson.lessonSchedule.date);
+                const now = new Date();
+                const daysRemaining = Math.floor(
+                  (lessonDate - now) / (1000 * 60 * 60 * 24)
+                );
+                return (
+                  <div
+                    key={lesson._id}
+                    className="bg-pureWhite w-full md:w-2/3 lg:w-2/5 rounded p-4 flex flex-col justify-between"
+                  >
+                    <div className="flex gap-4">
+                      <img
+                        src={lesson.teacherPhoto}
+                        alt="teacher photo"
+                        className="rounded-full w-20 h-20 object-cover"
+                      />
+                      <div className="flex flex-col justify-around w-2/3">
+                        <p className="font-medium">
+                          {lesson.teacherFirstName}{' '}
+                          {lesson.teacherLastName.slice(0, 1)}.
                         </p>
-                        <p className="mb-2">
-                          <span className='font-medium'>Date:</span>{' '}
-                          {new Date(
-                            lesson.lessonSchedule.date
-                          ).toLocaleString('en-US', {
-                            timeZone: 'UTC',
-                            year: 'numeric',
-                            month: 'numeric',
-                            day: 'numeric',
-                          })} {lesson.lessonSchedule.startTime}
-                        </p>
+                        <p>{lesson.teacherCategory.join('& ')} teacher</p>
                       </div>
-                      )
-})}
-                </div>
-              ) : (
-                <p>No lessons booked yet.</p>
-              )}
+                    </div>
+                    <div className='h-1/2'>
+                      <h3 className="text-lg font-semibold my-2">
+                      {lesson.classTitle}
+                    </h3>
+                    <h4 className="font-medium my-2">
+                      {lesson.lessonTitle}
+                    </h4>
+                    </div>
+                    <div>
+                      <p className="mb-2">
+                      {lesson.duration} min {lesson.type} lesson
+                    </p>
+                    {daysRemaining < 7 ? (
+                      <CountdownTimer targetDate={lessonDate} />
+                    ) : (
+                      <p className="mb-2">
+                        <span className="font-medium">Date:</span>{' '}
+                        {lessonDate.toLocaleString('en-US', {
+                          timeZone: 'UTC',
+                          year: 'numeric',
+                          month: 'numeric',
+                          day: 'numeric',
+                        })}{' '}
+                        {lesson.lessonSchedule.startTime}
+                      </p>
+                    )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <p>No lessons booked yet.</p>
+          )}
           {myLessons.length > 0 ? (
-            <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
+            <Link className="p-4 underline" to="/dashboard/lessons">
               See more lessons
             </Link>
           ) : (
-            <Link className="p-4 underline mt-auto" to="/search">
+            <Link className="p-4 underline" to="/search">
               Search classes or teachers
             </Link>
           )}
-        </div>
       </div>
-      
     </div>
   );
 };

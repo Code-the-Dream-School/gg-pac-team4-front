@@ -18,9 +18,8 @@ const useLessonsData = () => {
   const { userData } = useAuth();
   const today = new Date();
   
-  //get all classes the student is studying in
   useEffect(() => {
-    const getStudentClasses = async () => {
+    const fetchClassesAndLessons = async () => {
       try {
         setIsLoading(true);
         const response = await getClassesData();
@@ -33,10 +32,18 @@ const useLessonsData = () => {
             )
         );
         if (filteredData.length > 0) {
+          const selectedId = filteredData[0]._id;
+          const response = await getAllStudentLessons(userData.token, userData._id);
+          const allLessons = response.data.lessons;
+
           setStudentClasses(filteredData);
-          setSelectedId(filteredData[0]._id);
+          setSelectedId(selectedId);
+          setStudentLessons(allLessons);
           setLessonsError({ fetchError: '' });
           setIsLoading(false);
+
+          groupLessonsByClassId(selectedId, allLessons);
+          handleNextLessons(allLessons, filteredData);
         } else {
           setLessonsError({
             fetchError: `You haven't booked any lessons yet.`,
@@ -51,106 +58,11 @@ const useLessonsData = () => {
         setIsLoading(false);
       }
     };
-    getStudentClasses();
+    fetchClassesAndLessons();
   }, [userData]);
 
-  //get data about all student's booked lessons
-  useEffect(() => {
-    if(studentClasses){
-      const getStudentLessons = async () => {
-      try {
-        const response = await getAllStudentLessons(userData.token, userData._id);
-        const allLessons = response.data.lessons;
-        if (allLessons.length > 0) {
-          setStudentLessons(allLessons);
-          setLessonsError({ fetchError: '' });
-        } else {
-          setLessonsError({
-            fetchError: `You haven't booked any lessons yet.`,
-          });
-        }
-      } catch (error) {
-        console.error('Error fetching classes data:', error);
-        setLessonsError({
-          fetchError: 'Failed to fetch your classes and lessons. Please try again later.',
-        });
-      }
-    }
-    getStudentLessons();
-    }
-  }, [userData, studentClasses])
-
-  useEffect(() => {
-    if (selectedId) {
-      const initialClass = studentClasses.find((studentClass) => studentClass._id === selectedId);
-      setSelectedClass(initialClass ? [initialClass] : []);
-      groupLessonsByClassId(selectedId);
-    }
-  }, [selectedId, studentClasses, studentLessons]);
-
-  useEffect(() => {
-    const handleNextLessons = async () => {
-      if (!studentLessons || studentLessons.length === 0) return;
-  
-      try {
-        const nextLessons = studentLessons
-          .map(lesson => ({
-            ...lesson,
-            lessonSchedule: {
-              ...lesson.lessonSchedule,
-              date: new Date(lesson.lessonSchedule.date),
-            },
-          }))
-          .filter(lesson => lesson.lessonSchedule.date >= today)
-          .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
-          .slice(0, 2);
-  
-        const nextLessonsWithDuration = nextLessons.map(lesson => {
-          const classData = studentClasses.find(
-            studentClass => studentClass._id === lesson.classId
-          );
-  
-          if (!classData) {
-            console.error(`Class data not found for lesson with classId: ${lesson.classId}`);
-            console.log('Available studentClasses:', studentClasses);
-            return {
-              ...lesson,
-              duration: 'Unknown',
-            };
-          }
-  
-          return {
-            ...lesson,
-            duration: classData.duration,
-          };
-        });
-  
-        const nextLessonsWithTeachers = await Promise.all(nextLessonsWithDuration.map(async (lesson) => {
-          const response = await getUserData(lesson.createdBy, userData.token);
-          return {
-            ...lesson,
-            teacherFirstName: response.data.firstName,
-            teacherLastName: response.data.lastName,
-            teacherPhoto: response.data.profileImageUrl,
-            teacherCategory: response.data.subjectArea,
-          };
-        }));
-  
-        setNextTwoLessons(nextLessonsWithTeachers);
-      } catch (error) {
-        console.error('Error fetching teacher data:', error);
-        setLessonsError({ teacherDataError: 'Failed to load lesson data, please try again later.' });
-      }
-    };
-  
-    // Execute the function if studentLessons and studentClasses are available
-    if (studentLessons.length > 0 && studentClasses.length > 0) {
-      handleNextLessons();
-    }
-  }, [studentLessons, studentClasses, userData.token]);
-
-  const groupLessonsByClassId = (classId) => {
-    const filteredLessons = studentLessons.filter((lesson) => lesson.classId === classId);
+  const groupLessonsByClassId = (classId, lessons) => {
+    const filteredLessons = lessons.filter((lesson) => lesson.classId === classId);
     if (filteredLessons.length === 0) {
       setGroupedLessons(null);
       setLessonsError({ noLessons: "No lessons for this class." });
@@ -177,8 +89,57 @@ const useLessonsData = () => {
     setUpcomingLessons(upcoming);
   };
 
+  const handleNextLessons = async (lessons, classes) => {
+    try {
+      const nextLessons = lessons
+        .map(lesson => ({
+          ...lesson,
+          lessonSchedule: {
+            ...lesson.lessonSchedule,
+            date: new Date(lesson.lessonSchedule.date),
+          },
+        }))
+        .filter(lesson => lesson.lessonSchedule.date >= today)
+        .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
+        .slice(0, 2);
+
+      const nextLessonsWithDurationTitle = nextLessons.map(lesson => {
+        const classData = classes.find(studentClass => studentClass._id === lesson.classId);
+        return {
+          ...lesson,
+          duration: classData ? classData.duration : 'N/A',
+          classTitle: classData ? classData.classTitle : 'N/A',
+        };
+      });
+
+      const nextLessonsWithTeachers = await Promise.all(nextLessonsWithDurationTitle.map(async (lesson) => {
+        const response = await getUserData(lesson.createdBy, userData.token);
+        return {
+          ...lesson,
+          teacherFirstName: response.data.firstName,
+          teacherLastName: response.data.lastName,
+          teacherPhoto: response.data.profileImageUrl,
+          teacherCategory: response.data.subjectArea,
+        };
+      }));
+
+      setNextTwoLessons(nextLessonsWithTeachers);
+    } catch (error) {
+      console.error('Error fetching teacher data:', error);
+      setLessonsError({ teacherDataError: 'Failed to load lesson data, please try again later.' });
+    }
+  };
+
   useEffect(() => {
-    if (selectedClass && selectedClass.length > 0) {
+    if (selectedId) {
+      const initialClass = studentClasses.find((studentClass) => studentClass._id === selectedId);
+      setSelectedClass(initialClass ? [initialClass] : []);
+      groupLessonsByClassId(selectedId, studentLessons);
+    }
+  }, [selectedId, studentClasses, studentLessons]);
+  
+  useEffect(() => {
+    if (selectedClass.length > 0) {
       const getTeacherData = async () => {
         try {
           const response = await getUserData(
@@ -195,6 +156,7 @@ const useLessonsData = () => {
     }
   }, [selectedClass, userData.token]);
 
+ 
   return {
     studentClasses,
     studentLessons,
