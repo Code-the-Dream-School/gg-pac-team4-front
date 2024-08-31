@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import useLessonsData from '../../../util/LessonsService';
 
 const HomeStudent = ({ profile, onNavigate, profileError }) => {
   const {
@@ -11,6 +12,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     aboutMe,
     myLessons,
   } = profile;
+  
+  const { nextTwoLessons } = useLessonsData();
 
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
     timeZone: 'UTC',
@@ -74,15 +77,40 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
         ) : null}
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start">
-        <div className="sm:h-2/5 flex flex-col bg-pureWhite">
+        <div className="sm:h-2/5 flex flex-col">
           <h2 className="font-spartan font-semibold text-2xl p-4">
             Your upcoming lessons
           </h2>
-          <div>
-            <p className="px-4">
-              {/* {myLessons.length > 0 ? myClasses : 'No lessons booked yet'} */}
-            </p>
-          </div>
+              {nextTwoLessons.length > 0 ? (
+                <div className="flex gap-8">
+                    {nextTwoLessons.map((lesson) => (
+                      <div
+                        key={lesson._id}
+                        className="bg-pureWhite w-1/3 border rounded p-4"
+                      >
+                        <h3 className="text-lg font-medium mb-2">
+                          {lesson.lessonTitle}
+                        </h3>
+                        <p className="mb-2">
+                          {lesson.type} lesson
+                        </p>
+                        <p className="mb-2">
+                          <span className='font-medium'>Date:</span>{' '}
+                          {new Date(
+                            lesson.lessonSchedule.date
+                          ).toLocaleString('en-US', {
+                            timeZone: 'UTC',
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                          })} {lesson.lessonSchedule.startTime}
+                        </p>
+                      </div>
+                    ))}
+                </div>
+              ) : (
+                <p>No lessons booked yet.</p>
+              )}
           {myLessons.length > 0 ? (
             <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
               See more lessons

@@ -14,7 +14,9 @@ const useLessonsData = () => {
   const [previousLessons, setPreviousLessons] = useState([]);
   const [upcomingLessons, setUpcomingLessons] = useState([]);
   const [groupedLessons, setGroupedLessons] = useState({});
+  const [nextTwoLessons, setNextTwoLessons] = useState([]);
   const { userData } = useAuth();
+  const today = new Date();
   
   //get all classes in which the student is studying
   useEffect(() => {
@@ -61,7 +63,8 @@ const useLessonsData = () => {
         const allLessons = response.data.lessons;
         if (allLessons.length > 0) {
           setStudentLessons(allLessons);
-          console.log('lessons', response.data.lessons);
+          handleNextLessons(allLessons);
+          //console.log('lessons', response.data.lessons);
           setLessonsError({ fetchError: '' });
           setIsLoading(false);
         } else {
@@ -89,6 +92,22 @@ const useLessonsData = () => {
     }
   }, [selectedId, studentClasses, studentLessons]);
 
+  const handleNextLessons = (lessons) => {
+    //console.log(lessons)
+    const nextLessons = lessons
+    .map(lesson => ({
+        ...lesson,
+        lessonSchedule: {
+            ...lesson.lessonSchedule,
+            date: new Date(lesson.lessonSchedule.date)
+        }
+    }))
+    .filter(lesson => lesson.lessonSchedule.date >= today)
+    .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
+    .slice(0, 2);
+
+    setNextTwoLessons(nextLessons);
+  };
 
   const groupLessonsByClassId = (classId) => {
     const filteredLessons = studentLessons.filter((lesson) => lesson.classId === classId);
@@ -112,19 +131,20 @@ const useLessonsData = () => {
     };
     setGroupedLessons(grouped);
 
-    const today = new Date();
+    
     const previous = grouped.schedule.filter(lesson => new Date(lesson.date) < today);
     const upcoming = grouped.schedule.filter(lesson => new Date(lesson.date) >= today);
-    
     setPreviousLessons(previous);
     setUpcomingLessons(upcoming);
   };
   
+  //console.log('lessons',studentLessons)
+ console.log('2',nextTwoLessons)
 
-  console.log('prev',previousLessons)
-  console.log('up',upcomingLessons)
-  console.log('selected',selectedClass);
-  console.log('grouped', groupedLessons)
+  // console.log('prev',previousLessons)
+  //console.log('up',upcomingLessons)
+  // console.log('selected',selectedClass);
+  // console.log('grouped', groupedLessons)
 
   useEffect(() => {
     if (selectedClass && selectedClass.length > 0) {
@@ -150,6 +170,7 @@ const useLessonsData = () => {
     groupedLessons,
     previousLessons,
     upcomingLessons,
+    nextTwoLessons,
     selectedId,
     setSelectedId,
     selectedClass,

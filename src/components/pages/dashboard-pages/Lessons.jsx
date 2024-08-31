@@ -49,7 +49,7 @@ const Lessons = () => {
         <div className="overflow-x-auto mt-2 rounded">
           <div className="min-w-full bg-white">
             {/* header */}
-            <div className="hidden md:flex bg-lightGreen text-lg font-medium">
+            <div className="hidden lg:flex bg-lightGreen text-lg font-medium">
               <div className="p-2 flex-1 text-center">Lesson title</div>
               <div className="p-2 flex-1 text-center">Description</div>
               <div className="p-2 flex-1 text-center">Date</div>
