@@ -18,7 +18,7 @@ const useLessonsData = () => {
   const { userData } = useAuth();
   const today = new Date();
   
-  //get all classes in which the student is studying
+  //get all classes the student is studying in
   useEffect(() => {
     const getStudentClasses = async () => {
       try {
@@ -56,33 +56,29 @@ const useLessonsData = () => {
 
   //get data about all student's booked lessons
   useEffect(() => {
-    const getStudentLessons = async () => {
+    if(studentClasses){
+      const getStudentLessons = async () => {
       try {
-        setIsLoading(true);
         const response = await getAllStudentLessons(userData.token, userData._id);
         const allLessons = response.data.lessons;
         if (allLessons.length > 0) {
           setStudentLessons(allLessons);
-          handleNextLessons(allLessons);
-          //console.log('lessons', response.data.lessons);
           setLessonsError({ fetchError: '' });
-          setIsLoading(false);
         } else {
           setLessonsError({
             fetchError: `You haven't booked any lessons yet.`,
           });
-          setIsLoading(false);
         }
       } catch (error) {
         console.error('Error fetching classes data:', error);
         setLessonsError({
           fetchError: 'Failed to fetch your classes and lessons. Please try again later.',
         });
-        setIsLoading(false);
       }
     }
     getStudentLessons();
-  }, [userData])
+    }
+  }, [userData, studentClasses])
 
   useEffect(() => {
     if (selectedId) {
@@ -92,22 +88,66 @@ const useLessonsData = () => {
     }
   }, [selectedId, studentClasses, studentLessons]);
 
-  const handleNextLessons = (lessons) => {
-    //console.log(lessons)
-    const nextLessons = lessons
-    .map(lesson => ({
-        ...lesson,
-        lessonSchedule: {
-            ...lesson.lessonSchedule,
-            date: new Date(lesson.lessonSchedule.date)
-        }
-    }))
-    .filter(lesson => lesson.lessonSchedule.date >= today)
-    .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
-    .slice(0, 2);
-
-    setNextTwoLessons(nextLessons);
-  };
+  useEffect(() => {
+    const handleNextLessons = async () => {
+      if (!studentLessons || studentLessons.length === 0) return;
+  
+      try {
+        const nextLessons = studentLessons
+          .map(lesson => ({
+            ...lesson,
+            lessonSchedule: {
+              ...lesson.lessonSchedule,
+              date: new Date(lesson.lessonSchedule.date),
+            },
+          }))
+          .filter(lesson => lesson.lessonSchedule.date >= today)
+          .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
+          .slice(0, 2);
+  
+        const nextLessonsWithDuration = nextLessons.map(lesson => {
+          const classData = studentClasses.find(
+            studentClass => studentClass._id === lesson.classId
+          );
+  
+          if (!classData) {
+            console.error(`Class data not found for lesson with classId: ${lesson.classId}`);
+            console.log('Available studentClasses:', studentClasses);
+            return {
+              ...lesson,
+              duration: 'Unknown',
+            };
+          }
+  
+          return {
+            ...lesson,
+            duration: classData.duration,
+          };
+        });
+  
+        const nextLessonsWithTeachers = await Promise.all(nextLessonsWithDuration.map(async (lesson) => {
+          const response = await getUserData(lesson.createdBy, userData.token);
+          return {
+            ...lesson,
+            teacherFirstName: response.data.firstName,
+            teacherLastName: response.data.lastName,
+            teacherPhoto: response.data.profileImageUrl,
+            teacherCategory: response.data.subjectArea,
+          };
+        }));
+  
+        setNextTwoLessons(nextLessonsWithTeachers);
+      } catch (error) {
+        console.error('Error fetching teacher data:', error);
+        setLessonsError({ teacherDataError: 'Failed to load lesson data, please try again later.' });
+      }
+    };
+  
+    // Execute the function if studentLessons and studentClasses are available
+    if (studentLessons.length > 0 && studentClasses.length > 0) {
+      handleNextLessons();
+    }
+  }, [studentLessons, studentClasses, userData.token]);
 
   const groupLessonsByClassId = (classId) => {
     const filteredLessons = studentLessons.filter((lesson) => lesson.classId === classId);
@@ -131,20 +171,11 @@ const useLessonsData = () => {
     };
     setGroupedLessons(grouped);
 
-    
     const previous = grouped.schedule.filter(lesson => new Date(lesson.date) < today);
     const upcoming = grouped.schedule.filter(lesson => new Date(lesson.date) >= today);
     setPreviousLessons(previous);
     setUpcomingLessons(upcoming);
   };
-  
-  //console.log('lessons',studentLessons)
- console.log('2',nextTwoLessons)
-
-  // console.log('prev',previousLessons)
-  //console.log('up',upcomingLessons)
-  // console.log('selected',selectedClass);
-  // console.log('grouped', groupedLessons)
 
   useEffect(() => {
     if (selectedClass && selectedClass.length > 0) {

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Loader from '../../common/Loader';
 import useLessonsData from '../../../util/LessonsService';
 
 const HomeStudent = ({ profile, onNavigate, profileError }) => {
@@ -13,7 +14,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     myLessons,
   } = profile;
   
-  const { nextTwoLessons } = useLessonsData();
+  const { isLoading, nextTwoLessons } = useLessonsData();
 
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
     timeZone: 'UTC',
@@ -25,7 +26,9 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
-
+  
+  if (isLoading) return <Loader />;
+    
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
@@ -75,24 +78,32 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
             <p>{adultName}</p>
           </div>
         ) : null}
-      </div>
-      <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start">
+      </div>     
+      <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start h-full">
         <div className="sm:h-2/5 flex flex-col">
           <h2 className="font-spartan font-semibold text-2xl p-4">
             Your upcoming lessons
           </h2>
               {nextTwoLessons.length > 0 ? (
                 <div className="flex gap-8">
-                    {nextTwoLessons.map((lesson) => (
-                      <div
+                    {nextTwoLessons.map((lesson) => {
+                      return(
+                        <div
                         key={lesson._id}
-                        className="bg-pureWhite w-1/3 border rounded p-4"
+                        className="bg-pureWhite w-1/3 rounded p-4"
                       >
-                        <h3 className="text-lg font-medium mb-2">
+                        <div className='flex gap-4 p-2'>
+                          <img src={lesson.teacherPhoto} alt="teacher photo" className='rounded-full w-20 h-20 object-cover' />
+                          <div className='flex flex-col justify-around w-2/3'>
+                            <p className='font-medium'>{lesson.teacherFirstName} {lesson.teacherLastName.slice(0,1)}.</p>
+                            <p>{lesson.teacherCategory.join('& ')} teacher</p>
+                          </div>
+                        </div>
+                        <h3 className="text-lg font-medium my-2 h-1/4">
                           {lesson.lessonTitle}
                         </h3>
                         <p className="mb-2">
-                          {lesson.type} lesson
+                          {lesson.duration} min {lesson.type} lesson
                         </p>
                         <p className="mb-2">
                           <span className='font-medium'>Date:</span>{' '}
@@ -106,7 +117,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
                           })} {lesson.lessonSchedule.startTime}
                         </p>
                       </div>
-                    ))}
+                      )
+})}
                 </div>
               ) : (
                 <p>No lessons booked yet.</p>
@@ -122,6 +134,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
           )}
         </div>
       </div>
+      
     </div>
   );
 };

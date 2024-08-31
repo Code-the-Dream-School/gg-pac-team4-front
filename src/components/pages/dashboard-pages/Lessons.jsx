@@ -155,7 +155,7 @@ const Lessons = () => {
               <div className="flex lg:w-1/2 justify-around gap-4">
                 <img
                   src={teacherData.profileImageUrl}
-                  className="w-20 h-20 lg:w-32 lg:h-32 rounded-full"
+                  className="w-20 h-20 lg:w-32 lg:h-32 rounded-full object-cover"
                   alt="teacher photo"
                 />
                 <div className="flex flex-col justify-between w-1/2">
@@ -190,7 +190,7 @@ const Lessons = () => {
                     <h2 className="font-medium text-lg lg:text-xl px-6">
                       Upcoming Lessons
                     </h2>
-                    <p className="ml-6 mt-2 underline">No upcoming lessons</p>
+                    <p className="ml-6 mt-2">No upcoming lessons</p>
                   </div>
                 )}
 
