@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react';
-import { getClassesData, getAllUsersInfo } from '../../../util/DataBaseRequests';
+import {
+  getClassesData,
+  getAllUsersInfo,
+} from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
+import {
+  sortClassesByApplicationDate,
+  sortClassesByEarliestApplicationDate,
+  formatDateWithWeekday,
+  formatDateWithoutWeekday,
+  calculateAge
+} from '../../../util/NotificationsUtils'
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -16,25 +26,31 @@ const Notifications = ({ socket }) => {
       try {
         const response = await getClassesData();
         const allClasses = response.classes || [];
-        const myClassIds = userData.myClasses.map(id => id);
+        const myClassIds = userData.myClasses.map((id) => id);
 
-        const filteredClasses = allClasses.filter(classInfo =>
-          myClassIds.includes(classInfo._id) &&
-          Array.isArray(classInfo.applications) &&
-          classInfo.applications.length > 0
+        const filteredClasses = allClasses.filter(
+          (classInfo) =>
+            myClassIds.includes(classInfo._id) &&
+            Array.isArray(classInfo.applications) &&
+            classInfo.applications.length > 0
         );
 
         // Sort applications within each class
-        const classesWithSortedApplications = sortClassesByApplicationDate(filteredClasses);
+        const classesWithSortedApplications =
+          sortClassesByApplicationDate(filteredClasses);
 
         // Now sort the classes based on the earliest application date
-        const sortedClasses = sortClassesByEarliestApplicationDate(classesWithSortedApplications);
+        const sortedClasses = sortClassesByEarliestApplicationDate(
+          classesWithSortedApplications
+        );
 
         setClasses(sortedClasses);
         setClassesError(null);
       } catch (error) {
         console.error('Error fetching classes data:', error);
-        setClassesError({ message: 'Failed to fetch classes. Please try again later.' });
+        setClassesError({
+          message: 'Failed to fetch classes. Please try again later.',
+        });
       }
     };
 
@@ -49,11 +65,11 @@ const Notifications = ({ socket }) => {
         const token = userData.token;
         const response = await getAllUsersInfo(token);
         const allApplicants = response || [];
-        const myApplicantIds = classes.flatMap(classInfo =>
-          classInfo.applications.map(application => application.userId)
+        const myApplicantIds = classes.flatMap((classInfo) =>
+          classInfo.applications.map((application) => application.userId)
         );
 
-        const filteredApplicants = allApplicants.filter(response =>
+        const filteredApplicants = allApplicants.filter((response) =>
           myApplicantIds.includes(response._id)
         );
 
@@ -61,53 +77,14 @@ const Notifications = ({ socket }) => {
         setApplicantsError(null);
       } catch (error) {
         console.error('Error fetching student data:', error);
-        setApplicantsError({ message: 'Failed to fetch students. Please try again later.' });
+        setApplicantsError({
+          message: 'Failed to fetch students. Please try again later.',
+        });
       }
     };
 
     getStudentInfo();
   }, [classes, userData]);
-
-  const sortClassesByApplicationDate = (classes) => {
-    return classes.map(classInfo => ({
-      ...classInfo,
-      applications: classInfo.applications.slice().sort((a, b) => new Date(b.appliedAt) - new Date(a.appliedAt)) // Descending
-    }));
-  };
-
-  const sortClassesByEarliestApplicationDate = (classes) => {
-    return classes.slice().sort((a, b) => {
-      const earliestDateA = a.applications.length > 0 ? new Date(Math.min(...a.applications.map(app => new Date(app.appliedAt)))) : new Date();
-      const earliestDateB = b.applications.length > 0 ? new Date(Math.min(...b.applications.map(app => new Date(app.appliedAt)))) : new Date();
-
-      return earliestDateB - earliestDateA; // Descending order
-    });
-  };
-
-  const formatDateWithWeekday = (dateString) => {
-    const date = new Date(dateString);
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-  };
-
-  const formatDateWithoutWeekday = (dateString) => {
-    const date = new Date(dateString);
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('en-US', options);
-  };
-
-  const calculateAge = (dateOfBirth) => {
-    const birthDate = new Date(dateOfBirth);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDifference = today.getMonth() - birthDate.getMonth();
-
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-
-    return age;
-  };
 
   const handleApprove = (classId, applicationId) => {
     console.log('Approved:', classId, applicationId);
@@ -150,31 +127,71 @@ const Notifications = ({ socket }) => {
                     <div className="flex w-1/4 justify-center items-center">
                       <img
                         className="rounded-lg w-30 h-35 "
-                        src={applicantDetails ? applicantDetails.profileImageUrl : '/default-profile.png'}
-                        alt={applicantDetails ? `${applicantDetails.firstName} ${applicantDetails.lastName}` : 'Unknown'}
+                        src={
+                          applicantDetails
+                            ? applicantDetails.profileImageUrl
+                            : '/default-profile.png'
+                        }
+                        alt={
+                          applicantDetails
+                            ? `${applicantDetails.firstName} ${applicantDetails.lastName}`
+                            : 'Unknown'
+                        }
                       />
                     </div>
                     <div className="flex flex-col w-2/4 px-4">
-                      <p><strong>Student:</strong> {applicantDetails ? `${applicantDetails.firstName} ${applicantDetails.lastName}` : 'Unknown'}</p>
-                      <p><strong>Age:</strong> {applicantDetails ? calculateAge(applicantDetails.dateOfBirth) : 'Unknown'}</p>
-                      <p><strong>Date of Birth:</strong> {applicantDetails ? formatDateWithoutWeekday(applicantDetails.dateOfBirth) : 'Unknown'}</p>
+                      <p>
+                        <strong>Student:</strong>{' '}
+                        {applicantDetails
+                          ? `${applicantDetails.firstName} ${applicantDetails.lastName}`
+                          : 'Unknown'}
+                      </p>
+                      <p>
+                        <strong>Age:</strong>{' '}
+                        {applicantDetails
+                          ? calculateAge(applicantDetails.dateOfBirth)
+                          : 'Unknown'}
+                      </p>
+                      <p>
+                        <strong>Date of Birth:</strong>{' '}
+                        {applicantDetails
+                          ? formatDateWithoutWeekday(
+                              applicantDetails.dateOfBirth
+                            )
+                          : 'Unknown'}
+                      </p>
                       {applicantDetails?.adultName && (
-                        <p><strong>Parent:</strong> {applicantDetails.adultName}</p>
+                        <p>
+                          <strong>Parent:</strong> {applicantDetails.adultName}
+                        </p>
                       )}
-                      <p><strong>Email:</strong> {applicantDetails ? applicantDetails.email : 'Unknown'}</p>
-                      <p><strong>The requested date:</strong> {formatDateWithWeekday(application.date)}</p>
-                      <p><strong>The requested time:</strong> {application.startTime}</p>
+                      <p>
+                        <strong>Email:</strong>{' '}
+                        {applicantDetails ? applicantDetails.email : 'Unknown'}
+                      </p>
+                      <p>
+                        <strong>The requested date:</strong>{' '}
+                        {formatDateWithWeekday(application.date)}
+                      </p>
+                      <p>
+                        <strong>The requested time:</strong>{' '}
+                        {application.startTime}
+                      </p>
                     </div>
                     <div className="flex flex-col w-1/4 px-4">
                       <button
                         className="bg-darkGreen text-white px-4 py-2 rounded mb-2 font-spartan font-semibold "
-                        onClick={() => handleApprove(classInfo._id, application._id)}
+                        onClick={() =>
+                          handleApprove(classInfo._id, application._id)
+                        }
                       >
                         Approve
                       </button>
                       <button
                         className="bg-red text-white px-4 py-2 rounded font-spartan font-semibold "
-                        onClick={() => handleDecline(classInfo._id, application._id)}
+                        onClick={() =>
+                          handleDecline(classInfo._id, application._id)
+                        }
                       >
                         Decline
                       </button>
