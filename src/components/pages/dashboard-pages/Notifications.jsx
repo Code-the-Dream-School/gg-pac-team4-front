@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {
   getClassesData,
   getAllUsersInfo,
+  rejectApplication,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import {
@@ -9,8 +10,8 @@ import {
   sortClassesByEarliestApplicationDate,
   formatDateWithWeekday,
   formatDateWithoutWeekday,
-  calculateAge
-} from '../../../util/NotificationsUtils'
+  calculateAge,
+} from '../../../util/NotificationsUtils';
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -90,8 +91,30 @@ const Notifications = ({ socket }) => {
     console.log('Approved:', classId, applicationId);
   };
 
-  const handleDecline = (classId, applicationId) => {
-    console.log('Declined:', classId, applicationId);
+  const handleDecline = async (classId, applicationId) => {
+    const token = userData.token;
+    try {
+      const response = await rejectApplication(token, classId, applicationId);
+      setClasses(prevClasses =>
+        prevClasses
+          .map(classInfo => ({
+            ...classInfo,
+            applications: classInfo.applications.filter(application => application._id !== applicationId)
+          }))
+          .filter(classInfo => classInfo.applications.length > 0) // Remove classes with no applications
+      );
+
+      setApplicants((prevApplicants) =>
+        prevApplicants.filter((applicant) => applicant._id !== applicationId)
+      );
+
+      setApplicantsError(null);
+    } catch (error) {
+      console.error('Error rejecting application:', error);
+      setApplicantsError({
+        message: 'Failed to reject application. Please try again later.',
+      });
+    }
   };
 
   if (userData.role !== 'teacher') {

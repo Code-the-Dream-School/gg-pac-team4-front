@@ -245,6 +245,7 @@ export const rejectApplication = async (token, classId, applicationId) => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/classes/${classId}/reject/${applicationId}`, 
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
