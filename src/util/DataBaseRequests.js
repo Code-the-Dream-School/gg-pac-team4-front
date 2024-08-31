@@ -229,6 +229,7 @@ export const approveApplication = async (token, classId, applicationId) => {
   try {
     const response = await axios.post(
       `${API_BASE_URL}/classes/${classId}/approve/${applicationId}`, 
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,

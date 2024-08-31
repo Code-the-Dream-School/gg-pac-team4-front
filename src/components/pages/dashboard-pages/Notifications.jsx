@@ -3,6 +3,7 @@ import {
   getClassesData,
   getAllUsersInfo,
   rejectApplication,
+  approveApplication,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import {
@@ -87,21 +88,49 @@ const Notifications = ({ socket }) => {
     getStudentInfo();
   }, [classes, userData]);
 
-  const handleApprove = (classId, applicationId) => {
-    console.log('Approved:', classId, applicationId);
+  const handleApprove = async (classId, applicationId) => {
+    const token = userData.token;
+    try {
+      const response = await approveApplication(token, classId, applicationId);
+      setClasses(
+        (prevClasses) =>
+          prevClasses
+            .map((classInfo) => ({
+              ...classInfo,
+              applications: classInfo.applications.filter(
+                (application) => application._id !== applicationId
+              ),
+            }))
+            .filter((classInfo) => classInfo.applications.length > 0) // Remove classes with no applications
+      );
+
+      setApplicants((prevApplicants) =>
+        prevApplicants.filter((applicant) => applicant._id !== applicationId)
+      );
+
+      setApplicantsError(null);
+    } catch (error) {
+      console.error('Error approving application:', error);
+      setApplicantsError({
+        message: 'Failed to approve application. Please try again later.',
+      });
+    }
   };
 
   const handleDecline = async (classId, applicationId) => {
     const token = userData.token;
     try {
       const response = await rejectApplication(token, classId, applicationId);
-      setClasses(prevClasses =>
-        prevClasses
-          .map(classInfo => ({
-            ...classInfo,
-            applications: classInfo.applications.filter(application => application._id !== applicationId)
-          }))
-          .filter(classInfo => classInfo.applications.length > 0) // Remove classes with no applications
+      setClasses(
+        (prevClasses) =>
+          prevClasses
+            .map((classInfo) => ({
+              ...classInfo,
+              applications: classInfo.applications.filter(
+                (application) => application._id !== applicationId
+              ),
+            }))
+            .filter((classInfo) => classInfo.applications.length > 0) // Remove classes with no applications
       );
 
       setApplicants((prevApplicants) =>
