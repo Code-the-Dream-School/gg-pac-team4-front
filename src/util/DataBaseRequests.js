@@ -221,10 +221,6 @@ export const bookLesson = async (token, classId, availableTimeId) => {
     );
     return response.data;
   } catch (error) {
-    if (error.response) {
-      throw new Error(`Error ${error.response.status}: ${error.response.data.message || error.response.statusText}`);
-    } else {
-      throw new Error('Network error or server is down');
-    }
+    throw error.response.data;
   }
 };

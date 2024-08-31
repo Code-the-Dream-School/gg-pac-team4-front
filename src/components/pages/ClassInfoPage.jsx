@@ -107,7 +107,7 @@ const ClassInfoPage = () => {
             .map((availableTime) => availableTime._id)
             .toString();
         } catch (error) {
-          setError(error.message);
+          setError(error);
         } finally {
           setIsLoading(false);
         }
@@ -120,11 +120,12 @@ const ClassInfoPage = () => {
   }, [classId, userData]);
 
   if (isLoading) return <Loader />;
-  if (error) return <p>Error: {error}</p>;
+  // if (error) return <p>Error: {error}</p>;
   if (!classItem) return <p>Class not found.</p>;
 
   const handleTimeSelection = (selectedId) => {
     setSelectedTimeId(selectedId);
+    setError(null)
   };
   const handleBookLesson = async () => {
     try {
@@ -133,14 +134,16 @@ const ClassInfoPage = () => {
         alert('Lesson booked successfully!');
         closeModal();
       } else {
-        alert('Please select a time slot.');
+        setError('Please select a time slot.');
       }
     } catch (error) {
-      console.error('Error booking lesson:', error);
+      setError(error.message || 'Error booking lesson.');
+      console.log(error.message)
     }
   };
 
   const closeModal = () => {
+    setError(null); // Reset error on close
     setIsModalOpen(false);
   };
 
@@ -218,6 +221,7 @@ const ClassInfoPage = () => {
                   applicationInfo={classItem.availableTime}
                   onTimeSelect={handleTimeSelection}
                   onBookLesson={handleBookLesson}
+                  error={error}
                 />
               </div>
             </div>

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
 
-const ApplyModal = ({ isOpen, onRequestClose, applicationInfo, onTimeSelect, onBookLesson, }) => {
+const ApplyModal = ({ isOpen, onRequestClose, applicationInfo, onTimeSelect, onBookLesson, error }) => {
   const applyDate = applicationInfo.map((item) => item.date);
   const applyTime = applicationInfo.map((item) => item.startTime);
-
+console.log(error)
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
-      contentLabel="Apply"
+      onRequestClose={() => {
+        onRequestClose();
+      }}      contentLabel="Apply"
       className="fixed inset-0 flex items-center justify-center z-100"
       overlayClassName="fixed inset-0 bg-black bg-opacity-70"
     >
@@ -27,7 +28,11 @@ const ApplyModal = ({ isOpen, onRequestClose, applicationInfo, onTimeSelect, onB
   </button>
 ))}
         </div>
-        <button
+        {error && (
+          <div className="bg-red-100 text-red p-4 mb-4 rounded">
+            <p className="text-center">{error}</p>
+          </div>
+        )}        <button
           onClick={onBookLesson}
           className="w-full text-white font-spartan font-semibold text-lg py-2 rounded-lg bg-darkGreen hover:bg-darkGreen-darker transition duration-200"
         >
