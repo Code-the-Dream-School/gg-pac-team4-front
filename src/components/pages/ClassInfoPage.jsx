@@ -10,6 +10,7 @@ import IconClock from '../../assets/icons/icon-clock.png';
 import IconDegree from '../../assets/icons/icons-degree.png';
 import { bookLesson } from '../../util/DataBaseRequests';
 import ApplyModal from '../common/applyModal';
+import SuccessModal from '../common/successModal';
 
 const TeacherInfo = ({ teacherInfo }) => {
   const [showFullExperience, setShowFullExperience] = useState(false);
@@ -85,6 +86,7 @@ const ClassInfoPage = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTimeId, setSelectedTimeId] = useState(null);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     if (userData) {
@@ -120,31 +122,36 @@ const ClassInfoPage = () => {
   }, [classId, userData]);
 
   if (isLoading) return <Loader />;
-  // if (error) return <p>Error: {error}</p>;
   if (!classItem) return <p>Class not found.</p>;
 
   const handleTimeSelection = (selectedId) => {
     setSelectedTimeId(selectedId);
-    setError(null)
+    setError(null);
   };
   const handleBookLesson = async () => {
     try {
       if (selectedTimeId) {
         await bookLesson(userData.token, classId, selectedTimeId);
-        alert('Lesson booked successfully!');
-        closeModal();
+        setError(null);
+        closeModal(false); //close apply modal
+        setIsSuccessModalOpen(true); // Open success modal
       } else {
         setError('Please select a time slot.');
       }
     } catch (error) {
       setError(error.message || 'Error booking lesson.');
-      console.log(error.message)
     }
   };
 
   const closeModal = () => {
-    setError(null); // Reset error on close
+    setError(null);
     setIsModalOpen(false);
+    setSelectedTimeId(null); // Reset the selected time ID
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    window.location.reload(); // Reloads the page
   };
 
   return (
@@ -222,6 +229,12 @@ const ClassInfoPage = () => {
                   onTimeSelect={handleTimeSelection}
                   onBookLesson={handleBookLesson}
                   error={error}
+                  selectedTimeId={selectedTimeId}
+                  setSelectedTimeId={setSelectedTimeId}
+                />
+                <SuccessModal
+                  isOpen={isSuccessModalOpen}
+                  onRequestClose={closeSuccessModal}
                 />
               </div>
             </div>
