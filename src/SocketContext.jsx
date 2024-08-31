@@ -5,6 +5,22 @@ import NotificationModal from '../src/components/common/notificationModal';
 
 const SocketContext = createContext();
 
+const setupSocketListeners = (socketIo, userId, setNotificationMessage, setIsModalOpen) => {
+  const handleNotification = (data) => {
+    console.log('Received notification:', data.content);
+    setNotificationMessage(data.content);
+    setIsModalOpen(true);
+  };
+
+  socketIo.on(`applications-${userId}`, handleNotification);
+  socketIo.on(`approveMessage-${userId}`, handleNotification);
+  socketIo.on(`rejectMessage-${userId}`, handleNotification);
+
+  socketIo.on('disconnect', () => {
+    console.log('Disconnected');
+  });
+};
+
 export const SocketProvider = ({ children }) => {
   const { userData } = useAuth();
   const [socket, setSocket] = useState(null);
@@ -27,27 +43,7 @@ export const SocketProvider = ({ children }) => {
       console.log('Connected with socket ID:', socketIo.id);
     });
 
-    socketIo.on(`applications-${userId}`, (data) => {
-      console.log('Received notification:', data.content);
-      setNotificationMessage(data.content);
-      setIsModalOpen(true);
-    });
-
-    socketIo.on(`approveMessage-${userId}`, (data) => {
-      console.log('Received notification:', data.content);
-      setNotificationMessage(data.content);
-      setIsModalOpen(true);
-    });
-
-    socketIo.on(`rejectMessage-${userId}`, (data) => {
-      console.log('Received notification:', data.content);
-      setNotificationMessage(data.content);
-      setIsModalOpen(true);
-    });
-
-    socketIo.on('disconnect', () => {
-      console.log('Disconnected');
-    });
+    setupSocketListeners(socketIo, userId, setNotificationMessage, setIsModalOpen);
 
     setSocket(socketIo);
 
