@@ -224,3 +224,35 @@ export const bookLesson = async (token, classId, availableTimeId) => {
     throw error.response.data;
   }
 };
+
+export const approveApplication = async (token, classId, applicationId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/approve/${applicationId}`, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const rejectApplication = async (token, classId, applicationId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/reject/${applicationId}`, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
