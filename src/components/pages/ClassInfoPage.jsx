@@ -148,7 +148,7 @@ const ClassInfoPage = () => {
     <div className="container m-auto p-10">
       <div className="flex flex-col w-full text-black">
         <div className="flex justify-between flex-col lg:flex-row">
-          <div className=" flex  flex-col  w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
+          <div className="flex flex-col w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
             <div className="w-full m:w-[60%] font-roboto text-xl">
               <h2 className="font-spartan font-medium text-4xl pb-8">
                 {classItem.classTitle}
@@ -156,7 +156,7 @@ const ClassInfoPage = () => {
               <p className="w-full md:w-[95%]">{classItem.description}</p>
             </div>
 
-            <div className="flex w-full lg:w-3/4 pl-0  md:pl-2">
+            <div className="flex w-full lg:w-3/4 pl-0 md:pl-2">
               <img
                 className="rounded-lg"
                 src={classItem.classImageUrl}
@@ -165,74 +165,82 @@ const ClassInfoPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-row w-full lg:w-[15%] lg:flex-col text-black border-2 border-lightGreen rounded-xl mt-4 mb-8 lg:m-4">
-            <div className="flex flex-row flex-wrap justify-between lg:flex-col">
-              <div className="flex flex-col text-center items-center justify-center  text-black p-4 lg:bg-lightGreen">
-                <p className="flex text-3xl items-center font-bold">
-                  ${classItem.price}
-                </p>
-                <p className="flex  text-xl  items-center font-semibold">
-                  per session
-                </p>
+          <div className="flex flex-col w-full lg:w-[15%] text-black   rounded-xl mt-4 mb-8 lg:m-4">
+            <div>
+              <div className="border-2 border-lightGreen rounded-lg flex flex-row flex-wrap justify-between lg:flex-col">
+                <div className="flex flex-col text-center items-center justify-center text-black p-4 mb-4 lg:bg-lightGreen">
+                  <p className="flex text-3xl items-center font-bold">
+                    ${classItem.price}
+                  </p>
+                  <p className="flex text-xl items-center font-semibold">
+                    per session
+                  </p>
+                </div>
+
+                <div className="flex items-center p-2">
+                  <img src={AgeIcon} alt="Icon age" className="w-6 h-6" />
+                  <span>
+                    Ages: {classItem.ages.minAge} - {classItem.ages.maxAge}
+                  </span>
+                </div>
+                <div className="flex items-center p-2 gap-2">
+                  <img src={IconClock} alt="Icon clock" className="w-6 h-6" />
+                  <span>{classItem.duration} min</span>
+                </div>
+                <div className="flex items-center p-2 gap-2">
+                  <img
+                    src={LessonTypeIcon}
+                    alt="Icon age"
+                    className="w-6 h-6"
+                  />
+                  <span>{classItem.type}</span>
+                </div>
+                <div className="flex items-center p-2 gap-2 md:flex">
+                  <img
+                    src={ScheduleIcon}
+                    alt="Schedule Icon"
+                    className="w-6 h-6"
+                  />
+                  <span>On Request</span>
+                </div>
               </div>
 
-              <div className="flex items-center  p-2">
-                <img src={AgeIcon} alt="Icon age" className="w-6 h-6" />
-                <span>
-                  Ages: {classItem.ages.minAge} - {classItem.ages.maxAge}
-                </span>
-              </div>
-              <div className="flex items-center p-2 gap-2">
-                <img src={IconClock} alt="Icon clock" className="w-6 h-6" />
-                <span>{classItem.duration} min</span>
-              </div>
-              <div className="flex items-center p-2 gap-2">
-                <img src={LessonTypeIcon} alt="Icon age" className="w-6 h-6" />
-                <span>{classItem.type}</span>
-              </div>
-              <div className="flex items-center p-2 gap-2 md:flex">
-                <img
-                  src={ScheduleIcon}
-                  alt="Schedule Icon"
-                  className="w-6 h-6"
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-45 py-2 mt-4 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in"
+                >
+                  Book lesson
+                </button>
+                <ApplyModal
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                  applicationInfo={classItem.availableTime}
+                  onTimeSelect={handleTimeSelection}
+                  onBookLesson={handleBookLesson}
                 />
-                <span>On Request</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex">
-        <button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-36 py-2 border-2 border-transparent hover:border-red text-white font-roboto text-xl rounded-md"
-        >
-          Book Lesson
-        </button>
-        <ApplyModal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          applicationInfo={classItem.availableTime}
-          onTimeSelect={handleTimeSelection}
-          onBookLesson={handleBookLesson}
-        />
-      </div>
-
-      <div className="mt-6">
+      <div className="lg:mt-6">
         <p className="text-3xl font-spartan font-medium mb-4">
           Class experience
         </p>
-        <p className="font-roboto text-xl w-2/3">{classItem.experience}</p>
+        <p className="font-roboto text-xl w-full md:w-2/3">
+          {classItem.experience}
+        </p>
       </div>
       <div className="mt-6">
         <p className="text-3xl font-spartan font-medium  mb-4">
           Learning Goals
         </p>
-        <p className="font-roboto text-xl w-2/3">{classItem.goal}</p>
+        <p className="font-roboto text-xl w-full md:w-2/3">{classItem.goal}</p>
       </div>
       <div className="mt-6">
         <p className="text-3xl font-spartan font-medium mb-4">Other details</p>
-        <p className="font-roboto text-xl w-2/3">{classItem.other}</p>
+        <p className="font-roboto text-xl w-full md:w-2/3">{classItem.other}</p>
       </div>
       <div className="mt-6">
         <p className="text-3xl font-spartan font-medium mb-4">
