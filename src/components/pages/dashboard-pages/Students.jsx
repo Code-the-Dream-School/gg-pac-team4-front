@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import Loader from '../../common/Loader';
 import { getAllUsersInfo } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../../util/NotificationsUtils';
 
 const TeacherStudents = () => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { userData } = useAuth();
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState();
@@ -27,7 +27,7 @@ const TeacherStudents = () => {
         if (filteredStudents.length === 0) {
           setIsLoading(false);
           setStudentsError({
-            noClassesError: `You haven't added any students yet.`,
+            noStudentsError: `You haven't added any students yet.`,
           });
         } else {
           setStudents(filteredStudents);
@@ -93,10 +93,19 @@ const TeacherStudents = () => {
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
             {studentsError.noStudentsError ? (
               <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
-                <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
-                  {studentsError.noStudentsError}
-                </p>
-              </div>
+              <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
+                {studentsError.noStudentsError}
+                <br />
+                <br />
+                
+                  <button
+                    onClick={() => navigate('/dashboard/applications')}
+                    className="bg-pureWhite py-1 w-4/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4"
+                  >
+                    Please check your Applications
+                  </button>
+              </p>
+            </div>
             ) : (
               <>
                 <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start">
