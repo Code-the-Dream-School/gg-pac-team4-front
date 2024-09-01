@@ -8,7 +8,7 @@ const navbarItemsTeacher = [
   { src: Home, text: 'Home', link: '' },
   { src: Classes, text: 'My classes', link: 'classes' },
   { src: Student, text: 'My students', link: 'students' },
-  { src: Notification, text: 'Applications', link: 'notifications' },
+  { src: Notification, text: 'Applications', link: 'applications' },
   { src: Messages, text: 'Messages', link: 'messages' },
 ];
 
