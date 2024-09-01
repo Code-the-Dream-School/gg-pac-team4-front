@@ -128,12 +128,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
                     ) : (
                       <p className="mb-2">
                         <span className="font-medium">Date:</span>{' '}
-                        {lessonDate.toLocaleString('en-US', {
-                          timeZone: 'UTC',
-                          year: 'numeric',
-                          month: 'numeric',
-                          day: 'numeric',
-                        })}{' '}
+                        {lessonDate.toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}{' '}
                         {lesson.lessonSchedule.startTime}
                       </p>
                     )}

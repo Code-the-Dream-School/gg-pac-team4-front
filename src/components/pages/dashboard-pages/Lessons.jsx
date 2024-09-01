@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 import Loader from '../../common/Loader';
 import ScrollToTop from '../../layouts/ScrollToTop';
 import useLessonsData from '../../../util/LessonsService';
@@ -16,6 +17,7 @@ const Lessons = () => {
     teacherData,
     isLoading,
   } = useLessonsData();
+  const navigate = useNavigate();
 
   const classesList = studentClasses.map(
     ({ _id, classImageUrl, classTitle }) => {
@@ -59,9 +61,9 @@ const Lessons = () => {
             </div>
             {/* rows */}
             <div>
-              {lessonList.map((lesson, index) => (
+              {lessonList.map((lesson) => (
                 <div
-                  key={index}
+                  key={lesson.lessonTitle}
                   className="lg:flex text-xs md:text-sm text-center hover:bg-gray-50"
                 >
                   {/* small screens */}
@@ -76,12 +78,7 @@ const Lessons = () => {
                     </div>
                     <div className="flex justify-between p-2">
                       <div className="font-medium">Date:</div>
-                      <div>{new Date(lesson.date).toLocaleDateString('en-US', {
-                              timeZone: 'UTC',
-                              year: 'numeric',
-                              month: 'numeric',
-                              day: 'numeric',
-                            })}</div>
+                      <div>{new Date(lesson.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
                     </div>
                     <div className="flex justify-between p-2">
                       <div className="font-medium">Start time:</div>
@@ -96,18 +93,12 @@ const Lessons = () => {
                       <div>{lesson.lessonFiles || 'No files'}</div>
                     </div>
                   </div>
-
                   {/* large screens */}
                   <div className="hidden lg:flex flex-1 border-t border-lightGreen">
                     <div className="p-2 flex-1">{lesson.lessonTitle}</div>
                     <div className="p-2 flex-1">{lesson.lessonDescription}</div>
                     <div className="p-2 flex-1">
-                      {new Date(lesson.date).toLocaleDateString('en-US', {
-                              timeZone: 'UTC',
-                              year: 'numeric',
-                              month: 'numeric',
-                              day: 'numeric',
-                            })}
+                      {new Date(lesson.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
                     </div>
                     <div className="p-2 flex-1">{lesson.startTime}</div>
                     <div className="p-2 flex-1">
@@ -127,7 +118,7 @@ const Lessons = () => {
   };
 
   if (isLoading) return <Loader />;
-
+  
   return (
     <>
       {lessonsError.fetchError && (
@@ -159,10 +150,10 @@ const Lessons = () => {
                   alt="teacher photo"
                 />
                 <div className="flex flex-col justify-between w-1/2">
-                  <p className="font-spartan font-semibold text-lg sm:text-2xl lg:text-3xl">
+                  <p className="font-spartan font-semibold text-lg sm:text-2xl lg:text-3xl hover:underline hover:cursor-pointer hover:text-red" onClick={() => navigate(`/teacher-info/${teacherData._id}`)}>
                     {teacherData.firstName} {teacherData.lastName}
                   </p>
-                  <h2 className="font-spartan font-medium text-lg sm:text-2xl">
+                  <h2 className="font-spartan font-medium text-lg sm:text-2xl hover:underline hover:cursor-pointer hover:text-red" onClick={() => navigate(`/class-info/${selectedClass[0]._id}`)}>
                     {selectedClass[0].classTitle}
                   </h2>
                 </div>
