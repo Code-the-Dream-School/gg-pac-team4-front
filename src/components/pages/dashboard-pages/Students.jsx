@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Loader from '../../common/Loader';
-import { getAllUsersInfo } from '../../../util/DataBaseRequests';
+import { getAllUsersInfo, getAllStudentLessons } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../../util/NotificationsUtils';
@@ -44,6 +44,23 @@ const TeacherStudents = () => {
     };
     getTeacherStudents();
   }, [userData]);
+
+  useEffect(() => {
+    const getLessonsInfo = async () => {
+      if (!selectedId) return;
+  
+      const token = userData.token;
+      try {
+        const response = await getAllStudentLessons(token, selectedId);
+        const allStudentLessons = response.data.lessons;
+        console.log(allStudentLessons);
+      } catch (error) {
+        console.error('Error fetching lessons data:', error);
+      }
+    };
+  
+    getLessonsInfo();
+  }, [selectedId]);
 
   useEffect(() => {
     if (selectedId && students.length) {
