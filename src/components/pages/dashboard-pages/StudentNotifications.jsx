@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getClassesData } from '../../../util/DataBaseRequests';
+import {
+  getClassesData,
+  rejectApplication,
+} from '../../../util/DataBaseRequests';
 import {
   sortClassesByApplicationDate,
   sortClassesByEarliestApplicationDate,
@@ -9,6 +12,8 @@ import {
 const StudentNotifications = ({ userData }) => {
   const [classesWithApplications, setClassesWithApplications] = useState([]);
   const [classesError, setClassesError] = useState(null);
+  const [applicantsError, setApplicantsError] = useState(null);
+  const [applicants, setApplicants] = useState([]);
 
   useEffect(() => {
     const fetchClassesWithMyApplications = async () => {
@@ -63,12 +68,28 @@ const StudentNotifications = ({ userData }) => {
     }
   };
 
-
   const handleDecline = async (classId, applicationId) => {
+    const token = userData.token;
     try {
-    console.log(classId, applicationId)
+      const response = await rejectApplication(token, classId, applicationId);
+      setClassesWithApplications(
+        (prevClasses) =>
+          prevClasses
+            .map((classInfo) => ({
+              ...classInfo,
+              applications: classInfo.applications.filter(
+                (application) => application._id !== applicationId
+              ),
+            }))
+            .filter((classInfo) => classInfo.applications.length > 0) // Remove classes with no applications
+      );
+
+      setApplicants((prevApplicants) =>
+        prevApplicants.filter((applicant) => applicant._id !== applicationId)
+      );
+
+      setApplicantsError(null);
     } catch (error) {
-      console.error('Error rejecting application:', error);
       setApplicantsError({
         message: 'Failed to reject application. Please try again later.',
       });
@@ -104,7 +125,11 @@ const StudentNotifications = ({ userData }) => {
                   </div>
                   <div className="flex-1 ml-4">
                     <h2 className="font-roboto font-medium text-2xl mb-4">
-                      {classInfo.classTitle}
+                      <a
+                        href={`/class-info/${classInfo._id}`} // Link to the class page
+                      >
+                        {classInfo.classTitle}
+                      </a>
                     </h2>
                     <hr className="my-4 border-gray" />
                     <div className="flex flex-col">
@@ -136,7 +161,7 @@ const StudentNotifications = ({ userData }) => {
               ))
           )
         ) : (
-          <p className="text-center">No applications found for your account.</p>
+          <p className="text-center">No applications.</p>
         )}
       </div>
     </div>
