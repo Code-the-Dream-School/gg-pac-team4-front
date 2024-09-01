@@ -67,6 +67,30 @@ export const getUserData = async (id, token) => {
   }
 };
 
+export const getAllUsersInfo = async (token) => {
+  try {
+    const allUsers = [];
+    let currentPage = 1;
+    let totalPages = 1;
+
+    while (currentPage <= totalPages) {
+      const response = await axios.get(`${API_BASE_URL}/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { page: currentPage } // Pass the page parameter to the API
+      });
+      // Add the results to the allUsers array
+      allUsers.push(...response.data.results);
+      totalPages = response.data.totalPages; // Update totalPages
+      currentPage += 1; // Move to the next page
+    }
+    return allUsers;
+  } catch (error) {
+    console.error('Error fetching users info:', error);
+    throw error.response ? error.response.data : error;
+  }
+}
+
+
 export const getClassesData = async (
   search = '',
   classTitle = '',
