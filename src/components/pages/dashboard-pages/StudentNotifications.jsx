@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   getClassesData,
   rejectApplication,
@@ -10,6 +11,7 @@ import {
 } from '../../../util/NotificationsUtils';
 
 const StudentNotifications = ({ userData }) => {
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const [classesWithApplications, setClassesWithApplications] = useState([]);
   const [classesError, setClassesError] = useState(null);
   const [applicantsError, setApplicantsError] = useState(null);
@@ -96,6 +98,10 @@ const StudentNotifications = ({ userData }) => {
     }
   };
 
+  const handleButtonClick = () => {
+    navigate('/search');
+  };
+
   return (
     <div className="container mx-auto mt-10 px-4 md:px-10">
       <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase text-left mb-8">
@@ -161,7 +167,15 @@ const StudentNotifications = ({ userData }) => {
               ))
           )
         ) : (
-          <p className="text-center">No applications.</p>
+          <div className="flex flex-col items-center justify-center px-4">
+            <button
+              onClick={handleButtonClick}
+              aria-label="Book your first lesson"
+              className="md:text-xl font-medium font-spartan text-red border-2 border-red bg-white rounded md:w-1/3 hover:bg-red hover:text-white transition duration-300 ease-in px-4 py-2 mt-16"
+            >
+              Book your first lesson
+            </button>
+          </div>
         )}
       </div>
     </div>
