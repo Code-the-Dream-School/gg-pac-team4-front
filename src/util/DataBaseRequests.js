@@ -258,3 +258,14 @@ export const rejectApplication = async (token, classId, applicationId) => {
     throw error.response.data;
   }
 };
+
+export const getAllStudentLessons =  async (token, studentId) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/myStudents/${studentId}/lessons/`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
