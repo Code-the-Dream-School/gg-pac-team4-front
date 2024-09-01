@@ -153,9 +153,6 @@ const Notifications = ({ socket }) => {
 
   return (
     <div className="container mt-10">
-      <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">
-        New applications:
-      </h1>
       {classesError && <p className="text-red-500">{classesError.message}</p>}
       <div className="flex flex-col gap-6 mt-10 m-5 md:m-10">
         {classes.length > 0 ? (
@@ -255,7 +252,31 @@ const Notifications = ({ socket }) => {
             </div>
           ))
         ) : (
-          <p>No applications</p>
+          <div className="text-center mt-10">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              No Applications for Your Classes
+            </h1>
+            <p className="text-lg text-gray-600 mb-6">
+              No one has applied for your classes yet. Don't worry, it's normal!
+              Try updating your class and profile information.
+            </p>
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+              Some Recommendations:
+            </h2>
+            <ul className="text-lg list-disc list-inside text-gray-700">
+              <li>Enhance your class information with more details.</li>
+              <li>Add an eye-catching image to your class listing.</li>
+              <li>
+                Ensure your pricing is competitive and reflects the value
+                offered.
+              </li>
+              <li>
+                Update your profile with additional details about yourself.
+              </li>
+              <li>Include a welcoming video on your profile page.</li>
+              <li>Add engaging images and videos to your portfolio.</li>
+            </ul>
+          </div>
         )}
       </div>
     </div>

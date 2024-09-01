@@ -7,7 +7,7 @@ import Payment from '../assets/icons/payment.png';
 const navbarItemsStudent = [
   { src: Home, text: 'Home', link: '' },
   { src: Lesson, text: 'My lessons', link: 'lessons' },
-  { src: Notification, text: 'My applications', link: 'notifications' },
+  { src: Notification, text: 'My applications', link: 'applications' },
   { src: Messages, text: 'Messages', link: 'messages' },
   { src: Payment, text: 'Payments', link: 'payments' },
 ];
