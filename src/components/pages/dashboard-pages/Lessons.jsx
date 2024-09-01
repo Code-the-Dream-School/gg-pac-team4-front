@@ -135,7 +135,7 @@ const Lessons = () => {
         {studentClasses.length > 0 && (
           <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start rounded">
             <h1 className="text-black font-semibold text-xl font-spartan text-center py-4">
-              My lessons
+              My Classes
             </h1>
             {classesList}
           </div>

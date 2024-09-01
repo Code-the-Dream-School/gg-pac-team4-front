@@ -108,7 +108,7 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
                           {lesson.teacherFirstName}{' '}
                           {lesson.teacherLastName.slice(0, 1)}.
                         </p>
-                        <p>{lesson.teacherCategory.join('& ')} teacher</p>
+                        <p>{lesson.teacherCategory.join(' & ')} teacher</p>
                       </div>
                     </div>
                     <div className='h-1/2'>
