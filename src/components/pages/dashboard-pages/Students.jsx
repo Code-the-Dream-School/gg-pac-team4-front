@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import Loader from '../../common/Loader';
-import { getAllUsersInfo, getAllStudentLessons } from '../../../util/DataBaseRequests';
+import {
+  getAllUsersInfo,
+  getAllStudentLessons,
+} from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../../util/NotificationsUtils';
@@ -13,6 +16,7 @@ const TeacherStudents = () => {
   const [selectedStudent, setSelectedStudent] = useState();
   const [studentsError, setStudentsError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [studentLessons, setStudentLessons] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -48,17 +52,27 @@ const TeacherStudents = () => {
   useEffect(() => {
     const getLessonsInfo = async () => {
       if (!selectedId) return;
-  
+
       const token = userData.token;
       try {
         const response = await getAllStudentLessons(token, selectedId);
         const allStudentLessons = response.data.lessons;
-        console.log(allStudentLessons);
+        // Group lessons by classId
+        const groupedLessons = allStudentLessons.reduce((acc, lesson) => {
+          const { classId, lessonTitle } = lesson;
+          if (!acc[classId]) {
+            acc[classId] = [];
+          }
+          acc[classId].push(lessonTitle);
+          return acc;
+        }, {});
+        setStudentLessons(groupedLessons);
+        console.log(groupedLessons);
       } catch (error) {
         console.error('Error fetching lessons data:', error);
       }
     };
-  
+
     getLessonsInfo();
   }, [selectedId]);
 
@@ -96,6 +110,21 @@ const TeacherStudents = () => {
     }
   );
 
+  const lessonsList = Object.keys(studentLessons).map((classId) => (
+    <div key={classId} className="mb-4">
+      <h3 className="text-xl font-spartan font-semibold mb-2">
+        {classId}
+      </h3>
+      <ul className="list-disc pl-5">
+        {studentLessons[classId].map((lessonTitle, index) => (
+          <li key={index} className="text-lg font-spartan">
+            {lessonTitle}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ));
+
   return (
     <>
       {isLoading ? (
@@ -110,19 +139,19 @@ const TeacherStudents = () => {
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
             {studentsError.noStudentsError ? (
               <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
-              <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
-                {studentsError.noStudentsError}
-                <br />
-                <br />
-                
+                <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
+                  {studentsError.noStudentsError}
+                  <br />
+                  <br />
+
                   <button
                     onClick={() => navigate('/dashboard/applications')}
                     className="bg-pureWhite py-1 w-4/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4"
                   >
                     Please check your Applications
                   </button>
-              </p>
-            </div>
+                </p>
+              </div>
             ) : (
               <>
                 <div className="bg-pureWhite w-10/12 sm:w-1/4 flex flex-col items-center self-center sm:self-start">
@@ -157,6 +186,12 @@ const TeacherStudents = () => {
                           Send message
                         </button>
                       </div>
+                    </div>
+                    <div className="mt-6 w-full">
+                      <h2 className="text-xl font-spartan font-semibold">
+                        Classes & Lessons
+                      </h2>
+                      {lessonsList}
                     </div>
                   </div>
                 )}
