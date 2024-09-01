@@ -104,9 +104,6 @@ const StudentNotifications = ({ userData }) => {
 
   return (
     <div className="container mx-auto mt-10 px-4 md:px-10">
-      <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase text-left mb-8">
-        Your Applications:
-      </h1>
       {classesError && (
         <p className="text-red-500 text-center">{classesError.message}</p>
       )}
