@@ -1,7 +1,7 @@
 
 import React from 'react';
 import GreenBlobImage from '../../assets/blob_green.png';
-import PurpleBlobImage from '../../assets/blob_dusty_purple.png';
+import PurpleBlobImage from '../../assets/blob_dusty_purple2.png';
 import YellowBlobImage from '../../assets/blob_yellow.png';
 import teamMembers from '../../data/teamData';
 import ScrollToTop from '../layouts/ScrollToTop';
@@ -18,7 +18,7 @@ const TeamPage = () => {
         </h1>
 
         <h2 className="font-spartan font-semibold text-2xl lg:text-3xl"> Team Mentors</h2>
-        <div className="w-full flex flex-wrap items-center justify-center">
+        <div className="w-full flex flex-wrap items-center justify-center mb-4">
           <div
             className="w-full h-96 basis-full md:basis-1/3 flex flex-col items-center gap-1 bg-contain bg-center bg-no-repeat"
             style={{
@@ -28,33 +28,33 @@ const TeamPage = () => {
             <img
               src={teamMembers[0].src}
               alt={teamMembers[0].alt}
-              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-10 ms-16'
+              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-14 ms-12 mb-2'
             />
-            <p className='w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center ms-10'>{teamMembers[0].name}</p>
-            <p className='w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center ms-10'>{teamMembers[0].title}</p>
+            <p className='w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center ms-8'>{teamMembers[0].name}</p>
+            <p className='w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center ms-8'>{teamMembers[0].title}</p>
           </div>
 
           <div
-            className="w-full h-96 basis-full md:basis-1/3 flex flex-col items-center gap-1 bg-contain bg-center bg-no-repeat"
+            className="w-full h-96 basis-full md:basis-1/3 flex flex-col items-center gap-1 bg-contain bg-center bg-no-repeat pe-2"
             style={{ backgroundImage: `url(${YellowBlobImage})` }}
           >
             <img
               src={teamMembers[1].src}
               alt={teamMembers[1].alt}
-              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-10'
+              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-14 mb-2'
             />
             <p className='w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center'>{teamMembers[1].name}</p>
             <p className='w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center'>{teamMembers[1].title}</p>
           </div>
 
           <div
-            className="w-full h-96 basis-full md:basis-1/3 flex flex-col items-center gap-1 bg-contain bg-center bg-no-repeat"
+            className="w-full h-96 basis-full md:basis-1/3 flex flex-col items-center gap-1 bg-contain bg-center bg-no-repeat pe-6"
             style={{ backgroundImage: `url(${PurpleBlobImage})` }}
           >
             <img
               src={teamMembers[2].src}
               alt={teamMembers[2].alt}
-              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-10'
+              className='w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-14 mb-2'
             />
             <p className='w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center'>{teamMembers[2].name}</p>
             <p className='w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center'>{teamMembers[2].title}</p>
