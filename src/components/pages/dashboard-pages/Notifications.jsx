@@ -13,6 +13,7 @@ import {
   formatDateWithoutWeekday,
   calculateAge,
 } from '../../../util/NotificationsUtils';
+import StudentNotifications from './StudentNotifications'
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -145,9 +146,9 @@ const Notifications = ({ socket }) => {
       });
     }
   };
-
+  
   if (userData.role !== 'teacher') {
-    return <p>Coming soon...</p>;
+    return <StudentNotifications userData={userData}/>;
   }
 
   return (
