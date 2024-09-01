@@ -33,7 +33,7 @@ const ProfileNav = () => {
       <Link to="dashboard">
         <img
           alt="user photo"
-          className="h-6 w-6 md:h-10 md:w-10 rounded-full bg-lightGreen"
+          className="h-10 w-10 rounded-full object-cover bg-lightGreen"
           src={userData.profileImageUrl}
         />
       </Link>

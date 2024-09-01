@@ -28,8 +28,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
           <img
-            className="w-20 h-20 rounded-full"
-            src={profileImageUrl}
+          className="h-24 w-24 rounded-full object-cover"
+          src={profileImageUrl}
             alt="user photo"
           />
           <div className="font-spartan font-semibold text-2xl text-center xl:text-left">

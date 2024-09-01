@@ -28,7 +28,7 @@ const TeacherInfo = ({ teacherInfo }) => {
           <img
             src={teacherInfo.profileImageUrl}
             alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
-            className="w-20 h-20 rounded-full"
+            className="w-20 h-20 rounded-full object-cover"
           />
         )}
         <div className="flex text-center items-center justify-center  pl-4">
