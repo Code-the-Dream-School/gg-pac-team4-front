@@ -10,7 +10,7 @@ import IconClock from '../../assets/icons/icon-clock.png';
 import IconDegree from '../../assets/icons/icons-degree.png';
 import { bookLesson } from '../../util/DataBaseRequests';
 import SuccessModal from '../common/SuccessModal';
-import ApplyModal from '../common/ApplyModal';
+import ApplyModal from '../common/applyModal';
 
 const TeacherInfo = ({ teacherInfo }) => {
   const [showFullExperience, setShowFullExperience] = useState(false);
