@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import Loader from '../../common/Loader';
+import NextLessons from '../../lessons/NextLessons';
+import useLessonsData from '../../../util/LessonsService';
 
 const HomeStudent = ({ profile, onNavigate, profileError }) => {
   const {
@@ -12,6 +15,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     myLessons,
   } = profile;
 
+  const { isLoading, nextTwoLessons } = useLessonsData();
+
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
@@ -22,6 +27,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
   let studentAge =
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
@@ -73,26 +80,20 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start">
-        <div className="sm:h-2/5 flex flex-col bg-pureWhite">
+      <div className="flex flex-col w-9/12 sm:w-7/12 gap-2 mt-4 self-center sm:self-start h-full">
           <h2 className="font-spartan font-semibold text-2xl p-4">
             Your upcoming lessons
           </h2>
-          <div>
-            <p className="px-4">
-            {myLessons.length > 0 ? myLessons : 'No lessons booked yet'}
-            </p>
-          </div>
+          <NextLessons nextTwoLessons={nextTwoLessons}/>
           {myLessons.length > 0 ? (
-            <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
+            <Link className="p-4 underline" to="/dashboard/lessons">
               See more lessons
             </Link>
           ) : (
-            <Link className="p-4 underline mt-auto" to="/search">
+            <Link className="p-4 underline" to="/search">
               Search classes or teachers
             </Link>
           )}
-        </div>
       </div>
     </div>
   );
