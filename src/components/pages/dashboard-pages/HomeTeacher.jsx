@@ -1,3 +1,6 @@
+import ImagePortfolio from '../../portfolio/ImagePortfolio';
+import ScrollToTop from '../../layouts/ScrollToTop';
+
 const HomeTeacher = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
@@ -7,7 +10,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
     experience,
     subjectArea,
     profileImageUrl,
-    // profilePortfolioImages,
+    profilePortfolioImages,
     // profilePortfolioVideos
   } = profile;
 
@@ -62,15 +65,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
             Add Welcome Video
           </button>
         </div>
-        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4 p-4">
-          <h2 className="font-spartan font-semibold text-2xl py-2">
-            Portfolio
-          </h2>
-          {/* <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p> */}
-          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
-            Add More
-          </button>
-        </div>
+        <ImagePortfolio profilePortfolioImages={profilePortfolioImages}/>
         <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4">
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Video Portfolio
@@ -81,6 +76,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
           </button>
         </div>
       </div>
+      <ScrollToTop/>
     </div>
   );
 };
