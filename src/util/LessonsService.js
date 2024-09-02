@@ -35,7 +35,7 @@ const useLessonsData = () => {
           const selectedId = filteredData[0]._id;
           const response = await getAllStudentLessons(userData.token, userData._id);
           const allLessons = response.data.lessons;
-
+          
           setStudentClasses(filteredData);
           setSelectedId(selectedId);
           setStudentLessons(allLessons);
@@ -82,7 +82,7 @@ const useLessonsData = () => {
       })),
     };
     setGroupedLessons(grouped);
-
+    
     const previous = grouped.schedule.filter(lesson => new Date(lesson.date) < today);
     const upcoming = grouped.schedule.filter(lesson => new Date(lesson.date) >= today);
     setPreviousLessons(previous);
@@ -156,7 +156,6 @@ const useLessonsData = () => {
     }
   }, [selectedClass, userData.token]);
 
- 
   return {
     studentClasses,
     studentLessons,
