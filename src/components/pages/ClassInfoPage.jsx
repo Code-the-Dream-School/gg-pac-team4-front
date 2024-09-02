@@ -9,8 +9,8 @@ import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 import IconClock from '../../assets/icons/icon-clock.png';
 import IconDegree from '../../assets/icons/icons-degree.png';
 import { bookLesson } from '../../util/DataBaseRequests';
-import ApplyModal from '../common/applyModal';
-import SuccessModal from '../common/successModal';
+import SuccessModal from '../common/SuccessModal';
+import ApplyModal from '../common/ApplyModal';
 
 const TeacherInfo = ({ teacherInfo }) => {
   const [showFullExperience, setShowFullExperience] = useState(false);
