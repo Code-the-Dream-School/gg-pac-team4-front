@@ -3,6 +3,7 @@ import Loader from '../../common/Loader';
 import {
   getAllUsersInfo,
   getAllStudentLessons,
+  getClassesData
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +22,8 @@ const TeacherStudents = () => {
   const [studentsError, setStudentsError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [studentLessons, setStudentLessons] = useState([]);
+  const [classTitles, setClassTitles] = useState([]);
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -51,6 +54,27 @@ const TeacherStudents = () => {
       }
     };
     getTeacherStudents();
+  }, [userData]);
+
+  useEffect(() => {
+    const getClassesInfo = async () => {
+      try {
+        const response = await getClassesData();
+        const allClasses = response.classes;
+        const myClassIds = userData.myClasses.map((id) => id);
+        const filteredClasses = allClasses.filter((classes) =>
+          myClassIds.includes(classes._id)
+        );
+        const myClassesTitleAndId = filteredClasses.map((classItem) => ({
+          title: classItem.classTitle,
+          id: classItem._id,
+        }));       
+        setClassTitles(myClassesTitleAndId)
+      } catch (error) {
+        console.error('Error fetching lessons data:', error);
+      }
+    };
+    getClassesInfo();
   }, [userData]);
 
   useEffect(() => {
@@ -198,8 +222,8 @@ const TeacherStudents = () => {
                       <div className="p-4">
                         {Object.keys(studentLessons).map((classId) => (
                           <div key={classId} className="mb-8">
-                            <h2 className="text-lg font-bold mb-4">
-                              {classId}
+                            <h2 className="text-lg font-bold mb-4 text-center">
+                              {classTitles.find((classItem) => classItem.id === classId)?.title}
                             </h2>
                             <div className="overflow-x-auto">
                               <div className="min-w-full">
