@@ -7,7 +7,6 @@ const SocketContext = createContext();
 
 const setupSocketListeners = (socketIo, userId, setNotificationMessage, setIsModalOpen) => {
   const handleNotification = (data) => {
-    console.log('Received notification:', data.content);
     setNotificationMessage(data.content);
     setIsModalOpen(true);
   };
@@ -17,7 +16,7 @@ const setupSocketListeners = (socketIo, userId, setNotificationMessage, setIsMod
   socketIo.on(`rejectMessage-${userId}`, handleNotification);
 
   socketIo.on('disconnect', () => {
-    console.log('Disconnected');
+    console.info('Disconnected');
   });
 };
 
@@ -40,7 +39,7 @@ export const SocketProvider = ({ children }) => {
     });
 
     socketIo.on('connect', () => {
-      console.log('Connected with socket ID:', socketIo.id);
+      console.info('Connected with socket ID:', socketIo.id);
     });
 
     setupSocketListeners(socketIo, userId, setNotificationMessage, setIsModalOpen);
