@@ -91,7 +91,7 @@ const Notifications = ({ socket }) => {
   const handleApprove = async (classId, applicationId) => {
     const token = userData.token;
     try {
-      const response = await approveApplication(token, classId, applicationId);
+      await approveApplication(token, classId, applicationId);
       setClasses(
         (prevClasses) =>
           prevClasses
@@ -120,7 +120,7 @@ const Notifications = ({ socket }) => {
   const handleDecline = async (classId, applicationId) => {
     const token = userData.token;
     try {
-      const response = await rejectApplication(token, classId, applicationId);
+      await rejectApplication(token, classId, applicationId);
       setClasses(
         (prevClasses) =>
           prevClasses
@@ -255,17 +255,17 @@ const Notifications = ({ socket }) => {
           ))
         ) : (
           <div className="text-center mt-10">
-            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+            <h1 className="text-2xl font-bold mb-4">
               No Applications for Your Classes
             </h1>
-            <p className="text-lg text-gray-600 mb-6">
+            <p className="text-lg text-gray mb-6">
               No one has applied for your classes yet. Don't worry, it's normal!
               Try updating your class and profile information.
             </p>
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            <h2 className="text-xl font-semibold mb-4">
               Some Recommendations:
             </h2>
-            <ul className="text-lg list-disc list-inside text-gray-700">
+            <ul className="text-lg list-disc list-inside text-gray">
               <li>Enhance your class information with more details.</li>
               <li>Add an eye-catching image to your class listing.</li>
               <li>
