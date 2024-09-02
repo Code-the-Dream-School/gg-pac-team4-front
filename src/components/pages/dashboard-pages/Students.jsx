@@ -3,7 +3,7 @@ import Loader from '../../common/Loader';
 import {
   getAllUsersInfo,
   getAllStudentLessons,
-  getClassesData
+  getClassesData,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,6 @@ const TeacherStudents = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [studentLessons, setStudentLessons] = useState([]);
   const [classTitles, setClassTitles] = useState([]);
-
 
   useEffect(() => {
     setIsLoading(true);
@@ -68,8 +67,8 @@ const TeacherStudents = () => {
         const myClassesTitleAndId = filteredClasses.map((classItem) => ({
           title: classItem.classTitle,
           id: classItem._id,
-        }));       
-        setClassTitles(myClassesTitleAndId)
+        }));
+        setClassTitles(myClassesTitleAndId);
       } catch (error) {
         console.error('Error fetching lessons data:', error);
       }
@@ -182,11 +181,12 @@ const TeacherStudents = () => {
                       />
                       <div className="flex flex-col justify-between">
                         <p className="font-semibold text-2xl font-spartan">
-                          {selectedStudent.firstName} {selectedStudent.lastName}, {selectedStudent
-                              ? calculateAge(selectedStudent.dateOfBirth) +
-                                ' y.o.'
-                              : 'Not available'}
-                          
+                          {selectedStudent.firstName} {selectedStudent.lastName}
+                          ,{' '}
+                          {selectedStudent
+                            ? calculateAge(selectedStudent.dateOfBirth) +
+                              ' y.o.'
+                            : 'Not available'}
                         </p>
                         <div className="flex items-center gap-2">
                           <p className="text-sm sm:text-base py-1">
@@ -210,10 +210,18 @@ const TeacherStudents = () => {
                         )}
                       </div>
                       <div className="lg:w-1/4 ml-auto">
+                      <div >
                         <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in">
                           Send message
                         </button>
                       </div>
+                      <div className="mt-8">
+                        <button className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red">
+                          Add a new lesson
+                        </button>
+                      </div>
+                      </div>
+                      
                     </div>
                     <div className="mt-6 w-full">
                       <h2 className="text-2xl font-spartan font-semibold ml-4">
@@ -223,7 +231,11 @@ const TeacherStudents = () => {
                         {Object.keys(studentLessons).map((classId) => (
                           <div key={classId} className="mb-8">
                             <h2 className="text-lg font-bold mb-4 text-center">
-                              {classTitles.find((classItem) => classItem.id === classId)?.title}
+                              {
+                                classTitles.find(
+                                  (classItem) => classItem.id === classId
+                                )?.title
+                              }
                             </h2>
                             <div className="overflow-x-auto">
                               <div className="min-w-full">
