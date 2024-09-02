@@ -3,7 +3,7 @@ import FormUploadPortfolio from './FormUploadPortfolio';
 import Loader from '../common/Loader';
 import useMediaUploader from '../../util/PortfolioUploadMediaService';
 
-const ImagePortfolio = ({ profilePortfolioImages }) => {
+const VideoPortfolio = ({ profilePortfolioVideos }) => {
   const {
     showFileInput,
     handleButtonClick,
@@ -12,29 +12,29 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
     handleDeleteMedia,
     error,
     isLoading,
-  } = useMediaUploader('Images');
-  
+  } = useMediaUploader('Videos');
+
   if (isLoading) return <Loader />;
 
   return (
     <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4 p-4">
-      <h2 className="font-spartan font-semibold text-2xl py-2">Portfolio</h2>
-      {profilePortfolioImages.length > 0 ? (
+      <h2 className="font-spartan font-semibold text-2xl py-2">
+        Video Portfolio
+      </h2>
+      {profilePortfolioVideos.length > 0 ? (
         <div className="flex flex-wrap gap-6 w-full">
-          {profilePortfolioImages.map((image) => (
-            <div key={image.publicId} className="relative w-28">
-              <picture>
-                <source srcset={image.url} type="image/avif" />
-                <source srcset={image.url} type="image/webp" />
-                <img
-                src={image.url}
-                alt="portfolio image"
-                className="w-full h-full object-cover"
-              />
-              </picture>
+          {profilePortfolioVideos.map((video) => (
+            <div key={video.publicId} className="relative lg:w-1/3">
+              <video aria-label="portfolio video" controls>
+                <source src={video.url} type="video/mp4" />
+                <source src={video.url} type="video/mpeg" />
+                <source src={video.url} type="video/quicktime" />
+                <source src={video.url} type="video/x-msvideo" />
+                Your browser does not support the video tag.
+              </video>
               <button
                 aria-label="delete image"
-                onClick={() => handleDeleteMedia(image.publicId)}
+                onClick={() => handleDeleteMedia(video.publicId)}
                 className="absolute top-[-0.5rem] right-[-0.5rem] p-1 hover:border-2 hover:border-red hover:rounded-full"
               >
                 <img src={DeleteIcon} alt="" />
@@ -43,7 +43,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
           ))}
         </div>
       ) : (
-        <p>Here you can add some images or drawings</p>
+        <p>Here you can add some video</p>
       )}
       {showFileInput && (
         <>
@@ -53,7 +53,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
             multiple={true}
           />
           <p class="text-sm text-grey" aria-label="file input help">
-            AVIF, PNG, JPG or WEBP (MAX. 8MB).
+            MP4, MPEG, QUICKTIME or X-MSVIDEO (MAX. 10MB).
           </p>
         </>
       )}
@@ -68,4 +68,4 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
   );
 };
 
-export default ImagePortfolio;
+export default VideoPortfolio;

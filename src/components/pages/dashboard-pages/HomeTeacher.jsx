@@ -1,6 +1,6 @@
 import ImagePortfolio from '../../portfolio/ImagePortfolio';
 import ScrollToTop from '../../layouts/ScrollToTop';
-
+import VideoPortfolio from '../../portfolio/VideoPortfolio';
 const HomeTeacher = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
@@ -11,7 +11,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
     subjectArea,
     profileImageUrl,
     profilePortfolioImages,
-    // profilePortfolioVideos
+    profilePortfolioVideos
   } = profile;
 
   return (
@@ -66,15 +66,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
           </button>
         </div>
         <ImagePortfolio profilePortfolioImages={profilePortfolioImages}/>
-        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4">
-          <h2 className="font-spartan font-semibold text-2xl py-2">
-            Video Portfolio
-          </h2>
-          {/* <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p> */}
-          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
-            Add More
-          </button>
-        </div>
+        <VideoPortfolio profilePortfolioVideos={profilePortfolioVideos}/>
       </div>
       <ScrollToTop/>
     </div>

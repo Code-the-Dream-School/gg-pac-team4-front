@@ -39,7 +39,7 @@ const useMediaUploader = (mediaType) => {
         userData.token,
         postedForm,
         mediaType
-      );
+      ); console.log(result)
       if (result.status === 200) {
         const uploadedFileURL = await getUserData(userData._id, userData.token);
         console.log('up', uploadedFileURL);
