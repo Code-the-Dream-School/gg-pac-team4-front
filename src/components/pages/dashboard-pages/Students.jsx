@@ -7,6 +7,7 @@ import {
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { calculateAge } from '../../../util/NotificationsUtils';
+import {formatDateWithWeekday} from '../../../util/NotificationsUtils'
 
 const TeacherStudents = () => {
   const navigate = useNavigate();
@@ -59,15 +60,14 @@ const TeacherStudents = () => {
         const allStudentLessons = response.data.lessons;
         // Group lessons by classId
         const groupedLessons = allStudentLessons.reduce((acc, lesson) => {
-          const { classId, lessonTitle } = lesson;
+          const { classId } = lesson;
           if (!acc[classId]) {
             acc[classId] = [];
           }
-          acc[classId].push(lessonTitle);
+          acc[classId].push(lesson);
           return acc;
         }, {});
         setStudentLessons(groupedLessons);
-        console.log(groupedLessons);
       } catch (error) {
         console.error('Error fetching lessons data:', error);
       }
@@ -109,21 +109,6 @@ const TeacherStudents = () => {
       );
     }
   );
-
-  const lessonsList = Object.keys(studentLessons).map((classId) => (
-    <div key={classId} className="mb-4">
-      <h3 className="text-xl font-spartan font-semibold mb-2">
-        {classId}
-      </h3>
-      <ul className="list-disc pl-5">
-        {studentLessons[classId].map((lessonTitle, index) => (
-          <li key={index} className="text-lg font-spartan">
-            {lessonTitle}
-          </li>
-        ))}
-      </ul>
-    </div>
-  ));
 
   return (
     <>
@@ -188,10 +173,53 @@ const TeacherStudents = () => {
                       </div>
                     </div>
                     <div className="mt-6 w-full">
-                      <h2 className="text-xl font-spartan font-semibold">
-                        Classes & Lessons
+                      <h2 className="text-2xl font-spartan font-semibold ml-4">
+                        Classes & Lessons:
                       </h2>
-                      {lessonsList}
+                      <div className="p-4">
+                        {Object.keys(studentLessons).map((classId) => (
+                          <div key={classId} className="mb-8">
+                            <h2 className="text-lg font-bold mb-4">
+                              {classId}
+                            </h2>
+                            <div className="overflow-x-auto">
+                              <div className="min-w-full">
+                                <div className="flex bg-lightGreen text-lg font-medium">
+                                  <div className="flex-1 p-2 text-center">
+                                    Lesson title
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
+                                    Date
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
+                                    Start time
+                                  </div>
+                                </div>
+                                {studentLessons[classId].map((lesson) => (
+                                  <div
+                                    key={lesson._id}
+                                    className="flex flex-col lg:flex-row bg-white"
+                                  >
+                                    <div className="flex-1 p-2 text-center">
+                                      {lesson.lessonTitle}
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
+                                      <div>
+                                        {formatDateWithWeekday(
+                                          lesson.lessonSchedule.date
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
+                                      {lesson.lessonSchedule.startTime}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
