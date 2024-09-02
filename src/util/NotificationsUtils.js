@@ -28,13 +28,24 @@ export const sortClassesByEarliestApplicationDate = (classes) => {
 
 export const formatDateWithWeekday = (dateString) => {
   const date = new Date(dateString);
-  const options = {
-    weekday: 'long',
+  const optionsWithoutWeekday = {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
-  return date.toLocaleDateString('en-US', options);
+
+  const optionsWeekday = {
+    weekday: 'long',
+  };
+
+  const dateWithoutWeekday = date.toLocaleDateString(
+    'en-US',
+    optionsWithoutWeekday
+  );
+
+  const weekday = date.toLocaleDateString('en-US', optionsWeekday);
+
+  return `${dateWithoutWeekday}; ${weekday}`;
 };
 
 export const formatDateWithoutWeekday = (dateString) => {

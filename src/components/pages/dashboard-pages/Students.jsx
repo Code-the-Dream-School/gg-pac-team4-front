@@ -111,6 +111,14 @@ const TeacherStudents = () => {
     }
   }, [selectedId, students]);
 
+  const handleEdit = async (lessonId) => {
+    console.log(lessonId)
+  }
+
+  const handleDelete = async (lessonId) => {
+    console.log(lessonId)
+  }
+
   const studentsList = students.map(
     ({ _id, profileImageUrl, firstName, lastName }) => {
       const active = _id === selectedId;
@@ -210,18 +218,17 @@ const TeacherStudents = () => {
                         )}
                       </div>
                       <div className="lg:w-1/4 ml-auto">
-                      <div >
-                        <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in">
-                          Send message
-                        </button>
+                        <div>
+                          <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in">
+                            Send message
+                          </button>
+                        </div>
+                        <div className="mt-8">
+                          <button className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red">
+                            Add a new lesson
+                          </button>
+                        </div>
                       </div>
-                      <div className="mt-8">
-                        <button className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red">
-                          Add a new lesson
-                        </button>
-                      </div>
-                      </div>
-                      
                     </div>
                     <div className="mt-6 w-full">
                       <h2 className="text-2xl font-spartan font-semibold ml-4">
@@ -239,15 +246,26 @@ const TeacherStudents = () => {
                             </h2>
                             <div className="overflow-x-auto">
                               <div className="min-w-full">
-                                <div className="flex bg-lightGreen text-lg font-medium">
+                                <div className="flex bg-lightGreen text-lg border-t font-medium rounded-t-lg p-2">
                                   <div className="flex-1 p-2 text-center">
                                     Lesson title
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
+                                    Description
                                   </div>
                                   <div className="flex-1 p-2 text-center">
                                     Date
                                   </div>
                                   <div className="flex-1 p-2 text-center">
                                     Start time
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
+                                    Type
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
+                                    Additional info
+                                  </div>
+                                  <div className="flex-1 p-2 text-center">
                                   </div>
                                 </div>
                                 {studentLessons[classId].map((lesson) => (
@@ -259,6 +277,9 @@ const TeacherStudents = () => {
                                       {lesson.lessonTitle}
                                     </div>
                                     <div className="flex-1 p-2 text-center">
+                                      {lesson.lessonDescription}
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
                                       <div>
                                         {formatDateWithWeekday(
                                           lesson.lessonSchedule.date
@@ -267,6 +288,24 @@ const TeacherStudents = () => {
                                     </div>
                                     <div className="flex-1 p-2 text-center">
                                       {lesson.lessonSchedule.startTime}
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
+                                      {lesson.type}
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
+                                      {lesson.hometask}
+                                    </div>
+                                    <div className="flex-1 p-2 text-center">
+                                      <button
+                                        onClick={() => handleEdit(lesson._id)}
+                                        className="ml-1 w-2/3 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                                        Edit
+                                      </button>
+                                      <button
+                                        onClick={() => handleDelete(lesson._id)}
+                                        className="ml-1 mt-3 w-2/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                                        Delete
+                                      </button>
                                     </div>
                                   </div>
                                 ))}
