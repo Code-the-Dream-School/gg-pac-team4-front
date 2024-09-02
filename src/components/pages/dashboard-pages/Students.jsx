@@ -6,8 +6,11 @@ import {
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import { calculateAge } from '../../../util/NotificationsUtils';
-import {formatDateWithWeekday} from '../../../util/NotificationsUtils'
+import {
+  calculateAge,
+  formatDateWithoutWeekday,
+} from '../../../util/NotificationsUtils';
+import { formatDateWithWeekday } from '../../../util/NotificationsUtils';
 
 const TeacherStudents = () => {
   const navigate = useNavigate();
@@ -150,21 +153,37 @@ const TeacherStudents = () => {
                     <div className="mt-10 flex flex-col lg:flex-row w-full gap-4 lg:gap-8 p-4">
                       <img
                         src={selectedStudent.profileImageUrl}
-                        className="w-20 h-20 rounded-full object-cover"
+                        className="w-24 h-24 rounded-full object-cover"
                         alt="student image large"
                       />
                       <div className="flex flex-col justify-between">
                         <p className="font-semibold text-2xl font-spartan">
-                          {selectedStudent.firstName} {selectedStudent.lastName}
-                        </p>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm sm:text-base py-1">
-                            {selectedStudent
+                          {selectedStudent.firstName} {selectedStudent.lastName}, {selectedStudent
                               ? calculateAge(selectedStudent.dateOfBirth) +
                                 ' y.o.'
                               : 'Not available'}
+                          
+                        </p>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm sm:text-base py-1">
+                            Email: {selectedStudent.email}
                           </p>
                         </div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm sm:text-base py-1">
+                            Date of Birth:{' '}
+                            {formatDateWithoutWeekday(
+                              selectedStudent.dateOfBirth
+                            )}
+                          </p>
+                        </div>
+                        {selectedStudent.adultName && (
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm sm:text-base py-1">
+                              Parent: {selectedStudent.adultName}
+                            </p>
+                          </div>
+                        )}
                       </div>
                       <div className="lg:w-1/4 ml-auto">
                         <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in">
