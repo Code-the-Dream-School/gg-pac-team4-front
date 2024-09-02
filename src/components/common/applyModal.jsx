@@ -41,7 +41,7 @@ const ApplyModal = ({
                 onClick={() => handleTimeClick(item._id)}
                 className={`block w-full text-left p-2 mb-2 rounded-lg ${
                   selectedTimeId === item._id
-                    ? 'bg-darkGreen text-white hover:bg-green-600'
+                    ? 'bg-darkGreen text-white hover:darkGreen'
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >

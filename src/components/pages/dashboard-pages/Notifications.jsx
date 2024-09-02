@@ -152,7 +152,10 @@ const Notifications = ({ socket }) => {
 
   return (
     <div className="container mt-10">
-      {classesError && <p className="text-red-500">{classesError.message}</p>}
+      <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">
+        New applications:
+      </h1>
+      {classesError && <p className="text-red">{classesError.message}</p>}
       <div className="flex flex-col gap-6 mt-10 m-5 md:m-10">
         {classes.length > 0 ? (
           classes.map((classInfo) => (
