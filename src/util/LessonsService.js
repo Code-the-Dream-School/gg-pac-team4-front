@@ -1,4 +1,8 @@
-import { getAllStudentLessons, getClassesData, getUserData } from './DataBaseRequests';
+import {
+  getAllStudentLessons,
+  getClassesData,
+  getUserData,
+} from './DataBaseRequests';
 import { useEffect, useState } from 'react';
 
 import { useAuth } from '../AuthProvider';
@@ -17,7 +21,7 @@ const useLessonsData = () => {
   const [nextTwoLessons, setNextTwoLessons] = useState([]);
   const { userData } = useAuth();
   const today = new Date();
-  
+
   useEffect(() => {
     const fetchClassesAndLessons = async () => {
       try {
@@ -33,9 +37,12 @@ const useLessonsData = () => {
         );
         if (filteredData.length > 0) {
           const selectedId = filteredData[0]._id;
-          const response = await getAllStudentLessons(userData.token, userData._id);
+          const response = await getAllStudentLessons(
+            userData.token,
+            userData._id
+          );
           const allLessons = response.data.lessons;
-          
+
           setStudentClasses(filteredData);
           setSelectedId(selectedId);
           setStudentLessons(allLessons);
@@ -53,7 +60,8 @@ const useLessonsData = () => {
       } catch (error) {
         console.error('Error fetching classes data:', error);
         setLessonsError({
-          fetchError: 'Failed to fetch your classes and lessons. Please try again later.',
+          fetchError:
+            'Failed to fetch your classes and lessons. Please try again later.',
         });
         setIsLoading(false);
       }
@@ -62,10 +70,12 @@ const useLessonsData = () => {
   }, [userData]);
 
   const groupLessonsByClassId = (classId, lessons) => {
-    const filteredLessons = lessons.filter((lesson) => lesson.classId === classId);
+    const filteredLessons = lessons.filter(
+      (lesson) => lesson.classId === classId
+    );
     if (filteredLessons.length === 0) {
       setGroupedLessons(null);
-      setLessonsError({ noLessons: "No lessons for this class." });
+      setLessonsError({ noLessons: 'No lessons for this class.' });
       return;
     }
     const grouped = {
@@ -82,9 +92,13 @@ const useLessonsData = () => {
       })),
     };
     setGroupedLessons(grouped);
-    
-    const previous = grouped.schedule.filter(lesson => new Date(lesson.date) < today);
-    const upcoming = grouped.schedule.filter(lesson => new Date(lesson.date) >= today);
+
+    const previous = grouped.schedule.filter(
+      (lesson) => new Date(lesson.date) < today
+    );
+    const upcoming = grouped.schedule.filter(
+      (lesson) => new Date(lesson.date) >= today
+    );
     setPreviousLessons(previous);
     setUpcomingLessons(upcoming);
   };
@@ -92,19 +106,21 @@ const useLessonsData = () => {
   const handleNextLessons = async (lessons, classes) => {
     try {
       const nextLessons = lessons
-        .map(lesson => ({
+        .map((lesson) => ({
           ...lesson,
           lessonSchedule: {
             ...lesson.lessonSchedule,
             date: new Date(lesson.lessonSchedule.date),
           },
         }))
-        .filter(lesson => lesson.lessonSchedule.date >= today)
+        .filter((lesson) => lesson.lessonSchedule.date >= today)
         .sort((a, b) => a.lessonSchedule.date - b.lessonSchedule.date)
         .slice(0, 2);
 
-      const nextLessonsWithDurationTitle = nextLessons.map(lesson => {
-        const classData = classes.find(studentClass => studentClass._id === lesson.classId);
+      const nextLessonsWithDurationTitle = nextLessons.map((lesson) => {
+        const classData = classes.find(
+          (studentClass) => studentClass._id === lesson.classId
+        );
         return {
           ...lesson,
           duration: classData ? classData.duration : 'N/A',
@@ -112,32 +128,38 @@ const useLessonsData = () => {
         };
       });
 
-      const nextLessonsWithTeachers = await Promise.all(nextLessonsWithDurationTitle.map(async (lesson) => {
-        const response = await getUserData(lesson.createdBy, userData.token);
-        return {
-          ...lesson,
-          teacherFirstName: response.data.firstName,
-          teacherLastName: response.data.lastName,
-          teacherPhoto: response.data.profileImageUrl,
-          teacherCategory: response.data.subjectArea,
-        };
-      }));
+      const nextLessonsWithTeachers = await Promise.all(
+        nextLessonsWithDurationTitle.map(async (lesson) => {
+          const response = await getUserData(lesson.createdBy, userData.token);
+          return {
+            ...lesson,
+            teacherFirstName: response.data.firstName,
+            teacherLastName: response.data.lastName,
+            teacherPhoto: response.data.profileImageUrl,
+            teacherCategory: response.data.subjectArea,
+          };
+        })
+      );
 
       setNextTwoLessons(nextLessonsWithTeachers);
     } catch (error) {
       console.error('Error fetching teacher data:', error);
-      setLessonsError({ teacherDataError: 'Failed to load lesson data, please try again later.' });
+      setLessonsError({
+        teacherDataError: 'Failed to load lesson data, please try again later.',
+      });
     }
   };
 
   useEffect(() => {
     if (selectedId) {
-      const initialClass = studentClasses.find((studentClass) => studentClass._id === selectedId);
+      const initialClass = studentClasses.find(
+        (studentClass) => studentClass._id === selectedId
+      );
       setSelectedClass(initialClass ? [initialClass] : []);
       groupLessonsByClassId(selectedId, studentLessons);
     }
   }, [selectedId, studentClasses, studentLessons]);
-  
+
   useEffect(() => {
     if (selectedClass.length > 0) {
       const getTeacherData = async () => {
@@ -149,7 +171,10 @@ const useLessonsData = () => {
           setTeacherData(response.data);
         } catch (error) {
           console.error('Error fetching teacher data:', error);
-          setLessonsError({ teacherDataError: 'Failed to load lesson data, please try again later.' });
+          setLessonsError({
+            teacherDataError:
+              'Failed to load lesson data, please try again later.',
+          });
         }
       };
       getTeacherData();
