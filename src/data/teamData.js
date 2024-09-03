@@ -3,7 +3,7 @@ import JoannesImg from '../assets/team/Joannes-Figueroa.jpg';
 import AnnaImg from '../assets/team/Anna-Pestova.jpg';
 import OksanaImg from '../assets/team/Oksana-Feterovskaya.jpg';
 import MariyaImg from '../assets/team/Mariya-Doronkina.jpg';
-import ValentinaImg from '../assets/team/Valentina-Rudnitskaya.png';
+import ValentinaImg from '../assets/team/Valentina-Rudnitskaya.jpg';
 import TetianaImg from '../assets/team/Tetiana-Andriyanova.jpg';
 import ElenaImg from '../assets/team/Elena-Bychenkova.jpg';
 
