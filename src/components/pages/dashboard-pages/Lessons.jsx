@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
+import LessonsTable from '../../lessons/LessonsTable';
 import Loader from '../../common/Loader';
 import ScrollToTop from '../../layouts/ScrollToTop';
 import useLessonsData from '../../../util/LessonsService';
@@ -43,79 +44,6 @@ const Lessons = () => {
       );
     }
   );
-
-  const renderLessons = (lessonList, title) => {
-    return (
-      <div className="w-full">
-        <h2 className="font-medium text-lg lg:text-xl px-6">{title}</h2>
-        <div className="overflow-x-auto mt-2 rounded">
-          <div className="min-w-full bg-white">
-            {/* header */}
-            <div className="hidden lg:flex bg-lightGreen text-lg font-medium">
-              <div className="p-2 flex-1 text-center">Lesson title</div>
-              <div className="p-2 flex-1 text-center">Description</div>
-              <div className="p-2 flex-1 text-center">Date</div>
-              <div className="p-2 flex-1 text-center">Start time</div>
-              <div className="p-2 flex-1 text-center">Hometask</div>
-              <div className="p-2 flex-1 text-center">Lesson files</div>
-            </div>
-            {/* rows */}
-            <div>
-              {lessonList.map((lesson) => (
-                <div
-                  key={lesson.lessonTitle}
-                  className="lg:flex text-xs md:text-sm text-center hover:bg-gray-50"
-                >
-                  {/* small screens */}
-                  <div className="lg:hidden flex flex-col border-t border-lightGreen g-2">
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Lesson title:</div>
-                      <div>{lesson.lessonTitle}</div>
-                    </div>
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Description:</div>
-                      <div>{lesson.lessonDescription}</div>
-                    </div>
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Date:</div>
-                      <div>{new Date(lesson.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}</div>
-                    </div>
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Start time:</div>
-                      <div>{lesson.startTime}</div>
-                    </div>
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Hometask:</div>
-                      <div>{lesson.hometask || 'None'}</div>
-                    </div>
-                    <div className="flex justify-between p-2">
-                      <div className="font-medium">Lesson files:</div>
-                      <div>{lesson.lessonFiles || 'No files'}</div>
-                    </div>
-                  </div>
-                  {/* large screens */}
-                  <div className="hidden lg:flex flex-1 border-t border-lightGreen">
-                    <div className="p-2 flex-1">{lesson.lessonTitle}</div>
-                    <div className="p-2 flex-1">{lesson.lessonDescription}</div>
-                    <div className="p-2 flex-1">
-                      {new Date(lesson.date).toLocaleDateString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric' })}
-                    </div>
-                    <div className="p-2 flex-1">{lesson.startTime}</div>
-                    <div className="p-2 flex-1">
-                      {lesson.hometask || 'None'}
-                    </div>
-                    <div className="p-2 flex-1">
-                      {lesson.lessonFiles || 'No files'}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   if (isLoading) return <Loader />;
   
@@ -167,15 +95,10 @@ const Lessons = () => {
             <div className="self-start w-full">
               <p className="lg:text-lg px-6">{selectedClass[0].description}</p>
             </div>
-
-            {/* <div className='self-start'>
-              <h3 className="font-medium text-xl self-start px-6">Homework and other study materials</h3>
-            </div> */}
-
-            {groupedLessons.schedule.length > 0 ? (
+            {groupedLessons ? (
               <>
                 {upcomingLessons.length > 0 ? (
-                  renderLessons(upcomingLessons, 'Upcoming Lessons')
+                  <LessonsTable lessonList={upcomingLessons} title={'Upcoming Lessons'}/>
                 ) : (
                   <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
                     <h2 className="font-medium text-lg lg:text-xl px-6">
@@ -184,9 +107,8 @@ const Lessons = () => {
                     <p className="ml-6 mt-2">No upcoming lessons</p>
                   </div>
                 )}
-
                 {previousLessons.length > 0 ? (
-                  renderLessons(previousLessons, 'Previous lessons')
+                  <LessonsTable lessonList={previousLessons} title={'Previous lessons'}/>
                 ) : (
                   <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
                     <h2 className="font-medium text-lg lg:text-xl px-6">
@@ -199,7 +121,7 @@ const Lessons = () => {
             ) : (
               <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
                 <p className="ml-6 mt-2 underline">
-                  No available time for this lesson
+                  No lessons for this class
                 </p>
               </div>
             )}
