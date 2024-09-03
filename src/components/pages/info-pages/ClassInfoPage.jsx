@@ -9,6 +9,9 @@ import LessonTypeIcon from '../../../assets/icons/icon-lesson.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconTypeLesson from '../../../assets/icons/icon-type.png';
 import TeacherInfo from './TeacherInfo';
+import { bookLesson } from '../../../util/DataBaseRequests';
+import SuccessModal from '../../common/successModal';
+import ApplyModal from '../../common/applyModal';
 
 const ClassInfoPage = () => {
   const { userData } = useAuth();
@@ -17,6 +20,9 @@ const ClassInfoPage = () => {
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTimeId, setSelectedTimeId] = useState(null);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   useEffect(() => {
     if (userData) {
@@ -47,8 +53,38 @@ const ClassInfoPage = () => {
     }
   }, [classId, userData]);
 
+  const handleTimeSelection = (selectedId) => {
+    setSelectedTimeId(selectedId);
+    setError(null);
+  };
+  const handleBookLesson = async () => {
+    try {
+      if (selectedTimeId) {
+        await bookLesson(userData.token, classId, selectedTimeId);
+        setError(null);
+        closeModal(false); //close apply modal
+        setIsSuccessModalOpen(true); // Open success modal
+      } else {
+        setError('Please select a time slot.');
+      }
+    } catch (error) {
+      setError(error.message || 'Error booking lesson.');
+    }
+  };
+
+  const closeModal = () => {
+    setError(null);
+    setIsModalOpen(false);
+    setSelectedTimeId(null); // Reset the selected time ID
+  };
+
+  const closeSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+    window.location.reload(); // Reloads the page
+  };
+
   if (isLoading) return <Loader />;
-  if (error) return <p>Error: {error}</p>;
+  // if (error) return <p>Error: {error}</p>;
   if (!classItem) return <p>Class not found.</p>;
 
   return (
@@ -116,9 +152,26 @@ const ClassInfoPage = () => {
               </div>
 
               <div className="flex justify-center mt-4">
-                <button className="bg-red hover:bg-pureWhite hover:text-red px-20 lg:px-4 xl:px-20 mt-4 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-red hover:bg-pureWhite hover:text-red px-12 mr-45 py-2 mt-4 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in"
+                >
                   Book lesson
                 </button>
+                <ApplyModal
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                  applicationInfo={classItem.availableTime}
+                  onTimeSelect={handleTimeSelection}
+                  onBookLesson={handleBookLesson}
+                  error={error}
+                  selectedTimeId={selectedTimeId}
+                  setSelectedTimeId={setSelectedTimeId}
+                />
+                <SuccessModal
+                  isOpen={isSuccessModalOpen}
+                  onRequestClose={closeSuccessModal}
+                />
               </div>
             </div>
           </div>

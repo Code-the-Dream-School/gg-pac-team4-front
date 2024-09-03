@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from './AuthProvider';
-import NotificationModal from '../src/components/common/notificationModal';
+import NotificationModal from './components/common/NotificationModal';
 
 const SocketContext = createContext();
 
@@ -12,7 +12,6 @@ const setupSocketListeners = (
   setIsModalOpen
 ) => {
   const handleNotification = (data) => {
-    console.log('Received notification:', data.content);
     setNotificationMessage(data.content);
     setIsModalOpen(true);
   };
@@ -22,7 +21,7 @@ const setupSocketListeners = (
   socketIo.on(`rejectMessage-${userId}`, handleNotification);
 
   socketIo.on('disconnect', () => {
-    console.log('Disconnected');
+    console.info('Disconnected');
   });
 };
 
@@ -45,7 +44,7 @@ export const SocketProvider = ({ children }) => {
     });
 
     socketIo.on('connect', () => {
-      console.log('Connected with socket ID:', socketIo.id);
+      console.info('Connected with socket ID:', socketIo.id);
     });
 
     setupSocketListeners(
