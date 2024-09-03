@@ -1,6 +1,8 @@
 import ImagePortfolio from '../../portfolio/ImagePortfolio';
 import ScrollToTop from '../../layouts/ScrollToTop';
 import VideoPortfolio from '../../portfolio/VideoPortfolio';
+import WelcomeVideo from '../../portfolio/WelcomeVideo';
+
 const HomeTeacher = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
@@ -60,11 +62,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
         </div>
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 self-center sm:self-start mt-4">
-        <div className="h-2/5 flex items-center justify-center bg-pureWhite p-4">
-          <button className="bg-pureWhite w-9/12 md:w-4/12 py-1 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
-            Add Welcome Video
-          </button>
-        </div>
+        <WelcomeVideo/>
         <ImagePortfolio profilePortfolioImages={profilePortfolioImages}/>
         <VideoPortfolio profilePortfolioVideos={profilePortfolioVideos}/>
       </div>

@@ -2,6 +2,7 @@ import DeleteIcon from '../../assets/icons/delete.png';
 import FormUploadPortfolio from './FormUploadPortfolio';
 import Loader from '../common/Loader';
 import useMediaUploader from '../../util/PortfolioUploadMediaService';
+import { useState } from 'react';
 
 const ImagePortfolio = ({ profilePortfolioImages }) => {
   const {
@@ -13,6 +14,16 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
     error,
     isLoading,
   } = useMediaUploader('Images');
+
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
   
   if (isLoading) return <Loader />;
 
@@ -24,12 +35,13 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
           {profilePortfolioImages.map((image) => (
             <div key={image.publicId} className="relative w-28">
               <picture>
-                <source srcset={image.url} type="image/avif" />
-                <source srcset={image.url} type="image/webp" />
+                <source srcSet={image.url} type="image/avif" />
+                <source srcSet={image.url} type="image/webp" />
                 <img
                 src={image.url}
                 alt="portfolio image"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-300 ease-in-out hover:scale-110 cursor-pointer"
+                onClick={() => handleImageClick(image.url)}
               />
               </picture>
               <button
@@ -63,7 +75,20 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
       >
         {showFileInput ? 'Cancel' : 'Add More'}
       </button>
-      {error.message && <p>{error.message}</p>}
+      {error.message && <p className='text-red font-bold'>{error.message}</p>}
+
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-lightGreen bg-opacity-75 flex justify-center items-center z-50"
+          onClick={handleCloseModal}
+        >
+          <img
+            src={selectedImage}
+            alt="enlarged portfolio image"
+            className="h-3/4"
+          />
+        </div>
+      )}
     </div>
   );
 };

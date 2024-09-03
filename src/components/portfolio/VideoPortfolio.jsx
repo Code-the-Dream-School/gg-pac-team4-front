@@ -22,9 +22,9 @@ const VideoPortfolio = ({ profilePortfolioVideos }) => {
         Video Portfolio
       </h2>
       {profilePortfolioVideos.length > 0 ? (
-        <div className="flex flex-wrap gap-6 w-full">
+        <div className="flex flex-wrap gap-6 w-full justify-evenly">
           {profilePortfolioVideos.map((video) => (
-            <div key={video.publicId} className="relative lg:w-1/3">
+            <div key={video.publicId} className="relative lg:w-2/5">
               <video aria-label="portfolio video" controls>
                 <source src={video.url} type="video/mp4" />
                 <source src={video.url} type="video/mpeg" />
@@ -63,7 +63,7 @@ const VideoPortfolio = ({ profilePortfolioVideos }) => {
       >
         {showFileInput ? 'Cancel' : 'Add More'}
       </button>
-      {error.message && <p>{error.message}</p>}
+      {error.message && <p className='text-red font-bold'>{error.message}</p>}
     </div>
   );
 };
