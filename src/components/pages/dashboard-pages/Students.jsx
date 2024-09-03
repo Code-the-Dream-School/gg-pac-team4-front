@@ -18,7 +18,6 @@ const TeacherStudents = () => {
   const { userData } = useAuth();
   const [students, setStudents] = useState([]);
   const [selectedId, setSelectedId] = useState();
-  const [selectedStudent, setSelectedStudent] = useState();
   const [studentsError, setStudentsError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [studentLessons, setStudentLessons] = useState([]);
@@ -113,14 +112,9 @@ const TeacherStudents = () => {
     getLessonsInfo();
   }, [selectedId]);
 
-  useEffect(() => {
-    if (selectedId && students.length) {
-      const initialStudent = students.find(
-        (student) => student._id === selectedId
-      );
-      setSelectedStudent(initialStudent);
-    }
-  }, [selectedId, students]);
+  const selectedStudent = selectedId
+    ? students.find((student) => student._id === selectedId)
+    : null;
 
   const handleEdit = async (lessonId) => {
     console.log(lessonId);
