@@ -1,14 +1,22 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../AuthProvider';
 import AgeIcon from '../../assets/icons/icon-age.svg';
 import LessonTypeIcon from '../../assets/icons/icon-lesson.svg';
 import ScheduleIcon from '../../assets/icons/icons-schedule.svg';
 
 const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate('/login');
+  const { isLoggedIn } = useAuth();
+
+  const handleClick = (classId) => {
+    if (isLoggedIn) {
+      navigate(`/class-info/${classId}`);
+    } else {
+      navigate('/login', { state: { from: `/class-info/${classId}` } });
+    }
   };
+
   return (
     <div className="container m-auto ">
       {classes.length > 0 ? (
@@ -18,7 +26,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
               <div
                 key={classItem._id}
                 className="flex flex-col lg:flex-row  border  rounded-lg  border-gray p-0  py-5 lg:p-5 hover:shadow-lg cursor-pointer "
-                onClick={() => handleClick()}
+                onClick={() => handleClick(classItem._id)}
               >
                 <div className="flex  flex-col md:flex-row lg:flex-row md:w-full lg:w-[80%] xl:w-[85%] pb-4">
                   <div className="flex w-full md:w-[30%] justify-center items-center rounded-lg">
@@ -40,7 +48,7 @@ const SearchResults = ({ classes, currentPage, totalPages, onPageChange }) => {
 
                 <div className="flex flex-row lg:flex-col  justify-around text-black px-4 py-4 md:py-4 border-t border-gray lg:border-none">
                   <div className="flex flex-col  gap-4  text-black">
-                    <p className="flex text-3xl font-medium items-center justify-center">
+                    <p className="flex text-2xl md:text-3xl font-medium items-center justify-center">
                       ${classItem.price}
                     </p>
                     <p className="text-xl flex  justify-center items-center">

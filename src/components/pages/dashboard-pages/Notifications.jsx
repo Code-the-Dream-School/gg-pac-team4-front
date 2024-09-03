@@ -9,8 +9,8 @@ import {
   sortClassesByEarliestApplicationDate,
   formatDateWithWeekday,
   formatDateWithoutWeekday,
-  calculateAge
-} from '../../../util/NotificationsUtils'
+  calculateAge,
+} from '../../../util/NotificationsUtils';
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();

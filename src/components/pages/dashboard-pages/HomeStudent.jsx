@@ -81,19 +81,19 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
         ) : null}
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-2 mt-4 self-center sm:self-start h-full">
-          <h2 className="font-spartan font-semibold text-2xl p-4">
-            Your upcoming lessons
-          </h2>
-          <NextLessons nextTwoLessons={nextTwoLessons}/>
-          {myLessons.length > 0 ? (
-            <Link className="p-4 underline" to="/dashboard/lessons">
-              See more lessons
-            </Link>
-          ) : (
-            <Link className="p-4 underline" to="/search">
-              Search classes or teachers
-            </Link>
-          )}
+        <h2 className="font-spartan font-semibold text-2xl p-4">
+          Your upcoming lessons
+        </h2>
+        <NextLessons nextTwoLessons={nextTwoLessons} />
+        {myLessons.length > 0 ? (
+          <Link className="p-4 underline" to="/dashboard/lessons">
+            See more lessons
+          </Link>
+        ) : (
+          <Link className="p-4 underline" to="/search">
+            Search classes or teachers
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => {
-    const scrollYInVh = window.scrollY / window.innerHeight * 100;
+    const scrollYInVh = (window.scrollY / window.innerHeight) * 100;
     if (scrollYInVh > 15) {
       setIsVisible(true);
     } else {
@@ -34,7 +34,7 @@ const ScrollToTop = () => {
         <button
           className="fixed bottom-20 right-9 bg-darkGreen rounded-full w-12 h-12 flex items-center justify-center shadow-lg hover:bg-lightGreen"
           onClick={scrollToTop}
-          aria-label='Scroll to top'
+          aria-label="Scroll to top"
         >
           <img src={ArrowUp} alt="Arrow Up" />
         </button>
