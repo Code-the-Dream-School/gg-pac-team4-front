@@ -183,7 +183,6 @@ export const uploadPortfolioMedia = async (id, token, formData, mediaType) => {
         },
       }
     );
-    console.log('resp',response);
     return response;
   } catch (error) {
     throw error.response;
@@ -207,7 +206,7 @@ export const deletePortfolioMedia = async (id, token, fileId, mediaType) => {
   }
 };
 
-export const addUpdateWelcomeVideo = async (id, token, formData) => {
+export const uploadWelcomeVideo = async (id, token, formData) => {
   try {
     const response = await axios.patch(
       `${API_BASE_URL}/users/${id}/video`,
@@ -235,7 +234,7 @@ export const deleteWelcomeVideo = async (id, token) => {
           Authorization: `Bearer ${token}`,
         },
       }
-    );console.log(response)
+    );
     return response;
   } catch (error) {
     throw error.response;

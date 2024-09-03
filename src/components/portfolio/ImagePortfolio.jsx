@@ -70,7 +70,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
         </>
       )}
       <button
-        className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4"
+        className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4 transition duration-300 easy-in"
         onClick={handleButtonClick}
       >
         {showFileInput ? 'Cancel' : 'Add More'}
