@@ -67,13 +67,36 @@ export const getUserData = async (id, token) => {
   }
 };
 
+export const getAllUsersInfo = async (token) => {
+  try {
+    const allUsers = [];
+    let currentPage = 1;
+    let totalPages = 1;
+
+    while (currentPage <= totalPages) {
+      const response = await axios.get(`${API_BASE_URL}/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { page: currentPage }, // Pass the page parameter to the API
+      });
+      // Add the results to the allUsers array
+      allUsers.push(...response.data.results);
+      totalPages = response.data.totalPages; // Update totalPages
+      currentPage += 1; // Move to the next page
+    }
+    return allUsers;
+  } catch (error) {
+    console.error('Error fetching users info:', error);
+    throw error.response ? error.response.data : error;
+  }
+};
+
 export const getClassesData = async (
   search = '',
   classTitle = '',
   description = '',
   category = '',
   page = 1,
-  limit = 50, //
+  limit = 50,
   sortBy = 'classTitle',
   sortOrder = 'asc'
 ) => {
@@ -181,5 +204,84 @@ export const addClassForm = async (token, formData) => {
     return response;
   } catch (error) {
     throw error.response;
+  }
+};
+
+export const getAllStudentLessons = async (token, studentId) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const bookLesson = async (token, classId, availableTimeId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/apply`,
+      { availableTimeId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const approveApplication = async (token, classId, applicationId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/approve/${applicationId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const rejectApplication = async (token, classId, applicationId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/classes/${classId}/reject/${applicationId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const deleteLesson = async (token, studentId, lessonId) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/${lessonId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
   }
 };
