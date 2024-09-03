@@ -261,7 +261,7 @@ const TeacherStudents = () => {
                             </h2>
                             <div className="overflow-x-auto">
                               <div className="min-w-full">
-                                <div className="flex bg-lightGreen text-lg border-t font-medium rounded-t-lg p-2">
+                                <div className="hidden lg:flex bg-lightGreen text-lg border-t font-medium rounded-t-lg p-2">
                                   <div className="flex-1 p-2 text-center">
                                     Lesson title
                                   </div>
