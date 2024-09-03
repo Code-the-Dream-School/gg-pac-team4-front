@@ -10,8 +10,8 @@ import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconTypeLesson from '../../../assets/icons/icon-type.png';
 import TeacherInfo from './TeacherInfo';
 import { bookLesson } from '../../../util/DataBaseRequests';
-import SuccessModal from '../../common/successModal';
-import ApplyModal from '../../common/applyModal';
+import SuccessModal from '../../common/SuccessModal';
+import ApplyModal from '../../common/ApplyModal';
 
 const ClassInfoPage = () => {
   const { userData } = useAuth();
