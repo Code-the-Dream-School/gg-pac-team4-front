@@ -23,8 +23,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
-import ClassInfoPage from './components/pages/info-pages/ClassInfoPage.jsx';
-
+import ClassInfoPage from './components/pages/info-pages/ClassInfoPage';
 const AppRoutes = ({ socket }) => {
   return (
     <BrowserRouter>
