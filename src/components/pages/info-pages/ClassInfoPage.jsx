@@ -3,9 +3,9 @@ import { getClassDetails, getUserData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useParams } from 'react-router-dom';
 import Loader from '../../common/Loader';
+import ScrollToTop from '../../layouts/ScrollToTop';
 import AgeIcon from '../../../assets/icons/icon-age.svg';
 import LessonTypeIcon from '../../../assets/icons/icon-lesson.svg';
-import ScheduleIcon from '../../../assets/icons/icons-schedule.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconTypeLesson from '../../../assets/icons/icon-type.png';
 import TeacherInfo from './TeacherInfo';
@@ -52,18 +52,18 @@ const ClassInfoPage = () => {
   if (!classItem) return <p>Class not found.</p>;
 
   return (
-    <div className="container m-auto w-10/12">
+    <div className="container m-auto w-10/12 mb-8">
       <div className="flex flex-col w-full text-black">
-        <div className="flex justify-between flex-col lg:flex-row">
+        <div className="flex justify-between flex-col lg:flex-row mt-4">
           <div className="flex flex-col w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
-            <div className="w-full m:w-[60%] font-roboto text-xl">
-              <h2 className="font-spartan font-medium text-4xl pb-8">
+            <div className="w-full  m:w-[60%] font-roboto text-xl">
+              <h2 className="font-spartan font-medium text-4xl mt-4 pb-8">
                 {classItem.classTitle}
               </h2>
               <p className="w-full md:w-[95%]">{classItem.description}</p>
             </div>
 
-            <div className="flex w-full lg:w-3/4 pl-0 md:pl-2">
+            <div className="flex w-full pl-0 lg:p-0 md:pl-2">
               <img
                 className="rounded-lg"
                 src={classItem.classImageUrl}
@@ -72,11 +72,11 @@ const ClassInfoPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col w-full lg:w-[15%] text-black   rounded-xl mt-4 mb-8 lg:m-4">
+          <div className="flex flex-col w-full lg:w-[20%] text-black   rounded-xl mt-4 mb-8">
             <div>
-              <div className="border-2 border-lightGreen rounded-lg flex flex-row flex-wrap justify-between lg:flex-col">
-                <div className="flex flex-col text-center items-center justify-center text-black p-4 mb-4 lg:bg-lightGreen">
-                  <p className="flex text-3xl items-center font-bold">
+              <div className="border-2 border-lightGreen rounded-lg flex flex-row flex-wrap justify-center md:justify-between  md:m-2 p-2 md:p-4 lg:p-0 gap-2 md:gap-0 lg:flex-col">
+                <div className="flex flex-col text-center items-center justify-center text-black p-0 lg:p-4 mb-0 lg:mb-4 lg:bg-lightGreen">
+                  <p className="flex text-2xl lg:text-3xl items-center font-bold">
                     ${classItem.price}
                   </p>
                   <p className="flex text-xl items-center font-semibold">
@@ -84,7 +84,7 @@ const ClassInfoPage = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center p-2">
+                <div className="flex items-center p-2 gap-2">
                   <img src={AgeIcon} alt="Icon age" className="w-6 h-6" />
                   <span>
                     Ages: {classItem.ages.minAge} - {classItem.ages.maxAge}
@@ -102,16 +102,8 @@ const ClassInfoPage = () => {
                   />
                   <span>{classItem.type}</span>
                 </div>
-                <div className="flex items-center p-2 gap-2 md:flex">
-                  <img
-                    src={ScheduleIcon}
-                    alt="Schedule Icon"
-                    className="w-6 h-6"
-                  />
-                  <span>On Request</span>
-                </div>
 
-                <div className="flex items-center p-2 gap-2">
+                <div className="flex justify-center lg:justify-start items-center p-2 gap-2">
                   <img
                     src={IconTypeLesson}
                     alt="Icon age"
@@ -122,7 +114,7 @@ const ClassInfoPage = () => {
               </div>
 
               <div className="flex justify-center mt-4">
-                <button className="bg-red hover:bg-pureWhite hover:text-red px-12 lg:px-4 xlg:px-12 mt-4 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
+                <button className="bg-red hover:bg-pureWhite hover:text-red px-20 lg:px-4 xl:px-20 mt-4 py-2 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-lg transition duration-300 ease-in">
                   Book lesson
                 </button>
               </div>
@@ -164,6 +156,7 @@ const ClassInfoPage = () => {
         )}
       </div>
       {teacherInfo && <TeacherInfo teacherInfo={teacherInfo} />}
+      <ScrollToTop />
     </div>
   );
 };
