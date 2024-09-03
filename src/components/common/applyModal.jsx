@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { formatDateWithoutWeekday } from '../../util/NotificationsUtils';
 
 const ApplyModal = ({
   isOpen,
@@ -45,7 +46,7 @@ const ApplyModal = ({
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
-                {`${new Date(item.date).toLocaleDateString()} ${item.startTime}`}
+                {formatDateWithoutWeekday(item.date)} {item.startTime}
               </button>
             ))}
           </div>

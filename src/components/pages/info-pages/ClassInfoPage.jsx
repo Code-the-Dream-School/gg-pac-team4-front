@@ -12,6 +12,7 @@ import TeacherInfo from './TeacherInfo';
 import { bookLesson } from '../../../util/DataBaseRequests';
 import SuccessModal from '../../common/SuccessModal';
 import ApplyModal from '../../common/ApplyModal';
+import { formatDateWithWeekday } from '../../../util/NotificationsUtils';
 
 const ClassInfoPage = () => {
   const { userData } = useAuth();
@@ -209,7 +210,7 @@ const ClassInfoPage = () => {
         {classItem.availableTime && classItem.availableTime.length > 0 ? (
           classItem.availableTime.map((timeSlot) => (
             <div key={timeSlot._id}>
-              <p>{`${new Date(timeSlot.date).toLocaleDateString()} ${timeSlot.startTime}`}</p>
+              <p>{formatDateWithWeekday(timeSlot.date)}</p>
             </div>
           ))
         ) : (
