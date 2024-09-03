@@ -1,3 +1,5 @@
+import { formatDateWithWeekday } from "../../util/NotificationsUtils";
+
 const LessonsTable = ({ lessonList, title }) => {
   return (
     <div className="w-full">
@@ -33,11 +35,7 @@ const LessonsTable = ({ lessonList, title }) => {
                   <div className="flex justify-between p-2">
                     <div className="font-medium">Date:</div>
                     <div>
-                      {new Date(lesson.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                      })}
+                      {formatDateWithWeekday(lesson.date)}
                     </div>
                   </div>
                   <div className="flex justify-between p-2">
@@ -58,11 +56,7 @@ const LessonsTable = ({ lessonList, title }) => {
                   <div className="p-2 flex-1">{lesson.lessonTitle}</div>
                   <div className="p-2 flex-1">{lesson.lessonDescription}</div>
                   <div className="p-2 flex-1">
-                    {new Date(lesson.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'numeric',
-                      day: 'numeric',
-                    })}
+                  {formatDateWithWeekday(lesson.date)}
                   </div>
                   <div className="p-2 flex-1">{lesson.startTime}</div>
                   <div className="p-2 flex-1">{lesson.hometask || 'None'}</div>
