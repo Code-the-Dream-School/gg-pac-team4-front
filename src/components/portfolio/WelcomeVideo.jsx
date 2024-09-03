@@ -9,7 +9,7 @@ import FormUploadPortfolio from './FormUploadPortfolio';
 import { useAuth } from '../../AuthProvider';
 import { useState } from 'react';
 
-const WelcomeVideo = () => {
+const WelcomeVideo = ({profileVideoUrl}) => {
   const [file, setFile] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const { userData, setUserData } = useAuth();
@@ -60,7 +60,6 @@ const WelcomeVideo = () => {
       if (result.status === 200) {
         const response = await getUserData(userData._id, userData.token);
         console.log('User data after delete:', response.data);
-        console,log(updatedUrl);
 
         setUserData((userData) => ({
           ...userData,
@@ -82,13 +81,13 @@ const WelcomeVideo = () => {
   return (
     <div className="h-2/5 flex flex-col items-center justify-center bg-pureWhite p-4">
       {error.message && <p className="text-red font-bold">{error.message}</p>}
-      {userData.profileVideoUrl ? (
+      {profileVideoUrl ? (
         <div className="relative lg:w-2/5">
           <video aria-label="portfolio video" controls>
-            <source src={userData.profileVideoUrl} type="video/mp4" />
-            <source src={userData.profileVideoUrl} type="video/mpeg" />
-            <source src={userData.profileVideoUrl} type="video/quicktime" />
-            <source src={userData.profileVideoUrl} type="video/x-msvideo" />
+            <source src={profileVideoUrl} type="video/mp4" />
+            <source src={profileVideoUrl} type="video/mpeg" />
+            <source src={profileVideoUrl} type="video/quicktime" />
+            <source src={profileVideoUrl} type="video/x-msvideo" />
             Your browser does not support the video tag.
           </video>
           <button

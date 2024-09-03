@@ -12,6 +12,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
     experience,
     subjectArea,
     profileImageUrl,
+    profileVideoUrl,
     profilePortfolioImages,
     profilePortfolioVideos
   } = profile;
@@ -62,7 +63,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
         </div>
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 self-center sm:self-start mt-4">
-        <WelcomeVideo/>
+        <WelcomeVideo profileVideoUrl={profileVideoUrl}/>
         <ImagePortfolio profilePortfolioImages={profilePortfolioImages}/>
         <VideoPortfolio profilePortfolioVideos={profilePortfolioVideos}/>
       </div>
