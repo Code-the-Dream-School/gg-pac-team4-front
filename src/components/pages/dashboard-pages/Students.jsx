@@ -23,6 +23,8 @@ const TeacherStudents = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [studentLessons, setStudentLessons] = useState([]);
   const [classTitles, setClassTitles] = useState([]);
+  const [classesError, setClassesError] = useState({});
+  const [lessonsError, setLessonsError] = useState({});
 
   useEffect(() => {
     setIsLoading(true);
@@ -69,8 +71,12 @@ const TeacherStudents = () => {
           id: classItem._id,
         }));
         setClassTitles(myClassesTitleAndId);
+        setClassesError({});
       } catch (error) {
-        console.error('Error fetching lessons data:', error);
+        console.error('Error fetching classes data:', error);
+        setClassesError({
+          fetchError: 'Failed to fetch my classes. Please try again later.',
+        });
       }
     };
     getClassesInfo();
@@ -94,8 +100,13 @@ const TeacherStudents = () => {
           return acc;
         }, {});
         setStudentLessons(groupedLessons);
+        setLessonsError({});
       } catch (error) {
         console.error('Error fetching lessons data:', error);
+        setLessonsError({
+          fetchError:
+            'Failed to fetch my student lessons. Please try again later.',
+        });
       }
     };
 
@@ -112,12 +123,12 @@ const TeacherStudents = () => {
   }, [selectedId, students]);
 
   const handleEdit = async (lessonId) => {
-    console.log(lessonId)
-  }
+    console.log(lessonId);
+  };
 
   const handleDelete = async (lessonId) => {
-    console.log(lessonId)
-  }
+    console.log(lessonId);
+  };
 
   const studentsList = students.map(
     ({ _id, profileImageUrl, firstName, lastName }) => {
@@ -153,6 +164,16 @@ const TeacherStudents = () => {
           {studentsError.fetchError && (
             <p className="text-red-500 text-xl font-bold text-center">
               {studentsError.fetchError}
+            </p>
+          )}
+          {classesError.fetchError && (
+            <p className="text-red-500 text-xl font-bold text-center">
+              {classesError.fetchError}
+            </p>
+          )}
+          {lessonsError.fetchError && (
+            <p className="text-red-500 text-xl font-bold text-center">
+              {lessonsError.fetchError}
             </p>
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
@@ -265,8 +286,7 @@ const TeacherStudents = () => {
                                   <div className="flex-1 p-2 text-center">
                                     Additional info
                                   </div>
-                                  <div className="flex-1 p-2 text-center">
-                                  </div>
+                                  <div className="flex-1 p-2 text-center"></div>
                                 </div>
                                 {studentLessons[classId].map((lesson) => (
                                   <div
@@ -298,12 +318,14 @@ const TeacherStudents = () => {
                                     <div className="flex-1 p-2 text-center">
                                       <button
                                         onClick={() => handleEdit(lesson._id)}
-                                        className="ml-1 w-2/3 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                                        className="ml-1 w-2/3 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                                      >
                                         Edit
                                       </button>
                                       <button
                                         onClick={() => handleDelete(lesson._id)}
-                                        className="ml-1 mt-3 w-2/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                                        className="ml-1 mt-3 w-2/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                                      >
                                         Delete
                                       </button>
                                     </div>
