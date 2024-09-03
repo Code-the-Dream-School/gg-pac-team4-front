@@ -54,13 +54,15 @@ const ClassInfoPage = () => {
   return (
     <div className="container m-auto w-10/12 mb-8">
       <div className="flex flex-col w-full text-black">
-        <div className="flex justify-between flex-col lg:flex-row mt-4">
-          <div className="flex flex-col w-full lg:w-[75%] md:flex-row lg:flex-row pb-4">
+        <div className="flex justify-between flex-col lg:flex-row mt-0 md:mt-4">
+          <div className="flex flex-col w-full lg:w-[75%] md:flex-row lg:flex-row mb-4">
             <div className="w-full  m:w-[60%] font-roboto text-xl">
-              <h2 className="font-spartan font-medium text-4xl mt-4 pb-8">
+              <h2 className="font-spartan font-medium text-4xl md:my-4">
                 {classItem.classTitle}
               </h2>
-              <p className="w-full md:w-[95%]">{classItem.description}</p>
+              <p className="w-full md:w-[95%] pb-4 md:pb-0">
+                {classItem.description}
+              </p>
             </div>
 
             <div className="flex w-full pl-0 lg:p-0 md:pl-2">
