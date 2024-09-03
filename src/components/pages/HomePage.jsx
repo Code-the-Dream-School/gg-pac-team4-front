@@ -10,9 +10,14 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const search = () => {
-    navigate('/search');
+  const search = (query) => {
+    if (query) {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    } else {
+      navigate('/search');
+    }
   };
+
   return (
     <div className="flex flex-col w-full lg:w-11/12 lg:mx-auto mt-4">
       <section className="flex flex-col-reverse lg:flex-row lg:justify-between justify-center items-center">
@@ -23,7 +28,7 @@ const HomePage = () => {
           <div className="flex justify-center lg:justify-start">
             <button
               className="flex items-center bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-xl md:text-2xl py-2 h-12 w-3/5 justify-center rounded-lg"
-              onClick={search}
+              onClick={() => search('')}
             >
               Get started
               <img
@@ -71,10 +76,11 @@ const HomePage = () => {
           {items.map((item, index) => (
             <div
               key={index}
-              className="flex items-center text-center rounded-lg"
+              className="flex items-center text-center rounded-lg cursor-pointer"
+              onClick={() => search(item.text)}
             >
               <img src={item.src} alt={item.alt} className="mr-2" />
-              <p className="text-xl md:text-2xl font-spartan font-medium hover:text-darkGreen hover:cursor-pointer">
+              <p className="text-xl md:text-2xl font-spartan font-medium hover:text-darkGreen">
                 {item.text}
               </p>
             </div>
