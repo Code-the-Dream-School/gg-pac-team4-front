@@ -32,7 +32,10 @@ const CountdownTimer = ({ targetDate }) => {
 
   return (
     <p className="font-semibold">
-     <span className='font-normal'> Your lesson starts in <br/></span>
+      <span className="font-normal">
+        {' '}
+        Your lesson starts in <br />
+      </span>
       {timeRemaining.days}d {timeRemaining.hours}h {timeRemaining.minutes}m{' '}
       {timeRemaining.seconds}s
     </p>

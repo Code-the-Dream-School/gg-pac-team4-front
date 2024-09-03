@@ -7,6 +7,10 @@ const TeacherInfo = ({ teacherInfo }) => {
     setShowFullExperience(!showFullExperience);
   };
 
+  const truncatedLength = 100;
+  const shouldShowReadMore =
+    teacherInfo.experience && teacherInfo.experience.length > truncatedLength;
+
   return (
     <div className="mt-6">
       <p className="text-3xl font-spartan font-medium mb-4">Meet the Teacher</p>
@@ -15,7 +19,7 @@ const TeacherInfo = ({ teacherInfo }) => {
           <img
             src={teacherInfo.profileImageUrl}
             alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
-            className="w-20 h-20 rounded-full"
+            className="w-20 h-20 rounded-full object-cover"
           />
         )}
         <div className="flex text-center items-center justify-center pl-4">
@@ -47,17 +51,19 @@ const TeacherInfo = ({ teacherInfo }) => {
         )}
         {teacherInfo.experience && (
           <>
-            <p className="font-roboto leading-7 text-xl pt-4 w-2/3">
+            <p className="font-roboto leading-7 text-xl pt-4 md:w-2/3">
               {showFullExperience
                 ? teacherInfo.experience
-                : `${teacherInfo.experience.substring(0, 100)}...`}
+                : `${teacherInfo.experience.substring(0, truncatedLength)}...`}
             </p>
-            <button
-              onClick={handleToggleExperience}
-              className="text-black font-semibold underline hover:text-darkGreen"
-            >
-              {showFullExperience ? 'Show Less' : 'Read More'}
-            </button>
+            {shouldShowReadMore && (
+              <button
+                onClick={handleToggleExperience}
+                className="text-black font-semibold underline hover:text-darkGreen"
+              >
+                {showFullExperience ? 'Show Less' : 'Read More'}
+              </button>
+            )}
           </>
         )}
       </div>

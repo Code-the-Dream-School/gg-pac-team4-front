@@ -5,7 +5,12 @@ import NotificationModal from './components/common/NotificationModal';
 
 const SocketContext = createContext();
 
-const setupSocketListeners = (socketIo, userId, setNotificationMessage, setIsModalOpen) => {
+const setupSocketListeners = (
+  socketIo,
+  userId,
+  setNotificationMessage,
+  setIsModalOpen
+) => {
   const handleNotification = (data) => {
     setNotificationMessage(data.content);
     setIsModalOpen(true);
@@ -42,7 +47,12 @@ export const SocketProvider = ({ children }) => {
       console.info('Connected with socket ID:', socketIo.id);
     });
 
-    setupSocketListeners(socketIo, userId, setNotificationMessage, setIsModalOpen);
+    setupSocketListeners(
+      socketIo,
+      userId,
+      setNotificationMessage,
+      setIsModalOpen
+    );
 
     setSocket(socketIo);
 
