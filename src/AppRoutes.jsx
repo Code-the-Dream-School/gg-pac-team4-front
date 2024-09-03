@@ -23,6 +23,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
+import TeacherInfoPage from './components/pages/info-pages/TeacherInfoPage.jsx';
 
 const AppRoutes = () => {
   return (
@@ -34,6 +35,10 @@ const AppRoutes = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route
+            path="/teacher-info/:teacherId"
+            element={<TeacherInfoPage />}
+          />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="edit-profile" element={<EditProfile />} />
