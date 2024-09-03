@@ -43,7 +43,7 @@ const AppRoutes = ({ socket }) => {
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
               <Route
-                path="notifications"
+                path="applications"
                 element={<Notifications socket={socket} />}
               />
               <Route path="messages" element={<Messages />} />
