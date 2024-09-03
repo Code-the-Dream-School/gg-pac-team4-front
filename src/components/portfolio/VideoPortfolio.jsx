@@ -52,7 +52,7 @@ const VideoPortfolio = ({ profilePortfolioVideos }) => {
             onChange={handleFileChange}
             multiple={true}
           />
-          <p classNmae="text-sm text-grey" aria-label="file input help">
+          <p className="text-sm text-grey" aria-label="file input help">
             MP4, MPEG, QUICKTIME or X-MSVIDEO (MAX. 10MB).
           </p>
         </>
