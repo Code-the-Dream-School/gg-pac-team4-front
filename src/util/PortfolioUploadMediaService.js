@@ -85,7 +85,6 @@ const useMediaUploader = (mediaType) => {
   //for uploading welcome video
   const handleWelcomeVideoChange = (e) => {
     setUploadedFiles(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const handleWelcomeVideoSubmit = async (e) => {

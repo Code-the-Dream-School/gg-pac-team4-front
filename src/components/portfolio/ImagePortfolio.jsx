@@ -64,7 +64,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
             onChange={handleFileChange}
             multiple={true}
           />
-          <p class="text-sm text-grey" aria-label="file input help">
+          <p className="text-sm text-grey" aria-label="file input help">
             AVIF, PNG, JPG or WEBP (MAX. 8MB).
           </p>
         </>

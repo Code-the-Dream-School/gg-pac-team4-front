@@ -59,7 +59,7 @@ const WelcomeVideo = ({ profileVideoUrl }) => {
               {showFileInput ? ' Cancel' : 'Add Welcome Video'}
             </button>
           </div>
-          {showFileInput && <p class="text-sm text-grey" aria-label="file input help">
+          {showFileInput && <p className="text-sm text-grey" aria-label="file input help">
             MP4, MPEG, QUICKTIME or X-MSVIDEO (MAX. 10MB).
           </p>}
         </div>
