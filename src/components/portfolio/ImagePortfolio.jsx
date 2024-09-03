@@ -37,7 +37,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
                 onClick={() => handleDeleteMedia(image.publicId)}
                 className="absolute top-[-0.5rem] right-[-0.5rem] p-1 hover:border-2 hover:border-red hover:rounded-full"
               >
-                <img src={DeleteIcon} alt="" />
+                <img src={DeleteIcon} alt="delete icon" />
               </button>
             </div>
           ))}
