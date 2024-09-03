@@ -46,7 +46,7 @@ const Lessons = () => {
   );
 
   if (isLoading) return <Loader />;
-  
+
   return (
     <>
       {lessonsError.fetchError && (
@@ -78,10 +78,18 @@ const Lessons = () => {
                   alt="teacher photo"
                 />
                 <div className="flex flex-col justify-between w-1/2">
-                  <p className="font-spartan font-semibold text-lg sm:text-2xl lg:text-3xl hover:underline hover:cursor-pointer hover:text-red" onClick={() => navigate(`/teacher-info/${teacherData._id}`)}>
+                  <p
+                    className="font-spartan font-semibold text-lg sm:text-2xl lg:text-3xl hover:underline hover:cursor-pointer hover:text-red"
+                    onClick={() => navigate(`/teacher-info/${teacherData._id}`)}
+                  >
                     {teacherData.firstName} {teacherData.lastName}
                   </p>
-                  <h2 className="font-spartan font-medium text-lg sm:text-2xl hover:underline hover:cursor-pointer hover:text-red" onClick={() => navigate(`/class-info/${selectedClass[0]._id}`)}>
+                  <h2
+                    className="font-spartan font-medium text-lg sm:text-2xl hover:underline hover:cursor-pointer hover:text-red"
+                    onClick={() =>
+                      navigate(`/class-info/${selectedClass[0]._id}`)
+                    }
+                  >
                     {selectedClass[0].classTitle}
                   </h2>
                 </div>
@@ -98,7 +106,10 @@ const Lessons = () => {
             {groupedLessons ? (
               <>
                 {upcomingLessons.length > 0 ? (
-                  <LessonsTable lessonList={upcomingLessons} title={'Upcoming Lessons'}/>
+                  <LessonsTable
+                    lessonList={upcomingLessons}
+                    title={'Upcoming Lessons'}
+                  />
                 ) : (
                   <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
                     <h2 className="font-medium text-lg lg:text-xl px-6">
@@ -108,7 +119,10 @@ const Lessons = () => {
                   </div>
                 )}
                 {previousLessons.length > 0 ? (
-                  <LessonsTable lessonList={previousLessons} title={'Previous lessons'}/>
+                  <LessonsTable
+                    lessonList={previousLessons}
+                    title={'Previous lessons'}
+                  />
                 ) : (
                   <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
                     <h2 className="font-medium text-lg lg:text-xl px-6">
@@ -120,9 +134,7 @@ const Lessons = () => {
               </>
             ) : (
               <div className="self-start flex flex-col w-full md:w-1/2 mt-4">
-                <p className="ml-6 mt-2 underline">
-                  No lessons for this class
-                </p>
+                <p className="ml-6 mt-2 underline">No lessons for this class</p>
               </div>
             )}
           </div>
@@ -134,7 +146,7 @@ const Lessons = () => {
           </div>
         )}
       </div>
-      <ScrollToTop/>
+      <ScrollToTop />
     </>
   );
 };
