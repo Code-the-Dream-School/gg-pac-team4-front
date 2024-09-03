@@ -46,7 +46,7 @@ const ApplyModal = ({
                     : 'bg-gray-200 hover:bg-gray-300'
                 }`}
               >
-                {formatDateWithoutWeekday(item.date)} || {item.startTime}
+                {formatDateWithoutWeekday(item.date)} at {item.startTime}
               </button>
             ))}
           </div>

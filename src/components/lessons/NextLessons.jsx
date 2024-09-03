@@ -50,8 +50,8 @@ const NextLessons = ({ nextTwoLessons }) => {
                         year: 'numeric',
                         month: 'numeric',
                         day: 'numeric',
-                      })}{' '}
-                      {lesson.lessonSchedule.startTime}
+                      })}{' '} at {lesson.lessonSchedule.startTime}
+                       
                     </p>
                   )}
                 </div>
