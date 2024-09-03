@@ -1,4 +1,5 @@
 import CountdownTimer from '../../util/LessonsTimer';
+import { formatDateWithoutWeekday } from '../../util/NotificationsUtils';
 
 const NextLessons = ({ nextTwoLessons }) => {
   return (
@@ -6,7 +7,7 @@ const NextLessons = ({ nextTwoLessons }) => {
       {nextTwoLessons.length > 0 ? (
         <div className="flex gap-8 flex-col lg:flex-row">
           {nextTwoLessons.map((lesson) => {
-            const lessonDate = new Date(lesson.lessonSchedule.date);
+            const lessonDate = formatDateWithoutWeekday(lesson.lessonSchedule.date);
             const now = new Date();
             const daysRemaining = Math.floor(
               (lessonDate - now) / (1000 * 60 * 60 * 24)
@@ -49,8 +50,8 @@ const NextLessons = ({ nextTwoLessons }) => {
                         year: 'numeric',
                         month: 'numeric',
                         day: 'numeric',
-                      })}{' '}
-                      {lesson.lessonSchedule.startTime}
+                      })}{' '} at {lesson.lessonSchedule.startTime}
+                       
                     </p>
                   )}
                 </div>
