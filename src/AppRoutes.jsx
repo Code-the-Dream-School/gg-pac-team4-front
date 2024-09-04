@@ -23,7 +23,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
-import TeacherInfoPage from './components/pages/info-pages/TeacherInfoPage.jsx';
+import TeacherInfoPage from './components/pages/teacher-info-page/TeacherInfoPage.jsx';
 
 const AppRoutes = () => {
   return (
