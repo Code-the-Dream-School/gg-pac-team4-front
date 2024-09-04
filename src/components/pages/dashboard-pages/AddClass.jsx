@@ -60,8 +60,8 @@ const AddClass = () => {
     setFormData({ ...formData, category: value.value });
     setFormErrors((formErrors) => ({
       ...formErrors,
-      category: ''
-  }));
+      category: '',
+    }));
   };
 
   const createMultipartForm = (data) => {

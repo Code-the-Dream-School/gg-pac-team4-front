@@ -7,8 +7,8 @@ const FormInput = ({
   placeholder,
   disabled,
   children,
-  min, 
-  max
+  min,
+  max,
 }) => {
   return (
     <div className="relative w-full mb-4">

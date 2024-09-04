@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import {
   getClassesData,
   getAllUsersInfo,
+  rejectApplication,
+  approveApplication,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import {
@@ -9,8 +11,9 @@ import {
   sortClassesByEarliestApplicationDate,
   formatDateWithWeekday,
   formatDateWithoutWeekday,
-  calculateAge
-} from '../../../util/NotificationsUtils'
+  calculateAge,
+} from '../../../util/NotificationsUtils';
+import StudentNotifications from './StudentNotifications'
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -86,16 +89,66 @@ const Notifications = ({ socket }) => {
     getStudentInfo();
   }, [classes, userData]);
 
-  const handleApprove = (classId, applicationId) => {
-    console.log('Approved:', classId, applicationId);
+  const handleApprove = async (classId, applicationId) => {
+    const token = userData.token;
+    try {
+      await approveApplication(token, classId, applicationId);
+      setClasses(
+        (prevClasses) =>
+          prevClasses
+            .map((classInfo) => ({
+              ...classInfo,
+              applications: classInfo.applications.filter(
+                (application) => application._id !== applicationId
+              ),
+            }))
+            .filter((classInfo) => classInfo.applications.length > 0) // Remove classes with no applications
+      );
+
+      setApplicants((prevApplicants) =>
+        prevApplicants.filter((applicant) => applicant._id !== applicationId)
+      );
+
+      setApplicantsError(null);
+    } catch (error) {
+      console.error('Error approving application:', error);
+      setApplicantsError({
+        message: 'Failed to approve application. Please try again later.',
+      });
+    }
   };
 
-  const handleDecline = (classId, applicationId) => {
-    console.log('Declined:', classId, applicationId);
-  };
+  const handleDecline = async (classId, applicationId) => {
+    const token = userData.token;
+    try {
+      await rejectApplication(token, classId, applicationId);
+      setClasses(
+        (prevClasses) =>
+          prevClasses
+            .map((classInfo) => ({
+              ...classInfo,
+              applications: classInfo.applications.filter(
+                (application) => application._id !== applicationId
+              ),
+            }))
+            .filter((classInfo) => classInfo.applications.length > 0) // Remove classes with no applications
+      );
 
+      setApplicants((prevApplicants) =>
+        prevApplicants.filter((applicant) => applicant._id !== applicationId)
+      );
+
+      setApplicantsError(null);
+    } catch (error) {
+      console.error('Error rejecting application:', error);
+      setApplicantsError({
+        message: 'Failed to reject application. Please try again later.',
+      });
+    }
+  };
+  
   if (userData.role !== 'teacher') {
-    return <p>Coming soon...</p>;
+    return <StudentNotifications userData={userData}/>;
   }
 
   return (
@@ -103,7 +156,7 @@ const Notifications = ({ socket }) => {
       <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">
         New applications:
       </h1>
-      {classesError && <p className="text-red-500">{classesError.message}</p>}
+      {classesError && <p className="text-red">{classesError.message}</p>}
       <div className="flex flex-col gap-6 mt-10 m-5 md:m-10">
         {classes.length > 0 ? (
           classes.map((classInfo) => (
@@ -202,7 +255,31 @@ const Notifications = ({ socket }) => {
             </div>
           ))
         ) : (
-          <p>No applications</p>
+          <div className="text-center mt-10">
+            <h1 className="text-2xl font-bold mb-4">
+              No Applications for Your Classes
+            </h1>
+            <p className="text-lg text-gray mb-6">
+              No one has applied for your classes yet. Don't worry, it's normal!
+              Try updating your class and profile information.
+            </p>
+            <h2 className="text-xl font-semibold mb-4">
+              Some Recommendations:
+            </h2>
+            <ul className="text-lg list-disc list-inside text-gray">
+              <li>Enhance your class information with more details.</li>
+              <li>Add an eye-catching image to your class listing.</li>
+              <li>
+                Ensure your pricing is competitive and reflects the value
+                offered.
+              </li>
+              <li>
+                Update your profile with additional details about yourself.
+              </li>
+              <li>Include a welcoming video on your profile page.</li>
+              <li>Add engaging images and videos to your portfolio.</li>
+            </ul>
+          </div>
         )}
       </div>
     </div>
