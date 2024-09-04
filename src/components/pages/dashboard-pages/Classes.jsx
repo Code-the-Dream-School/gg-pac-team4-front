@@ -54,7 +54,7 @@ const Classes = () => {
     };
     getTeacherClasses();
   }, [userData]);
-console.log(selectedClass)
+
   useEffect(() => {
     if (selectedId) {
       const initialClass = classes.filter((classes) =>
