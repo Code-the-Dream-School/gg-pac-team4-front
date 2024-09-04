@@ -116,6 +116,13 @@ const TeacherStudents = () => {
     ? students.find((student) => student._id === selectedId)
     : null;
 
+  const handleAddNewLesson = () => {
+      navigate('/dashboard/add-lesson', {
+        state: {
+          selectedStudentId: selectedStudent._id,
+  }})
+  };
+
   const handleEdit = async (lessonId) => {
     console.log(lessonId);
   };
@@ -239,7 +246,10 @@ const TeacherStudents = () => {
                           </button>
                         </div>
                         <div className="mt-8">
-                          <button className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red">
+                          <button
+                            onClick={handleAddNewLesson}
+                            className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red"
+                          >
                             Add a new lesson
                           </button>
                         </div>

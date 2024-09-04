@@ -272,6 +272,24 @@ export const rejectApplication = async (token, classId, applicationId) => {
   }
 };
 
+export const addLesson = async (token, formData, studentId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons`,
+      formData,
+      {
+        headers: { 
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}` 
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const deleteLesson = async (token, studentId, lessonId) => {
   try {
     const response = await axios.delete(

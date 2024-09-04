@@ -7,6 +7,7 @@ import Messages from './Messages';
 import Notifications from './Notifications';
 import Payments from './Payments';
 import Students from './Students';
+import AddLesson from './AddLesson';
 
 export {
   EditProfile,
@@ -18,4 +19,5 @@ export {
   Students,
   Payments,
   AddClass,
+  AddLesson,
 };

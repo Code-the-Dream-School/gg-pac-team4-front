@@ -7,6 +7,7 @@ import {
   Notifications,
   Payments,
   Students,
+  AddLesson
 } from './components/pages/dashboard-pages/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -42,6 +43,7 @@ const AppRoutes = ({ socket }) => {
               <Route path="add-class" element={<AddClass />} />
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
+              <Route path="add-lesson" element={<AddLesson />} />
               <Route
                 path="applications"
                 element={<Notifications socket={socket} />}
