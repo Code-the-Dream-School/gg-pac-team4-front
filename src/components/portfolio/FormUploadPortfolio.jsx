@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 const FormUploadPortfolio = ({onSubmit, onChange, multiple}) => {
   const [isFileSelected, setIsFileSelected] = useState(false);
 
-  useEffect(() => {
-    setIsFileSelected(false);
-  }, []);
-
   const handleFileChange = (e) => {
     onChange(e);
     setIsFileSelected(e.target.files.length > 0);

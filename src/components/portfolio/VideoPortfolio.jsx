@@ -53,7 +53,7 @@ const VideoPortfolio = ({ profilePortfolioVideos }) => {
             multiple={true}
           />
           <p className="text-sm text-grey" aria-label="file input help">
-            MP4, MPEG, QUICKTIME or X-MSVIDEO (MAX. 10MB).
+            MP4, MPEG, QUICKTIME, MOV or X-MSVIDEO (MAX. 10MB).
           </p>
         </>
       )}
