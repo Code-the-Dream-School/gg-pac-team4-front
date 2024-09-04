@@ -54,7 +54,7 @@ const Classes = () => {
     };
     getTeacherClasses();
   }, [userData]);
-
+console.log(selectedClass)
   useEffect(() => {
     if (selectedId) {
       const initialClass = classes.filter((classes) =>
@@ -99,9 +99,7 @@ const Classes = () => {
             </p>
           )}
           {deleteClassError && (
-            <p className="text-red text-lg font-semibold">
-              {deleteClassError}
-            </p>
+            <p className="text-red text-lg font-semibold">{deleteClassError}</p>
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
             {classesError.noClassesError ? (
@@ -179,17 +177,37 @@ const Classes = () => {
                   </h2>
                   <p className="p-5">{selectedClass[0].description}</p>
                   <h3 className="font-medium text-lg text-center">
+                    Available time
+                  </h3>
+                  {selectedClass[0].availableTime.length > 0 ? (
+                    <>
+                      {selectedClass[0].availableTime.map((time) => (
+                        <p className="p-4" key={time._id}>
+                          {new Date(time.date).toLocaleString('en-US', {
+                            timeZone: 'UTC',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}{' '}
+                          - {time.startTime}
+                        </p>
+                      ))}
+                    </>
+                  ) : (
+                    <p className="p-5">Please add available time</p>
+                  )}
+                  <h3 className="font-medium text-lg text-center">
                     Class experience
                   </h3>
-                  <p className="p-5">{selectedClass[0].experience}</p>
+                  <p className="p-5">{selectedClass[0].experience ? selectedClass[0].experience : 'No information provided.'}</p>
                   <h3 className="font-medium text-lg text-center">
                     Learning goals
                   </h3>
-                  <p className="p-5">{selectedClass[0].goal}</p>
+                  <p className="p-5">{selectedClass[0].goal ? selectedClass[0].goal : 'No information provided.'}</p>
                   <h3 className="font-medium text-lg text-center">
                     Other details
                   </h3>
-                  <p className="p-5">{selectedClass[0].other}</p>
+                  <p className="p-5">{selectedClass[0].other ? selectedClass[0].other : 'No information provided.'}</p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
                   {/* this edit button has no functionality yet */}
