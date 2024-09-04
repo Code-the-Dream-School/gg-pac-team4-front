@@ -24,6 +24,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
+import TeamPage from './components/pages/TeamPage.jsx';
 import ClassInfoPage from './components/pages/info-pages/ClassInfoPage';
 const AppRoutes = ({ socket }) => {
   return (
@@ -59,6 +60,7 @@ const AppRoutes = ({ socket }) => {
             element={<RequestPasswordResetForm />}
           />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
       </main>
       <Footer />
