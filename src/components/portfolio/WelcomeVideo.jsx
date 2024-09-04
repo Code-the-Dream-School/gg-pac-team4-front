@@ -18,7 +18,6 @@ const WelcomeVideo = ({ profileVideoUrl }) => {
 
   return (
     <div className="h-2/5 flex flex-col items-center justify-center bg-pureWhite p-4">
-      {error.message && <p className="text-red font-bold">{error.message}</p>}
       {profileVideoUrl ? (
         <>
           <h3 className="mb-4 font-spartan font-semibold text-2xl">
@@ -64,6 +63,7 @@ const WelcomeVideo = ({ profileVideoUrl }) => {
           </p>}
         </div>
       )}
+      {error.message && <p className="text-red font-bold mt-2">{error.message}</p>}
     </div>
   );
 };

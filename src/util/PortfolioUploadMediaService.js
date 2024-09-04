@@ -18,6 +18,7 @@ const useMediaUploader = (mediaType) => {
 
   const handleButtonClick = () => {
     setShowFileInput(!showFileInput);
+    setError({});
   };
 
   const handleFileChange = (e) => {
@@ -53,7 +54,7 @@ const useMediaUploader = (mediaType) => {
       setShowFileInput(!showFileInput);
     } catch (error) {
       setIsLoading(false);
-      setError({ message: error });
+      setError({ message: error.data.error });
       console.log(error);
       setShowFileInput(!showFileInput);
     }
@@ -111,8 +112,9 @@ const useMediaUploader = (mediaType) => {
       setError({});
     } catch (error) {
       setIsLoading(false);
-      setError({ message: error });
-      console.log('error', error);
+      setError({ message: error.data.error });
+      setShowFileInput(!showFileInput);
+      console.log('error', error.data);
     }
   };
 
