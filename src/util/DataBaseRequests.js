@@ -285,3 +285,17 @@ export const deleteLesson = async (token, studentId, lessonId) => {
     throw error.response.data;
   }
 };
+
+export const deleteClass = async(token, classId) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/classes/${classId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

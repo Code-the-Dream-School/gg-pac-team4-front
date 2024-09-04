@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import DeleteClassModal from '../../common/DeleteClassModal';
 import IconAge from '../../../assets/icons/icon-age.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
@@ -7,6 +8,7 @@ import IconType from '../../../assets/icons/icon-type.png';
 import Loader from '../../common/Loader';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
+import useDeleteClass from '../../../util/DeleteClassService';
 import { useNavigate } from 'react-router-dom';
 
 const Classes = () => {
@@ -18,7 +20,8 @@ const Classes = () => {
   const [selectedClass, setSelectedClass] = useState();
   const [classesError, setClassesError] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const { isModalOpen,openModal,closeModal, deleteClassError} = useDeleteClass();
+  
   useEffect(() => {
     setIsLoading(true);
     const getTeacherClasses = async () => {
@@ -81,7 +84,7 @@ const Classes = () => {
       </div>
     );
   });
-
+  console.log(JSON.stringify(deleteClassError));
   return (
     <>
       {isLoading ? (
@@ -91,6 +94,11 @@ const Classes = () => {
           {classesError && (
             <p className="text-red text-xl font-bold">
               {classesError.fetchError}
+            </p>
+          )}
+          {deleteClassError.message && (
+            <p className="text-red text-lg font-semibold">
+              {deleteClassError.message}
             </p>
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
@@ -182,14 +190,23 @@ const Classes = () => {
                   <p className="p-5">{selectedClass[0].other}</p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
-                  {/* these buttons have no functionality yet */}
+                  {/* this edit button has no functionality yet */}
                   <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
                     Edit
                   </button>
-                  <button className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                  <button
+                    onClick={openModal}
+                    className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                  >
                     Delete
                   </button>
                 </div>
+                <DeleteClassModal
+                  classId={selectedId}
+                  token={userData.token}
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                />
               </div>
             ) : (
               <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
