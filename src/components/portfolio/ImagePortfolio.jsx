@@ -33,7 +33,7 @@ const ImagePortfolio = ({ profilePortfolioImages }) => {
       {profilePortfolioImages.length > 0 ? (
         <div className="flex flex-wrap gap-6 w-full">
           {profilePortfolioImages.map((image) => (
-            <div key={image.publicId} className="relative w-28">
+            <div key={image.publicId} className="relative w-28 h-28">
               <picture>
                 <source srcSet={image.url} type="image/avif" />
                 <source srcSet={image.url} type="image/webp" />
