@@ -5,14 +5,13 @@ import { useState } from 'react';
 
 const useDeleteClass = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [deleteClassError, setDeleteClassError] = useState({ message: '' });
   const { userData, setUserData } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleDelete = async (token, classId, onRequestClose) => {
+  const handleDelete = async (token, classId, onRequestClose, onError) => {
     try {
         setIsLoading(true);
       let response = await deleteClass(token, classId);
@@ -22,23 +21,24 @@ const useDeleteClass = () => {
           ...userData,
           myClasses: result.data.myClasses,
         }));
-        setDeleteClassError({message: ''});
         setIsLoading(false);
+        onError(''); 
+        onRequestClose();//close modal
       }
-      onRequestClose();
     } catch (error) {
-      setDeleteClassError({ message: 'Failed to delete this class. Please try again later.' });
+      onError('Failed to delete this class. Please try again later.');
       setIsLoading(false);
-      onRequestClose();
+      onRequestClose();//close modal
       console.error('Error deleting class:', error);
     }
   };
+  
   return {
     isModalOpen,
     openModal,
     closeModal,
     handleDelete,
-    deleteClassError,
+    //deleteClassError,
   };
 };
 

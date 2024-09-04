@@ -6,6 +6,7 @@ const DeleteClassModal = ({
   onRequestClose,
   classId,
   token,
+  onError
 }) => {
     
   const { handleDelete} = useDeleteClass();
@@ -25,7 +26,7 @@ const DeleteClassModal = ({
       </p>
       <div className="flex justify-center gap-4 mt-6">
         <button
-          onClick={() =>handleDelete(token, classId, onRequestClose)}
+          onClick={() =>handleDelete(token, classId, onRequestClose,onError)}
           className="bg-red text-white px-6 py-1 rounded-lg font-spartan text-lg font-semibold"
         >
           Delete

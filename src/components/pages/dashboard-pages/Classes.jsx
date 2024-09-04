@@ -19,8 +19,10 @@ const Classes = () => {
   const [selectedId, setSelectedId] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classesError, setClassesError] = useState({});
+  const [deleteClassError, setDeleteClassError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const { isModalOpen,openModal,closeModal, deleteClassError} = useDeleteClass();
+  
+  const { isModalOpen,openModal,closeModal} = useDeleteClass()
   
   useEffect(() => {
     setIsLoading(true);
@@ -84,7 +86,7 @@ const Classes = () => {
       </div>
     );
   });
-  console.log(JSON.stringify(deleteClassError));
+
   return (
     <>
       {isLoading ? (
@@ -96,9 +98,9 @@ const Classes = () => {
               {classesError.fetchError}
             </p>
           )}
-          {deleteClassError.message && (
+          {deleteClassError && (
             <p className="text-red text-lg font-semibold">
-              {deleteClassError.message}
+              {deleteClassError}
             </p>
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
@@ -206,6 +208,7 @@ const Classes = () => {
                   token={userData.token}
                   isOpen={isModalOpen}
                   onRequestClose={closeModal}
+                  onError={setDeleteClassError}
                 />
               </div>
             ) : (
