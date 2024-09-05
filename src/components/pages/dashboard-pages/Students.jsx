@@ -98,6 +98,13 @@ const TeacherStudents = () => {
           acc[classId].push(lesson);
           return acc;
         }, {});
+        // Sort lessons in each group by date
+        for (const classId in groupedLessons) {
+          groupedLessons[classId].sort(
+            (a, b) =>
+              new Date(a.lessonSchedule.date) - new Date(b.lessonSchedule.date)
+          );
+        }
         setStudentLessons(groupedLessons);
         setLessonsError({});
       } catch (error) {
@@ -117,10 +124,11 @@ const TeacherStudents = () => {
     : null;
 
   const handleAddNewLesson = () => {
-      navigate('/dashboard/add-lesson', {
-        state: {
-          selectedStudentId: selectedStudent._id,
-  }})
+    navigate('/dashboard/add-lesson', {
+      state: {
+        selectedStudentId: selectedStudent._id,
+      },
+    });
   };
 
   const handleEdit = async (lessonId) => {

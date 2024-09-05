@@ -96,7 +96,6 @@ const AddLesson = () => {
         formData,
         selectedStudentId
       );
-      console.log('Response:', response);
       if (response.status === 201) {
         navigate('/dashboard/students');
       }
