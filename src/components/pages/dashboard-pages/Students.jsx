@@ -4,6 +4,7 @@ import {
   getAllUsersInfo,
   getAllStudentLessons,
   getClassesData,
+  deleteLesson,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -135,8 +136,33 @@ const TeacherStudents = () => {
     console.log(lessonId);
   };
 
-  const handleDelete = async (lessonId) => {
-    console.log(lessonId);
+  const handleDelete = async (studentId, lessonId) => {
+    setIsLoading(true); // Start loading
+    const token = userData.token;
+    try {
+      await deleteLesson(token, studentId, lessonId);
+      setStudentLessons((prevLessons) => {
+        const updatedLessons = { ...prevLessons };
+        // Filter lessons by class and lesson id
+        for (const classId in updatedLessons) {
+          updatedLessons[classId] = updatedLessons[classId].filter(
+            (lesson) => lesson._id !== lessonId
+          );
+          if (updatedLessons[classId].length === 0) {
+            delete updatedLessons[classId];
+          }
+        }
+        return updatedLessons;
+      });
+      setLessonsError({});
+    } catch (error) {
+      console.error('Error deleting lesson:', error);
+      setLessonsError({
+        message: 'Failed to delete lesson. Please try again later.',
+      });
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
   };
 
   const studentsList = students.map(
@@ -335,7 +361,9 @@ const TeacherStudents = () => {
                                         Edit
                                       </button>
                                       <button
-                                        onClick={() => handleDelete(lesson._id)}
+                                        onClick={() =>
+                                          handleDelete(selectedId, lesson._id)
+                                        }
                                         className="ml-1 mt-3 w-2/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
                                       >
                                         Delete
