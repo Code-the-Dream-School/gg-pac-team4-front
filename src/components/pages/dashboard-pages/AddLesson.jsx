@@ -45,8 +45,6 @@ const AddLesson = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'date' || name === 'startTime') {
-      console.log('Form data:', formData);
-
       setFormData({
         ...formData,
         lessonSchedule: {
