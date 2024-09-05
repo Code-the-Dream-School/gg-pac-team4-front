@@ -1,3 +1,8 @@
+import ImagePortfolio from '../../portfolio/ImagePortfolio';
+import ScrollToTop from '../../layouts/ScrollToTop';
+import VideoPortfolio from '../../portfolio/VideoPortfolio';
+import WelcomeVideo from '../../portfolio/WelcomeVideo';
+
 const HomeTeacher = ({ profile, onNavigate, profileError }) => {
   const {
     firstName,
@@ -7,8 +12,9 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
     experience,
     subjectArea,
     profileImageUrl,
-    // profilePortfolioImages,
-    // profilePortfolioVideos
+    profileVideoUrl,
+    profilePortfolioImages,
+    profilePortfolioVideos
   } = profile;
 
   return (
@@ -57,30 +63,11 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
         </div>
       </div>
       <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 self-center sm:self-start mt-4">
-        <div className="h-2/5 flex items-center justify-center bg-pureWhite p-4">
-          <button className="bg-pureWhite w-9/12 md:w-4/12 py-1 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
-            Add Welcome Video
-          </button>
-        </div>
-        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4 p-4">
-          <h2 className="font-spartan font-semibold text-2xl py-2">
-            Portfolio
-          </h2>
-          {/* <p>{profilePortfolioImages.length > 0 ? profilePortfolioImages : "Here you can add some drawings"}</p> */}
-          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
-            Add More
-          </button>
-        </div>
-        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4">
-          <h2 className="font-spartan font-semibold text-2xl py-2">
-            Video Portfolio
-          </h2>
-          {/* <p>{profilePortfolioVideos.length > 0 ? profilePortfolioVideos : "Here you can add some videos"}</p> */}
-          <button className="bg-pureWhite py-1 w-2/5 lg:w-1/5 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red my-4">
-            Add More
-          </button>
-        </div>
+        <WelcomeVideo profileVideoUrl={profileVideoUrl}/>
+        <ImagePortfolio profilePortfolioImages={profilePortfolioImages}/>
+        <VideoPortfolio profilePortfolioVideos={profilePortfolioVideos}/>
       </div>
+      <ScrollToTop/>
     </div>
   );
 };
