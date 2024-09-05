@@ -221,6 +221,26 @@ export const getAllStudentLessons = async (token, studentId) => {
   }
 };
 
+export const getLessonDetails = async (
+  token,
+  studentId,
+  lessonId
+) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/${lessonId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const bookLesson = async (token, classId, availableTimeId) => {
   try {
     const response = await axios.post(
@@ -278,9 +298,27 @@ export const addLesson = async (token, formData, studentId) => {
       `${API_BASE_URL}/myStudents/${studentId}/lessons`,
       formData,
       {
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}` 
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const editLesson = async (token, formData, studentId, lessonId) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/${lessonId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -303,7 +341,6 @@ export const deleteLesson = async (token, studentId, lessonId) => {
     throw error.response.data;
   }
 };
-
 
 export const uploadPortfolioMedia = async (id, token, formData, mediaType) => {
   try {
@@ -360,15 +397,12 @@ export const uploadWelcomeVideo = async (id, token, formData) => {
 
 export const deleteWelcomeVideo = async (id, token) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/users/${id}/video`,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${API_BASE_URL}/users/${id}/video`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response;
   } catch (error) {
     throw error.response;

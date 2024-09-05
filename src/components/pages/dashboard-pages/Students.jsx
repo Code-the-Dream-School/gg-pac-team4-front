@@ -132,8 +132,13 @@ const TeacherStudents = () => {
     });
   };
 
-  const handleEdit = async (lessonId) => {
-    console.log(lessonId);
+  const handleEdit = async (lesson) => {
+    navigate(`/dashboard/edit-lesson/${lesson}`, {
+      state: {
+        selectedStudentId: selectedStudent._id,
+        lessonId: lesson,
+      },
+    });
   };
 
   const handleDelete = async (studentId, lessonId) => {
