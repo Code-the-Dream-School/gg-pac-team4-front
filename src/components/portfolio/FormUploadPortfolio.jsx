@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const FormUploadPortfolio = ({onSubmit, onChange, multiple}) => {
   const [isFileSelected, setIsFileSelected] = useState(false);
@@ -21,7 +21,7 @@ const FormUploadPortfolio = ({onSubmit, onChange, multiple}) => {
       />
       <button
         type="submit"
-        className="bg-red hover:bg-pureWhite hover:text-red h-10 px-8 hover:border-2 hover:border-red text-white font-spartan font-semibold text-lg rounded-lg transition duration-300 easy-in w-1/3 disabled:opacity-65 disabled:cursor-not-allowed disabled:bg-red disabled:text-white"
+        className="bg-red hover:bg-pureWhite hover:text-red h-10 px-8 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-lg rounded-lg transition duration-300 ease-in w-1/3 min-w-28 disabled:opacity-65 disabled:cursor-not-allowed disabled:bg-red disabled:text-white"
         disabled={!isFileSelected}
       >
         Upload
