@@ -11,12 +11,18 @@ const useDeleteClass = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleDelete = async (token, classId, onRequestClose, onError) => {
+  const handleDelete = async (token, classId, onRequestClose, onError, onSelectedClass, onSelectedId) => {
     try {
         setIsLoading(true);
       let response = await deleteClass(token, classId);
       if (response.status === 200) {
         const result = await getUserData(userData._id, token);
+        if(result.data.myClasses.length === 0) {
+          onSelectedId(null);
+          onSelectedClass(null);
+        } else {
+          onSelectedId(result.data.myClasses[0]);
+        }
         setUserData((userData) => ({
           ...userData,
           myClasses: result.data.myClasses,
@@ -24,6 +30,7 @@ const useDeleteClass = () => {
         setIsLoading(false);
         onError(''); 
         onRequestClose();//close modal
+        
       }
     } catch (error) {
       onError('Failed to delete this class. Please try again later.');

@@ -22,7 +22,7 @@ const Classes = () => {
   const [deleteClassError, setDeleteClassError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const { isModalOpen,openModal,closeModal} = useDeleteClass()
+  const { isModalOpen, openModal, closeModal} = useDeleteClass();
   
   useEffect(() => {
     setIsLoading(true);
@@ -56,13 +56,13 @@ const Classes = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (selectedId) {
+    if (selectedId && classes.length > 0) {
       const initialClass = classes.filter((classes) =>
         selectedId.includes(classes._id)
       );
       setSelectedClass(initialClass);
     }
-  }, [selectedId]);
+  }, [selectedId, classes]);
 
   const classesList = classes.map(({ _id, classImageUrl, classTitle }) => {
     const active = _id === selectedId;
@@ -227,6 +227,8 @@ const Classes = () => {
                   isOpen={isModalOpen}
                   onRequestClose={closeModal}
                   onError={setDeleteClassError}
+                  onSelectedClass={setSelectedClass}
+                  onSelectedId={setSelectedId}
                 />
               </div>
             ) : (
