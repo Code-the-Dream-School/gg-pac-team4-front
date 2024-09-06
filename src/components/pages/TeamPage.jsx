@@ -21,9 +21,9 @@ const TeamPage = () => {
 
         <h2 className="font-spartan font-semibold text-2xl lg:text-3xl"> Team Mentors</h2>
         <div className="w-full flex flex-wrap items-center justify-center mb-4">
-          <MentorCard BlobImage={GreenBlobImage} teamMemberData={teamMembers[0]} cardShift="0" imgShift="24" textShift="8" />
-          <MentorCard BlobImage={YellowBlobImage} teamMemberData={teamMembers[1]} cardShift="2" />
-          <MentorCard BlobImage={PurpleBlobImage} teamMemberData={teamMembers[2]} cardShift="6" />
+          <MentorCard BlobImage={GreenBlobImage} teamMemberData={teamMembers[0]} cardClassName="" imgClassName="ms-12" textClassName="ms-8" />
+          <MentorCard BlobImage={YellowBlobImage} teamMemberData={teamMembers[1]} cardClassName="pe-2" imgClassName="" textClassName="" />
+          <MentorCard BlobImage={PurpleBlobImage} teamMemberData={teamMembers[2]} cardClassName="pe-6" imgClassName="" textClassName="" />
         </div>
 
         <h2 className="font-spartan font-semibold text-2xl lg:text-3xl mb-6">Team Members</h2>
