@@ -286,6 +286,76 @@ export const deleteLesson = async (token, studentId, lessonId) => {
   }
 };
 
+
+export const uploadPortfolioMedia = async (id, token, formData, mediaType) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}/portfolio${mediaType}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const deletePortfolioMedia = async (id, token, fileId, mediaType) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/users/${id}/portfolio${mediaType}/${fileId}`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const uploadWelcomeVideo = async (id, token, formData) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/users/${id}/video`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const deleteWelcomeVideo = async (id, token) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/users/${id}/video`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
 export const deleteClass = async(token, classId) => {
   try {
     const response = await axios.delete(
