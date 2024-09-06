@@ -216,13 +216,8 @@ const ClassForm = ({
             >
               Other details
             </FormInput>
-            {formErrors.date && (
-              <p className="text-red text-sm font-spartan">{formErrors.date}</p>
-            )}
-            {formErrors.startTime && (
-              <p className="text-red text-sm font-spartan">
-                {formErrors.startTime}
-              </p>
+            {formErrors.availableTime && (
+              <p className="text-red text-sm font-spartan">{formErrors.availableTime}</p>
             )}
             <div className="flex gap-4 flex-col">
               <p className="w-full">Select your availability for this class:</p>
