@@ -33,7 +33,7 @@ const VideoPortfolio = ({ profilePortfolioVideos }) => {
                 Your browser does not support the video tag.
               </video>
               <button
-                aria-label="delete image"
+                aria-label="delete video"
                 onClick={() => handleDeleteMedia(video.publicId)}
                 className="absolute top-[-0.5rem] right-[-0.5rem] p-1 hover:border-2 hover:border-red hover:rounded-full"
               >

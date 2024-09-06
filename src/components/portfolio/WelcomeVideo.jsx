@@ -32,7 +32,7 @@ const WelcomeVideo = ({ profileVideoUrl }) => {
               Your browser does not support the video tag.
             </video>
             <button
-              aria-label="delete image"
+              aria-label="delete video"
               onClick={handleWelcomeVideoDelete}
               className="absolute top-[-0.5rem] right-[-0.5rem] p-1 hover:border-2 hover:border-red hover:rounded-full"
             >
@@ -52,7 +52,7 @@ const WelcomeVideo = ({ profileVideoUrl }) => {
             )}
 
             <button
-              className="border-2 border-red font-spartan text-red text-lg font-semibold rounded-lg px-7 h-10 hover:text-white hover:bg-red hover:border-0 transition duration-300 easy-in"
+              className="border-2 border-red font-spartan text-red text-lg font-semibold rounded-lg px-7 h-10 hover:text-white hover:bg-red  hover:border-red transition duration-300 ease-in"
               onClick={handleButtonClick}
             >
               {showFileInput ? ' Cancel' : 'Add Welcome Video'}

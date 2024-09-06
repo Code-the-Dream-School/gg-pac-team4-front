@@ -52,15 +52,18 @@ const useMediaUploader = (mediaType) => {
       setIsLoading(false);
       setError({});
       setShowFileInput(!showFileInput);
+      setUploadedFiles([]);
     } catch (error) {
       setIsLoading(false);
       setError({ message: error.data.error });
       console.log(error);
       setShowFileInput(!showFileInput);
+      setUploadedFiles([]);
     }
   };
 
   const handleDeleteMedia = async (fileId) => {
+    setIsLoading(true); 
     try {
       const result = await deletePortfolioMedia(
         userData._id,
@@ -74,6 +77,8 @@ const useMediaUploader = (mediaType) => {
           ...userData,
           [`profilePortfolio${mediaType}`]: updatedPortfolio.data[`profilePortfolio${mediaType}`],
         }));
+        setIsLoading(false);
+        setError({});
       }
     } catch (error) {
       console.log(error);
@@ -110,10 +115,12 @@ const useMediaUploader = (mediaType) => {
       }
       setIsLoading(false);
       setError({});
+      setUploadedFiles([]);
     } catch (error) {
       setIsLoading(false);
       setError({ message: error.data.error });
       setShowFileInput(!showFileInput);
+      setUploadedFiles([]);
       console.log('error', error.data);
     }
   };
