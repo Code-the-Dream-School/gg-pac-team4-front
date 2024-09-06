@@ -16,8 +16,8 @@ const Footer = () => {
       <p>&copy; TalentStudio</p>
       <p>Designed and developed by Team 4 for Code the Dream</p>
       {isTeamPage ?
-        <p>Meet the Team</p>
-        : <Link to="/team" className="hover:text-white hover:underline">Meet the Team</Link>
+        <p>The Team</p>
+        : <Link to="/team" className="hover:text-white hover:underline">The Team</Link>
       }
     </footer>
   );
