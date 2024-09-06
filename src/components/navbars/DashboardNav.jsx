@@ -3,7 +3,7 @@ import navbarItemsStudent from '../../data/navbarStudent';
 import navbarItemsTeacher from '../../data/navbarTeacher';
 import { useAuth } from '../../AuthProvider';
 
-const DashboardNav = () => {
+const DashboardNav = ({ socket }) => {
   const { userData } = useAuth();
 
   const currentNavbarContent =

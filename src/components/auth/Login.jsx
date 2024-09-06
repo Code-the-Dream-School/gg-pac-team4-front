@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import { login } from '../../util/DataBaseRequests';
 import { useAuth } from '../../AuthProvider';
-import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [formErrors, setFormErrors] = useState({});
   const { isLoggedIn, setUserSession } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,7 +32,10 @@ const Login = () => {
       const result = await login(formData);
       if (result.status === 200) {
         setUserSession(true, result.data.user);
-        navigate('/dashboard');
+
+        // Redirect to the previous page or a default page
+        const redirectTo = location.state?.from || '/dashboard';
+        navigate(redirectTo);
       }
     } catch (error) {
       setFormErrors({
@@ -44,7 +47,9 @@ const Login = () => {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate('/dashboard');
+      // If already logged in, redirect to the previous page or a default page
+      const redirectTo = location.state?.from || '/dashboard';
+      navigate(redirectTo);
     }
   }, [isLoggedIn]);
 

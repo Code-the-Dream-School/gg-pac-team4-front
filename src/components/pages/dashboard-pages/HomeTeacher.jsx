@@ -16,7 +16,7 @@ const HomeTeacher = ({ profile, onNavigate, profileError }) => {
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
           <img
-            className="w-20 h-20 rounded-full"
+            className="h-24 w-24 rounded-full object-cover"
             src={profileImageUrl}
             alt="user photo"
           />
