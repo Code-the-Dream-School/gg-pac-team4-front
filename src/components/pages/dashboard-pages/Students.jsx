@@ -13,6 +13,8 @@ import {
   formatDateWithoutWeekday,
 } from '../../../util/NotificationsUtils';
 import { formatDateWithWeekday } from '../../../util/NotificationsUtils';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const TeacherStudents = () => {
   const navigate = useNavigate();
@@ -172,13 +174,14 @@ const TeacherStudents = () => {
 
   const studentsList = students.map(
     ({ _id, profileImageUrl, firstName, lastName }) => {
+      const uniqueKey = uuidv4();
       const active = _id === selectedId;
       const selectedStyle = active
         ? 'flex flex-col lg:flex-row w-full justify-center items-center p-2 transition duration-300 ease-in bg-darkGreen'
         : 'flex flex-col lg:flex-row w-full justify-center items-center p-2 hover:bg-lightGreen transition duration-300 ease-in';
       return (
         <div
-          key={_id}
+          key={uniqueKey}
           onClick={() => setSelectedId(_id)}
           className={selectedStyle}
         >
