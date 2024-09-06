@@ -133,7 +133,7 @@ const handleSubmit = async (e) => {
     }
   } catch (error) {
     console.log('error', error.data.error);
-    setFormErrors({ ...formErrors, form: 'An error occurred' });
+    setFormErrors({ ...formErrors, form: error.data.error });
   }
 };
 
