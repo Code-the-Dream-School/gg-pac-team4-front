@@ -16,7 +16,6 @@ import {
 import StudentNotifications from './StudentNotifications';
 import Loader from '../../common/Loader';
 
-
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
   const [classes, setClasses] = useState([]);
@@ -187,15 +186,21 @@ const Notifications = ({ socket }) => {
                       className="flex flex-row items-start mb-4 border-b border-gray pb-4"
                     >
                       <div className="flex w-1/4 justify-center items-center">
-                        <img
-                          className="rounded-lg w-30 h-35"
-                          src=    {applicantDetails
-                            ? `${applicantDetails.profileImageUrl}`
-                            : 'Unknown'}
-                          alt=    {applicantDetails
-                            ? `${applicantDetails.firstName} ${applicantDetails.lastName}`
-                            : 'Unknown'}
-                        />
+                        <div className="w-40 h-40 overflow-hidden rounded-full">
+                          <img
+                            className="w-full h-full object-cover"
+                            src={
+                              applicantDetails
+                                ? `${applicantDetails.profileImageUrl}`
+                                : 'Unknown'
+                            }
+                            alt={
+                              applicantDetails
+                                ? `${applicantDetails.firstName} ${applicantDetails.lastName}`
+                                : 'Unknown'
+                            }
+                          />
+                        </div>
                       </div>
                       <div className="flex flex-col w-2/4 px-4">
                         <p>
