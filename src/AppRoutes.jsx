@@ -21,6 +21,7 @@ import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
+import TeacherInformPage from './components/pages/teacher-info-page/TeacherInformPage.jsx';
 
 const AppRoutes = ({ socket }) => {
   return (
@@ -33,6 +34,10 @@ const AppRoutes = ({ socket }) => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/class-info/:classId" element={<ClassInfoPage />} />
+          <Route
+            path="/teacher-info/:teacherId"
+            element={<TeacherInformPage />}
+          />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard socket={socket} />}>
               <Route path="edit-profile" element={<EditProfile />} />

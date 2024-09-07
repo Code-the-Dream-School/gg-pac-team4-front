@@ -133,6 +133,31 @@ export const getClassDetails = async (classId, token) => {
   }
 };
 
+export const getTeacherAndClasses = async (teacherId, token) => {
+  try {
+    const teacherData = await getUserData(teacherId, token);
+
+    const fetchClasses = await getClassesData(
+      '',
+      '',
+      '',
+      '',
+      1,
+      50,
+      'classTitle',
+      'asc',
+      teacherId
+    );
+
+    return {
+      teacherInfo: teacherData.data,
+      classes: fetchClasses.classes,
+    };
+  } catch (err) {
+    throw new Error(err.message);
+  }
+};
+
 export const updateUser = async (id, token, formData) => {
   try {
     const response = await axios.patch(
@@ -286,7 +311,6 @@ export const deleteLesson = async (token, studentId, lessonId) => {
   }
 };
 
-
 export const uploadPortfolioMedia = async (id, token, formData, mediaType) => {
   try {
     const response = await axios.patch(
@@ -342,15 +366,12 @@ export const uploadWelcomeVideo = async (id, token, formData) => {
 
 export const deleteWelcomeVideo = async (id, token) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/users/${id}/video`,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${API_BASE_URL}/users/${id}/video`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response;
   } catch (error) {
     throw error.response;
