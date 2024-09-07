@@ -1,5 +1,4 @@
 import FormInput from '../../common/FormInput';
-import { FormatTimeTo24H } from '../../../util/FormatTimeTo24H';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
 
@@ -245,7 +244,7 @@ const ClassForm = ({
                     type="time"
                     name="startTime"
                     onChange={(e) => onChange(e, index)}
-                    value={FormatTimeTo24H(time.startTime)}
+                    value={time.startTime}
                   />
                 </div>
               ))}
