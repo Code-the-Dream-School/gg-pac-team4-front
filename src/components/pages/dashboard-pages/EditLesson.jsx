@@ -22,10 +22,14 @@ const EditLesson = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchClasses = async () => {
+    const fetchLessons = async () => {
       const token = userData.token;
       try {
-        const response = await getLessonDetails(token, selectedStudentId, lessonId);
+        const response = await getLessonDetails(
+          token,
+          selectedStudentId,
+          lessonId
+        );
         const lessonInfo = response.data.lesson;
 
         setFormData({
@@ -44,7 +48,7 @@ const EditLesson = () => {
       }
     };
 
-    fetchClasses();
+    fetchLessons();
   }, [userData.token, selectedStudentId, lessonId]);
 
   const formatDate = (dateString) => {
@@ -55,13 +59,16 @@ const EditLesson = () => {
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
-  
+
     if (type === 'radio') {
       setFormData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
-    } else if (name === 'lessonSchedule.date' || name === 'lessonSchedule.startTime') {
+    } else if (
+      name === 'lessonSchedule.date' ||
+      name === 'lessonSchedule.startTime'
+    ) {
       // Update specific date or time field
       setFormData((prevData) => ({
         ...prevData,
@@ -78,17 +85,28 @@ const EditLesson = () => {
       }));
     }
   };
-  
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const token = userData.token;
 
+    // Check for required fields
+    const errors = {};
+    if (!formData.lessonTitle) errors.lessonTitle = 'Lesson title is required';
+    if (!formData.lessonSchedule?.date)
+      errors['lessonSchedule.date'] = 'Lesson date is required';
+    if (!formData.lessonSchedule?.startTime)
+      errors['lessonSchedule.startTime'] = 'Lesson start time is required';
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setIsLoading(false);
+      return;
+    }
+
     try {
       await editLesson(token, formData, selectedStudentId, lessonId);
-      navigate('/dashboard/students'); 
+      navigate('/dashboard/students');
     } catch (error) {
       setFormErrors(error);
       console.error('Error updating lesson:', error);
