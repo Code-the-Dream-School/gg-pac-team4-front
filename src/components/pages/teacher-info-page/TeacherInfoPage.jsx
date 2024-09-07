@@ -51,25 +51,6 @@ const TeacherInfoPage = () => {
     }
   }, [teacherId, userData]);
 
-  const handleScroll = (e) => {
-    const { scrollLeft, clientWidth, scrollWidth } = e.target;
-    if (scrollLeft + clientWidth >= scrollWidth - 5) {
-      loadMoreClasses();
-    }
-  };
-
-  const loadMoreClasses = async () => {
-    try {
-      const addClasses = await getClassesData({
-        teacherId: teacherInfo._id,
-        offset: classes.length,
-      });
-      setClasses((prevClasses) => [...prevClasses, ...addClasses.classes]);
-    } catch (err) {
-      setClassesError('Failed to load more classes');
-    }
-  };
-
   if (isLoading) return <Loader />;
   if (classesError.fetchError) return <p>{classesError.fetchError}</p>;
 
@@ -103,12 +84,12 @@ const TeacherInfoPage = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col justify-center bg-pureWhite m-4 md:m-12 rounded w-10/12 md:w-1/2 bg-lightGreen">
+        <div className="flex flex-col justify-center mx-auto p-4 m-4 md:m-12 rounded w-10/12 md:w-1/2 bg-lightGreen">
           {teacherInfo?.profilePortfolioVideos &&
             teacherInfo.profilePortfolioVideos.length > 0 && (
-              <div className="bg-lightGreen rounded">
+              <div className="bg-lightGreen rounded ">
                 <video
-                  className="w-full rounded"
+                  className=" w-full rounded "
                   controls
                   src={teacherInfo.profilePortfolioVideos[0].url}
                   type="video/mp4"
@@ -120,7 +101,7 @@ const TeacherInfoPage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-around p-4 m-8">
+      <div className="flex flex-col md:flex-row justify-around p-4 md:m-8">
         <div className="w-full md:w-1/2">
           <p className="font-spartan text-center justify-center md:justify-start font-medium text-4xl p-4">
             About Me
@@ -128,7 +109,7 @@ const TeacherInfoPage = () => {
           <p className="font-roboto text-xl">{teacherInfo?.aboutMe}</p>
         </div>
 
-        <div className="flex flex-col w-full p-4 md:w-1/3">
+        <div className="flex flex-col w-full p-4 w-full md:w-1/3">
           <p className="font-spartan text-center md:justify-start font-medium text-4xl">
             Teacher's classes
           </p>
@@ -136,13 +117,12 @@ const TeacherInfoPage = () => {
           <div
             className="flex flex-row gap-4 my-4 overflow-x-scroll"
             style={{ scrollSnapType: 'x mandatory' }}
-            onScroll={handleScroll}
           >
             {classes.length > 0 ? (
               classes.map((classItem) => (
                 <div
                   key={classItem._id}
-                  className="flex flex-col border-darkGreen border-2 bg-pureWhite rounded w-full md:w-[275px] mx-auto"
+                  className="flex flex-col border-darkGreen border-2 bg-pureWhite rounded w-full xl:w-[50%] mx-auto"
                   style={{
                     scrollSnapAlign: 'start',
                     flexShrink: 0,
@@ -190,6 +170,7 @@ const TeacherInfoPage = () => {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col bg-pureWhite p-4 m-8 rounded">
         {teacherInfo?.profilePortfolioImages &&
         teacherInfo.profilePortfolioImages.length > 0 ? (
@@ -198,7 +179,7 @@ const TeacherInfoPage = () => {
               Portfolio
             </p>
             <img
-              className="w-1/6 rounded-md"
+              className="w-1/2 md:w-1/6 rounded-md"
               src={teacherInfo.profilePortfolioImages[0].url}
               alt="Teacher Portfolio"
             />

@@ -10,7 +10,7 @@ const TeacherInfo = ({ teacherInfo }) => {
   };
 
   const handleProfileRedirect = () => {
-    navigate(`/teacher-info/${teacherInfo.id}`);
+    navigate(`/teacher-info/${teacherInfo._id}`);
   };
   const truncatedLength = 100;
   const shouldShowReadMore =
