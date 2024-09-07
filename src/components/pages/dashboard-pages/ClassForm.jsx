@@ -8,9 +8,12 @@ const ClassForm = ({
   category,
   onSubmit,
   formErrors,
+  formData,
+  onAddTime,
+  onReturn
 }) => {
   const options = subjectOptions;
-  // this is a layout
+  
   return (
     <div className="w-full flex flex-col items-center p-4">
       <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
@@ -95,8 +98,6 @@ const ClassForm = ({
             >
               Lesson duration
             </FormInput>
-          </div>
-          <div className="lg:w-1/2">
             {formErrors.maxAge && (
               <p className="text-red text-sm font-spartan">
                 {formErrors.maxAge}
@@ -128,19 +129,20 @@ const ClassForm = ({
                 Maximum
               </FormInput>
             </div>
+          </div>
+          <div className="lg:w-1/2">
             {formErrors.type && (
               <p className="text-red text-sm font-spartan">{formErrors.type}</p>
             )}
-            <div className="flex gap-4 my-4">
+            <div className="flex gap-4">
               <p className="w-2/5">Select the type of the class:</p>
-              <div className="w-1/2 flex justify-around">
+              <div className="w-1/2 flex gap-8">
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
                     name="type"
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    //defaultChecked
                     onChange={onChange}
                   />
                   Online
@@ -164,14 +166,13 @@ const ClassForm = ({
             )}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the lesson:</p>
-              <div className="w-1/2 flex justify-around">
+              <div className="w-1/2 flex gap-8">
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
                     name="lessonType"
                     value="Group"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    //defaultChecked
                     onChange={onChange}
                   />
                   Group
@@ -215,23 +216,35 @@ const ClassForm = ({
             >
               Other details
             </FormInput>
-            {formErrors.date && (
-              <p className="text-red text-sm font-spartan">{formErrors.date}</p>
+            {formErrors.availableTime && (
+              <p className="text-red text-sm font-spartan">{formErrors.availableTime}</p>
             )}
-            {formErrors.startTime && (
-              <p className="text-red text-sm font-spartan">
-                {formErrors.startTime}
-              </p>
-            )}
-            <div className="flex gap-4 lg:flex-row flex-col">
+            <div className="flex gap-4 flex-col">
               <p className="w-full">Select your availability for this class:</p>
-              <FormInput
-                type="date"
-                name="date"
-                onChange={onChange}
-                min={new Date().toISOString().split('T')[0]}
-              />
-              <FormInput type="time" name="startTime" onChange={onChange} />
+              {formData.availableTime.map((time, index) => (
+                <div key={index} className="flex gap-4">
+                  <FormInput
+                    type="date"
+                    name="date"
+                    onChange={(e) => onChange(e, index)}
+                    value={time.date}
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                  <FormInput
+                    type="time"
+                    name="startTime"
+                    onChange={(e) => onChange(e, index)}
+                    value={time.startTime}
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="mb-4 bg-pureWhite text-darkGreen border-2 border-darkGreen font-semibold p-2 rounded-lg w-1/2 self-center hover:bg-white"
+                onClick={onAddTime}
+              >
+                Add more available time
+              </button>
             </div>
           </div>
         </div>
@@ -242,7 +255,10 @@ const ClassForm = ({
           >
             Save
           </button>
-          <button className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+          <button
+            onClick={onReturn}
+            className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+          >
             Cancel
           </button>
         </div>
