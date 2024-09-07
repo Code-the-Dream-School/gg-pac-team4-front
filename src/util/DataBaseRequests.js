@@ -329,6 +329,20 @@ export const uploadPortfolioMedia = async (id, token, formData, mediaType) => {
   }
 };
 
+export const deleteWelcomeVideo = async (id, token) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/users/${id}/video`, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
 export const deletePortfolioMedia = async (id, token, fileId, mediaType) => {
   try {
     const response = await axios.delete(
@@ -358,20 +372,6 @@ export const uploadWelcomeVideo = async (id, token, formData) => {
         },
       }
     );
-    return response;
-  } catch (error) {
-    throw error.response;
-  }
-};
-
-export const deleteWelcomeVideo = async (id, token) => {
-  try {
-    const response = await axios.delete(`${API_BASE_URL}/users/${id}/video`, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-    });
     return response;
   } catch (error) {
     throw error.response;
