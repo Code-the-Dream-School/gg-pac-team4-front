@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { FormatTimeAmPm } from '../../../util/FormatTimeAmPm';
 import IconAge from '../../../assets/icons/icon-age.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
@@ -168,6 +169,27 @@ const Classes = () => {
                     {selectedClass[0].classTitle}
                   </h2>
                   <p className="p-5">{selectedClass[0].description}</p>
+                  <h3 className="font-medium text-lg text-center">
+                    Available time
+                  </h3>
+                  {/* this part of code is in another PR, but added here for checking the fucntionality */}
+                  {selectedClass[0].availableTime.length > 0 ? (
+                    <>
+                      {selectedClass[0].availableTime.map((time) => (
+                        <p className="p-4" key={time._id}>
+                          {new Date(time.date).toLocaleString('en-US', {
+                            timeZone: 'UTC',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}{' '}
+                          - {FormatTimeAmPm(time.startTime)}
+                        </p>
+                      ))}
+                    </>
+                  ) : (
+                    <p className="p-5">Please add available time</p>
+                  )}
                   <h3 className="font-medium text-lg text-center">
                     Class experience
                   </h3>

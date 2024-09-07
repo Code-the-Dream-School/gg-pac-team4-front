@@ -9,7 +9,6 @@ const navbarItemsTeacher = [
   { src: Classes, text: 'My classes', link: 'classes' },
   { src: Student, text: 'My students', link: 'students' },
   { src: Notification, text: 'Applications', link: 'applications' },
-  { src: Messages, text: 'Messages', link: 'messages' },
 ];
 
 export default navbarItemsTeacher;
