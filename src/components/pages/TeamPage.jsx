@@ -28,16 +28,16 @@ const TeamPage = () => {
 
         <h2 className="font-spartan font-semibold text-2xl lg:text-3xl mb-6">Team Members</h2>
         <div className="w-full flex flex-row flex-wrap items-center justify-center gap-10 mb-10">
-          {[...Array(teamMembers.length).keys()]
-            .filter(i => teamMembers[i].title.includes('Developer'))
-            .filter(i => teamMembers[i].title.includes('Full-Stack'))
-            .map(i => <MemberCard teamMemberData={teamMembers[i]} />)}
+          {teamMembers
+            .filter(member => member.title.includes('Developer'))
+            .filter(member => member.title.includes('Full-Stack'))
+            .map(member => <MemberCard teamMemberData={member} />)}
         </div>
         <div className="w-full flex flex-row flex-wrap items-center justify-center gap-10 mb-10">
-          {[...Array(teamMembers.length).keys()]
-            .filter(i => teamMembers[i].title.includes('Developer'))
-            .filter(i => teamMembers[i].title.includes('Front-End'))
-            .map(i => <MemberCard teamMemberData={teamMembers[i]} />)}
+          {teamMembers
+            .filter(member => member.title.includes('Developer'))
+            .filter(member => member.title.includes('Front-End'))
+            .map(member => <MemberCard teamMemberData={member} />)}
         </div>
       </section >
       <ScrollToTop />
