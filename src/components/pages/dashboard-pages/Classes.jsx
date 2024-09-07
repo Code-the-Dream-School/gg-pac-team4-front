@@ -6,6 +6,7 @@ import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
 import IconType from '../../../assets/icons/icon-type.png';
 import Loader from '../../common/Loader';
+import ScrollToTop from '../../layouts/ScrollToTop';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -172,7 +173,6 @@ const Classes = () => {
                   <h3 className="font-medium text-lg text-center">
                     Available time
                   </h3>
-                  {/* this part of code is in another PR, but added here for checking the fucntionality */}
                   {selectedClass[0].availableTime.length > 0 ? (
                     <>
                       {selectedClass[0].availableTime.map((time) => (
@@ -232,6 +232,7 @@ const Classes = () => {
               </div>
             )}
           </div>
+          <ScrollToTop/>
         </>
       )}
     </>
