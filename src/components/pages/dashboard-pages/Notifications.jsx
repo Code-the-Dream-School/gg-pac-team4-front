@@ -189,8 +189,12 @@ const Notifications = ({ socket }) => {
                       <div className="flex w-1/4 justify-center items-center">
                         <img
                           className="rounded-lg w-30 h-35"
-                          src={classInfo.classImageUrl}
-                          alt="Class image"
+                          src=    {applicantDetails
+                            ? `${applicantDetails.profileImageUrl}`
+                            : 'Unknown'}
+                          alt=    {applicantDetails
+                            ? `${applicantDetails.firstName} ${applicantDetails.lastName}`
+                            : 'Unknown'}
                         />
                       </div>
                       <div className="flex flex-col w-2/4 px-4">
