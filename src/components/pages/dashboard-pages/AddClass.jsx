@@ -163,6 +163,10 @@ const createMultipartForm = (data) => {
       {isLoading ? (
         <Loader />
       ) : (
+        <>
+        <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan my-4">
+        Add a new class
+        </h1>
         <ClassForm
           onChange={handleChange}
           onHandleSubjects={handleSubjects}
@@ -173,6 +177,8 @@ const createMultipartForm = (data) => {
           onAddTime={handleAddTime}
           onReturn={returnToClasses}
         />
+        </>
+        
       )}
     </>
   );

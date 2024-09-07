@@ -1,8 +1,13 @@
+import {
+  getClassDetails,
+  getUserData,
+  updateClassForm,
+} from '../../../util/DataBaseRequests';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import ClassForm from './ClassForm';
-import { getClassDetails } from '../../../util/DataBaseRequests';
+import Loader from '../../common/Loader';
 import { useAuth } from '../../../AuthProvider';
 
 const EditClass = () => {
@@ -73,27 +78,44 @@ const EditClass = () => {
   };
 
   const handleChange = (e, index) => {
-    if (e.target.name === 'classImage') {
-      setFormData({ ...formData, classImage: e.target.files[0] });
-    } else if (e.target.name === 'minAge' || e.target.name === 'maxAge') {
+    const { name, value, files } = e.target;
+  
+    if (name === 'classImage') {
+      setFormData({ ...formData, classImage: files[0] });
+    } else if (name === 'minAge' || name === 'maxAge') {
       setFormData({
         ...formData,
         ages: {
           ...formData.ages,
-          [e.target.name]: e.target.value,
+          [name]: value,
         },
       });
-    } else if (e.target.name === 'date' || e.target.name === 'startTime') {
+    } else if (name === 'date' || name === 'startTime') {
       const newAvailableTime = [...formData.availableTime];
-      newAvailableTime[index][e.target.name] = e.target.value;
+      newAvailableTime[index][name] = value;
       setFormData({
         ...formData,
         availableTime: newAvailableTime,
       });
+  
+      let availableTimeError = false;
+      newAvailableTime.forEach((time) => {
+        if (!time.date || !time.startTime) {
+          availableTimeError = true;
+        }
+      });
+  
+      setFormErrors((formErrors) => ({
+        ...formErrors,
+        availableTime: availableTimeError ? 'Please provide the date and start time for all available times' : '',
+      }));
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [name]: value });
     }
-    setFormErrors({ ...formErrors, [e.target.name]: '' });
+    setFormErrors((formErrors) => ({
+      ...formErrors,
+      [name]: '',
+    }));
   };
 
   const handleSubjects = (value) => {
@@ -154,8 +176,12 @@ const EditClass = () => {
     const postedForm = createMultipartForm(formData);
 
     try {
-      const response = await addClassForm(userData.token, postedForm);
-      if (response.status === 201) {
+      const response = await updateClassForm(
+        classId,
+        userData.token,
+        postedForm
+      );
+      if (response.status === 200) {
         setIsLoading(true);
         const response = await getUserData(userData._id, userData.token);
         setUserData((userData) => ({
@@ -197,19 +223,28 @@ const EditClass = () => {
 
     return multipartForm;
   };
+
   return (
     <>
-      <h1>Edit class ${classId}</h1>
-      <ClassForm
-        onChange={handleChange}
-        onHandleSubjects={handleSubjects}
-        category={category}
-        onSubmit={handleSubmit}
-        formErrors={formErrors}
-        formData={formData}
-        onAddTime={handleAddTime}
-        onReturn={returnToClasses}
-      />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan my-4">
+            Edit class {formData.classTitle}
+          </h1>
+          <ClassForm
+            onChange={handleChange}
+            onHandleSubjects={handleSubjects}
+            category={category}
+            onSubmit={handleSubmit}
+            formErrors={formErrors}
+            formData={formData}
+            onAddTime={handleAddTime}
+            onReturn={returnToClasses}
+          />
+        </>
+      )}
     </>
   );
 };

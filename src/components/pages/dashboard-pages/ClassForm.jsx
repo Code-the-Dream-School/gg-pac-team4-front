@@ -17,9 +17,6 @@ const ClassForm = ({
   
   return (
     <div className="w-full flex flex-col items-center p-4">
-      <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
-        Add a new class
-      </h1>
       {formErrors.form && (
         <p className="text-red font-spartan">{formErrors.form}</p>
       )}
@@ -270,6 +267,7 @@ const ClassForm = ({
             Save
           </button>
           <button
+            type="button"
             onClick={onReturn}
             className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
           >
