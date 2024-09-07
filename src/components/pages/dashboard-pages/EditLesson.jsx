@@ -45,6 +45,7 @@ const EditLesson = () => {
         });
       } catch (error) {
         console.error('Error fetching lesson:', error);
+        setFormErrors({ form: 'Error fetching lesson details. Please try again.' });
       }
     };
 
@@ -108,7 +109,9 @@ const EditLesson = () => {
       await editLesson(token, formData, selectedStudentId, lessonId);
       navigate('/dashboard/students');
     } catch (error) {
-      setFormErrors(error);
+      setFormErrors({
+        form: error.message || 'An error occurred',
+      });
       console.error('Error updating lesson:', error);
     } finally {
       setIsLoading(false);
