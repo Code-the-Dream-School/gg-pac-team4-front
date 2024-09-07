@@ -205,7 +205,8 @@ const Classes = () => {
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
                   {/* these buttons have no functionality yet */}
-                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                  onClick={() => navigate(`/dashboard/edit-class/${selectedClass[0]._id}`)}>
                     Edit
                   </button>
                   <button className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">

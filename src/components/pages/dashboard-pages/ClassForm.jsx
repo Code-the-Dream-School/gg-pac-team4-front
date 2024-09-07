@@ -1,4 +1,5 @@
 import FormInput from '../../common/FormInput';
+import { FormatTimeTo24H } from '../../../util/FormatTimeTo24H';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
 
@@ -36,6 +37,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="100"
+              value={formData.classTitle}
             >
               Class name
             </FormInput>
@@ -49,7 +51,7 @@ const ClassForm = ({
               multiple={false}
               placeholder="Select the category of the class"
               onChange={onHandleSubjects}
-              value={category}
+              value={category || formData.category}
             />
             {formErrors.description && (
               <p className="text-red text-sm font-spartan">
@@ -68,6 +70,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="200"
+              value={formData.description}
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
             {formErrors.price && (
@@ -81,6 +84,7 @@ const ClassForm = ({
               name="price"
               onChange={onChange}
               min="0"
+              value={formData.price}
             >
               Price per session
             </FormInput>
@@ -95,6 +99,7 @@ const ClassForm = ({
               name="duration"
               onChange={onChange}
               min="0"
+              value={formData.duration}
             >
               Lesson duration
             </FormInput>
@@ -116,6 +121,7 @@ const ClassForm = ({
                 min="0"
                 name="minAge"
                 onChange={onChange}
+                value={formData.ages.minAge}
               >
                 Minimum
               </FormInput>
@@ -125,6 +131,7 @@ const ClassForm = ({
                 min="1"
                 name="maxAge"
                 onChange={onChange}
+                value={formData.ages.maxAge}
               >
                 Maximum
               </FormInput>
@@ -144,6 +151,7 @@ const ClassForm = ({
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.type === 'online'}
                   />
                   Online
                 </label>
@@ -154,6 +162,7 @@ const ClassForm = ({
                     value="offline"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.type === 'offline'}
                   />
                   Offline
                 </label>
@@ -174,6 +183,7 @@ const ClassForm = ({
                     value="Group"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.lessonType === 'Group'}
                   />
                   Group
                 </label>
@@ -184,6 +194,7 @@ const ClassForm = ({
                     value="1:1"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.lessonType === '1:1'}
                   />
                   1:1
                 </label>
@@ -195,6 +206,7 @@ const ClassForm = ({
               name="goal"
               onChange={onChange}
               max="200"
+              value={formData.goal}
             >
               Learning goals of the class
             </FormInput>
@@ -204,6 +216,7 @@ const ClassForm = ({
               name="experience"
               onChange={onChange}
               max="200"
+              value={formData.experience}
             >
               Class experience
             </FormInput>
@@ -213,6 +226,7 @@ const ClassForm = ({
               name="other"
               onChange={onChange}
               max="200"
+              value={formData.other}
             >
               Other details
             </FormInput>
@@ -234,7 +248,7 @@ const ClassForm = ({
                     type="time"
                     name="startTime"
                     onChange={(e) => onChange(e, index)}
-                    value={time.startTime}
+                    value={FormatTimeTo24H(time.startTime)}
                   />
                 </div>
               ))}
