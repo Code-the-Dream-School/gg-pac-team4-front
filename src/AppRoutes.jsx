@@ -1,10 +1,11 @@
 import {
   AddClass,
   Classes,
+  EditClass,
   EditProfile,
   Lessons,
   Notifications,
-  Students,
+  Students
 } from './components/pages/dashboard-pages/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -38,6 +39,7 @@ const AppRoutes = ({ socket }) => {
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<AddClass />} />
+              <Route path="edit-class/:classId" element={<EditClass/>} />
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
               <Route
