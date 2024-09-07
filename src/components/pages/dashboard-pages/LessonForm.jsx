@@ -94,9 +94,10 @@ const LessonForm = ({
           <div className="flex gap-4 my-4">
             <p className="w-1/4">Type:</p>
             <div className="flex flex-col gap-2 w-3/4">
-              <label className="flex gap-1 items-center">
+              <label htmlFor="typeOnline" className="flex gap-1 items-center">
                 <input
                   type="radio"
+                  id="typeOnline"
                   name="type"
                   value="online"
                   className="w-4 h-4 accent-lightGreen focus:darkGreen"
@@ -104,9 +105,10 @@ const LessonForm = ({
                 />
                 Online
               </label>
-              <label className="flex gap-1 items-center">
+              <label htmlFor="typeOffline" className="flex gap-1 items-center">
                 <input
                   type="radio"
+                  id="typeOffline"
                   name="type"
                   value="offline"
                   className="w-4 h-4 accent-lightGreen focus:darkGreen"
