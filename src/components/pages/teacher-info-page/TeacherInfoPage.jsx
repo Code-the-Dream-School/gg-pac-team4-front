@@ -36,7 +36,7 @@ const TeacherInfoPage = () => {
 
         setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        error('Error fetching data:', error);
         setClassesError({
           fetchError: 'Failed to fetch data. Please try again later.',
         });
