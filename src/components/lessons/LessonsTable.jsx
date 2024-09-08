@@ -12,8 +12,7 @@ const LessonsTable = ({ lessonList, title }) => {
             <div className="p-2 flex-1 text-center">Description</div>
             <div className="p-2 flex-1 text-center">Date</div>
             <div className="p-2 flex-1 text-center">Start time</div>
-            <div className="p-2 flex-1 text-center">Hometask</div>
-            <div className="p-2 flex-1 text-center">Lesson files</div>
+            <div className="p-2 flex-1 text-center">Additional information</div>
           </div>
           {/* rows */}
           <div>
@@ -43,12 +42,8 @@ const LessonsTable = ({ lessonList, title }) => {
                     <div>{lesson.startTime}</div>
                   </div>
                   <div className="flex justify-between p-2">
-                    <div className="font-medium">Hometask:</div>
+                    <div className="font-medium">Additional information:</div>
                     <div>{lesson.hometask || 'None'}</div>
-                  </div>
-                  <div className="flex justify-between p-2">
-                    <div className="font-medium">Lesson files:</div>
-                    <div>{lesson.lessonFiles || 'No files'}</div>
                   </div>
                 </div>
                 {/* large screens */}
@@ -60,9 +55,6 @@ const LessonsTable = ({ lessonList, title }) => {
                   </div>
                   <div className="p-2 flex-1">{lesson.startTime}</div>
                   <div className="p-2 flex-1">{lesson.hometask || 'None'}</div>
-                  <div className="p-2 flex-1">
-                    {lesson.lessonFiles || 'No files'}
-                  </div>
                 </div>
               </div>
             ))}
