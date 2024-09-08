@@ -2,7 +2,7 @@
 
 [Visit Website](https://gg-pac-team4-front-1.onrender.com)
 
-Welcome to the front-end repository for **TalentStudio** — an innovative platform that connects students with passionate teachers in the world of arts. Our application isn’t just about making connections; it’s about fostering a rich learning environment where students can enhance their artistic journeys while teachers efficiently organize their lessons.
+Welcome to the front-end repository for **TalentStudio** — an innovative platform that connects students with passionate teachers in the world of arts. Our application isn’t just about making connections — it’s about fostering a rich learning environment where students can enhance their artistic journeys, while teachers efficiently organize their lessons.
 
 This repository contains the **React.js application** code, which interfaces with our [Back-End Repository](https://github.com/Code-the-Dream-School/gg-pac-team4-back).
 
@@ -10,10 +10,9 @@ This repository contains the **React.js application** code, which interfaces wit
 
 1. [Technologies Used](#technologies-used)
 2. [Key Features](#key-features)
-3. [Development Scripts](#development-scripts)
-4. [Quick Start](#quick-start)
-5. [Presentation](#presentation)
-6. [Authors](#authors)
+3. [Quick Start](#quick-start)
+4. [Presentation](#presentation)
+5. [Authors](#authors)
 
 ## Technologies Used
 
@@ -33,8 +32,8 @@ Our front-end is powered by a suite of modern tools and libraries to ensure a re
   - `Axios` - Promise-based HTTP client for making requests to back-end services.
 
 - **UI Components and Design:**
-  - `React tailwindcss select` - A select input made with Tailwind CSS and React.
-  - `React modal` - Accessible modal dialog component for React.
+  - `React tailwindcss select` -  A select input made with Tailwindcss and React.
+  - `React modal` - Accessible modal dialog component for React.JS.
 
 - **Styling and CSS Frameworks:**
   - `Tailwind CSS` - A utility-first CSS framework for rapid UI development.
@@ -78,17 +77,6 @@ This project includes several NPM scripts to facilitate development, testing, an
   ```bash
   npm run preview
 
-### Husky & Lint-Staged
-
-This project uses `husky` to set up Git hooks and `lint-staged` to automatically format files before commits. When making a commit, files matching `**/*.{js,jsx,ts,tsx,json,css,scss,md}` will be formatted using Prettier to ensure code consistency.
-
-```json
-{
-  "hooks": {
-    "pre-commit": "lint-staged"
-  }
-}
-
 This configuration utilizes modern technologies and tools to optimize the development process and boost the application's performance.
 
 ## Key Features
@@ -96,18 +84,18 @@ This configuration utilizes modern technologies and tools to optimize the develo
 ### Effortless Registration and Profile Creation
 
 - **Sign Up**: Users can sign up as either a student or a teacher. After completing the registration, they will be redirected to the login page. Upon successful login, users gain full access to the dashboard. In case of a forgotten password, they can request a reset link via email and log in with a newly created password.
-- **Edit Profile**: Users can update their personal information and upload their photo.
+- **Edit Profile**: Users can update their personal information, upload the their photo.
 - **Add Portfolio and Welcome Video**: Showcase skills with portfolio items and an introduction video.
 - **Class Management**: Users can add, edit, or delete classes.
 
 ### Search Functionality
 
-- All users can explore classes tailored to their artistic interests by browsing categories on the main page or using the search bar with relevant keywords.
+- All users can explore classes tailored to their artistic interests by browsing categories on the main page or using the search bar with relevant keywords. 
 - Detailed class information and teacher profiles are accessible exclusively to logged-in users.
 
 ### Effortless Lesson Browsing and Booking
 
-- After registering, students gain access to detailed lesson information and can easily request bookings by submitting a simple form.
+- After registering, students gain access to detailed lesson information and can easily request bookings by submitting a simple form. 
 - Teachers receive these requests in their My Applications section, where they can choose to approve or decline them. Once approved, the lessons are added to the student's profile, allowing them to view and manage all their enrolled classes with ease.
 
 ### Integrated Communication and Notifications
@@ -128,9 +116,11 @@ This configuration utilizes modern technologies and tools to optimize the develo
 
 - Ensure the back-end server is running as per the instructions in our [Back-End Repository](https://github.com/Code-the-Dream-School/gg-pac-team4-back).
 
+---
 ## Presentation
-
 - [Final Presentation Slides](https://docs.google.com/presentation/d/10YtT_JwBUy68j0Cfj-cmbwI22-Gy1HeS8je2AlQ_QJA/edit#slide=id.p2)
+
+---
 
 ## Authors
 
