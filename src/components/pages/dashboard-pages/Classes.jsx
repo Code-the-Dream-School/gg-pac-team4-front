@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import DeleteClassModal from '../../common/DeleteClassModal';
+import { FormatTimeAmPm } from '../../../util/FormatTimeAmPm';
 import IconAge from '../../../assets/icons/icon-age.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
 import IconType from '../../../assets/icons/icon-type.png';
 import Loader from '../../common/Loader';
+import ScrollToTop from '../../layouts/ScrollToTop';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import useDeleteClass from '../../../util/DeleteClassService';
@@ -189,7 +191,7 @@ const Classes = () => {
                             month: 'long',
                             day: 'numeric',
                           })}{' '}
-                          - {time.startTime}
+                          - {FormatTimeAmPm(time.startTime)}
                         </p>
                       ))}
                     </>
@@ -210,8 +212,8 @@ const Classes = () => {
                   <p className="p-5">{selectedClass[0].other ? selectedClass[0].other : 'No information provided.'}</p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
-                  {/* this edit button has no functionality yet */}
-                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                  onClick={() => navigate(`/dashboard/edit-class/${selectedClass[0]._id}`)}>
                     Edit
                   </button>
                   <button
@@ -250,6 +252,7 @@ const Classes = () => {
               </div>
             )}
           </div>
+          <ScrollToTop/>
         </>
       )}
     </>

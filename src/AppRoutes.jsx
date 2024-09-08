@@ -1,29 +1,31 @@
 import {
   AddClass,
   Classes,
+  EditClass,
   EditProfile,
   Lessons,
-  Messages,
   Notifications,
-  Payments,
   Students,
+  AddLesson,
+  EditLesson
 } from './components/pages/dashboard-pages/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
+import ClassInfoPage from './components/pages/info-pages/ClassInfoPage';
 import Dashboard from './components/pages/Dashboard.jsx';
 import Footer from './components/layouts/Footer.jsx';
 import Header from './components/layouts/Header.jsx';
 import HomePage from './components/pages/HomePage.jsx';
 import Login from './components/auth/Login.jsx';
 import NotFound from './components/pages/NotFound.jsx';
-import PaymentForm from './components/payment/PaymentForm.jsx';
 import PrivateRoute from './PrivateRoute.jsx';
 import React from 'react';
 import Register from './components/auth/Register.jsx';
 import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm';
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
-import ClassInfoPage from './components/pages/info-pages/ClassInfoPage';
+import TeamPage from './components/pages/TeamPage.jsx';
+
 const AppRoutes = ({ socket }) => {
   return (
     <BrowserRouter>
@@ -40,23 +42,24 @@ const AppRoutes = ({ socket }) => {
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<AddClass />} />
+              <Route path="edit-class/:classId" element={<EditClass/>} />
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
+              <Route path="add-lesson" element={<AddLesson />} />
+              <Route path="edit-lesson/:lessonId" element={<EditLesson />} />
               <Route
                 path="applications"
                 element={<Notifications socket={socket} />}
               />
-              <Route path="messages" element={<Messages />} />
-              <Route path="payments" element={<Payments />} />
             </Route>
           </Route>
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/payment" element={<PaymentForm />} />
           <Route
             path="/forgot-password"
             element={<RequestPasswordResetForm />}
           />
           <Route path="/reset-password" element={<ResetPasswordForm />} />
+          <Route path="/team" element={<TeamPage />} />
         </Routes>
       </main>
       <Footer />

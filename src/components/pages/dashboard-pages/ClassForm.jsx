@@ -8,14 +8,14 @@ const ClassForm = ({
   category,
   onSubmit,
   formErrors,
+  formData,
+  onAddTime,
+  onReturn
 }) => {
   const options = subjectOptions;
-  // this is a layout
+  
   return (
     <div className="w-full flex flex-col items-center p-4">
-      <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
-        Add a new class
-      </h1>
       {formErrors.form && (
         <p className="text-red font-spartan">{formErrors.form}</p>
       )}
@@ -33,6 +33,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="100"
+              value={formData.classTitle}
             >
               Class name
             </FormInput>
@@ -46,7 +47,7 @@ const ClassForm = ({
               multiple={false}
               placeholder="Select the category of the class"
               onChange={onHandleSubjects}
-              value={category}
+              value={category || formData.category}
             />
             {formErrors.description && (
               <p className="text-red text-sm font-spartan">
@@ -65,6 +66,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="200"
+              value={formData.description}
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
             {formErrors.price && (
@@ -78,6 +80,7 @@ const ClassForm = ({
               name="price"
               onChange={onChange}
               min="0"
+              value={formData.price}
             >
               Price per session
             </FormInput>
@@ -92,11 +95,10 @@ const ClassForm = ({
               name="duration"
               onChange={onChange}
               min="0"
+              value={formData.duration}
             >
               Lesson duration
             </FormInput>
-          </div>
-          <div className="lg:w-1/2">
             {formErrors.maxAge && (
               <p className="text-red text-sm font-spartan">
                 {formErrors.maxAge}
@@ -115,6 +117,7 @@ const ClassForm = ({
                 min="0"
                 name="minAge"
                 onChange={onChange}
+                value={formData.ages.minAge}
               >
                 Minimum
               </FormInput>
@@ -124,24 +127,27 @@ const ClassForm = ({
                 min="1"
                 name="maxAge"
                 onChange={onChange}
+                value={formData.ages.maxAge}
               >
                 Maximum
               </FormInput>
             </div>
+          </div>
+          <div className="lg:w-1/2">
             {formErrors.type && (
               <p className="text-red text-sm font-spartan">{formErrors.type}</p>
             )}
-            <div className="flex gap-4 my-4">
+            <div className="flex gap-4">
               <p className="w-2/5">Select the type of the class:</p>
-              <div className="w-1/2 flex justify-around">
+              <div className="w-1/2 flex gap-8">
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
                     name="type"
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    //defaultChecked
                     onChange={onChange}
+                    checked={formData.type === 'online'}
                   />
                   Online
                 </label>
@@ -152,6 +158,7 @@ const ClassForm = ({
                     value="offline"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.type === 'offline'}
                   />
                   Offline
                 </label>
@@ -164,15 +171,15 @@ const ClassForm = ({
             )}
             <div className="flex gap-4 my-4">
               <p className="w-2/5">Select the type of the lesson:</p>
-              <div className="w-1/2 flex justify-around">
+              <div className="w-1/2 flex gap-8">
                 <label className="flex gap-1 items-center">
                   <input
                     type="radio"
                     name="lessonType"
                     value="Group"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
-                    //defaultChecked
                     onChange={onChange}
+                    checked={formData.lessonType === 'Group'}
                   />
                   Group
                 </label>
@@ -183,6 +190,7 @@ const ClassForm = ({
                     value="1:1"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.lessonType === '1:1'}
                   />
                   1:1
                 </label>
@@ -194,6 +202,7 @@ const ClassForm = ({
               name="goal"
               onChange={onChange}
               max="200"
+              value={formData.goal}
             >
               Learning goals of the class
             </FormInput>
@@ -203,6 +212,7 @@ const ClassForm = ({
               name="experience"
               onChange={onChange}
               max="200"
+              value={formData.experience}
             >
               Class experience
             </FormInput>
@@ -212,26 +222,39 @@ const ClassForm = ({
               name="other"
               onChange={onChange}
               max="200"
+              value={formData.other}
             >
               Other details
             </FormInput>
-            {formErrors.date && (
-              <p className="text-red text-sm font-spartan">{formErrors.date}</p>
+            {formErrors.availableTime && (
+              <p className="text-red text-sm font-spartan">{formErrors.availableTime}</p>
             )}
-            {formErrors.startTime && (
-              <p className="text-red text-sm font-spartan">
-                {formErrors.startTime}
-              </p>
-            )}
-            <div className="flex gap-4 lg:flex-row flex-col">
+            <div className="flex gap-4 flex-col">
               <p className="w-full">Select your availability for this class:</p>
-              <FormInput
-                type="date"
-                name="date"
-                onChange={onChange}
-                min={new Date().toISOString().split('T')[0]}
-              />
-              <FormInput type="time" name="startTime" onChange={onChange} />
+              {formData.availableTime.map((time, index) => (
+                <div key={index} className="flex gap-4">
+                  <FormInput
+                    type="date"
+                    name="date"
+                    onChange={(e) => onChange(e, index)}
+                    value={time.date}
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                  <FormInput
+                    type="time"
+                    name="startTime"
+                    onChange={(e) => onChange(e, index)}
+                    value={time.startTime}
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                className="mb-4 bg-pureWhite text-darkGreen border-2 border-darkGreen font-semibold p-2 rounded-lg w-1/2 self-center hover:bg-white"
+                onClick={onAddTime}
+              >
+                Add more available time
+              </button>
             </div>
           </div>
         </div>
@@ -242,7 +265,11 @@ const ClassForm = ({
           >
             Save
           </button>
-          <button className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+          <button
+            type="button"
+            onClick={onReturn}
+            className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+          >
             Cancel
           </button>
         </div>
