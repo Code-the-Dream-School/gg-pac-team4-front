@@ -33,10 +33,10 @@ const useDeleteClass = () => {
         
       }
     } catch (error) {
-      onError('Failed to delete this class. Please try again later.');
+      console.error('Error deleting class:', error);
+      error.message === 'Cannot delete class with existing lessons' ? onError('Cannot delete class with existing lessons') : onError('Failed to delete this class. Please try again later.');
       setIsLoading(false);
       onRequestClose();//close modal
-      console.error('Error deleting class:', error);
     }
   };
   
