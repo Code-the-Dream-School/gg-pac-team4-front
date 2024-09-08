@@ -408,3 +408,21 @@ export const deleteWelcomeVideo = async (id, token) => {
     throw error.response;
   }
 };
+
+export const updateClassForm = async(classId, token, formData) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/classes/${classId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );console.log(response);
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};

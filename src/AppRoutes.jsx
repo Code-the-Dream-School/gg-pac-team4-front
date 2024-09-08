@@ -1,6 +1,7 @@
 import {
   AddClass,
   Classes,
+  EditClass,
   EditProfile,
   Lessons,
   Notifications,
@@ -41,6 +42,7 @@ const AppRoutes = ({ socket }) => {
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<AddClass />} />
+              <Route path="edit-class/:classId" element={<EditClass/>} />
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
               <Route path="add-lesson" element={<AddLesson />} />
