@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
 import {
-  getClassesData,
-  getAllUsersInfo,
-  rejectApplication,
   approveApplication,
+  getAllUsersInfo,
+  getClassesData,
+  rejectApplication,
 } from '../../../util/DataBaseRequests';
-import { useAuth } from '../../../AuthProvider';
 import {
-  sortClassesByApplicationDate,
-  sortClassesByEarliestApplicationDate,
+  calculateAge,
   formatDateWithWeekday,
   formatDateWithoutWeekday,
-  calculateAge,
+  sortClassesByApplicationDate,
+  sortClassesByEarliestApplicationDate,
 } from '../../../util/NotificationsUtils';
+import { useEffect, useState } from 'react';
+
 import StudentNotifications from './StudentNotifications';
 import Loader from '../../common/Loader';
+import { useAuth } from '../../../AuthProvider';
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -161,6 +162,9 @@ const Notifications = ({ socket }) => {
 
   return (
     <div className="container mt-10">
+      {classes.length > 0 && <h1 className="text-red font-bold text-2xl font-spartan uppercase ml-10">
+        New applications:
+      </h1>}
       {classesError && <p className="text-red">{classesError.message}</p>}
       {isLoading ? (
         <Loader />
