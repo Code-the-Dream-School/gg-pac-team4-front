@@ -426,3 +426,16 @@ export const updateClassForm = async(classId, token, formData) => {
     throw error.response;
   }
 };
+export const deleteClass = async(token, classId) => {
+  try {
+    const response = await axios.delete(
+      `${API_BASE_URL}/classes/${classId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

@@ -88,7 +88,6 @@ const useLessonsData = () => {
         date: lesson.lessonSchedule.date,
         startTime: lesson.lessonSchedule.startTime,
         hometask: lesson.hometask,
-        lessonFiles: lesson.lessonFiles.url,
       })),
     };
     setGroupedLessons(grouped);
