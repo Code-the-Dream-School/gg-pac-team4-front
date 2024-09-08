@@ -166,6 +166,7 @@ const Notifications = ({ socket }) => {
         New applications:
       </h1>}
       {classesError && <p className="text-red">{classesError.message}</p>}
+      {applicantsError && <p className="text-red">{applicantsError.message}</p>}
       {isLoading ? (
         <Loader />
       ) : (
