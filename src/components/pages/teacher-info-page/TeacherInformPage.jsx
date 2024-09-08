@@ -36,7 +36,6 @@ const TeacherInfoPage = () => {
 
         setIsLoading(false);
       } catch (error) {
-        error('Error fetching data:', error);
         setClassesError({
           fetchError: 'Failed to fetch data. Please try again later.',
         });
@@ -47,7 +46,10 @@ const TeacherInfoPage = () => {
     if (userData) {
       fetchTeacherAndClasses();
     } else {
-      error('No teacher data found');
+      setClassesError({
+        fetchError: 'No teacher data found',
+      });
+      setIsLoading(false);
     }
   }, [teacherId, userData]);
 
@@ -56,26 +58,33 @@ const TeacherInfoPage = () => {
 
   return (
     <div className="">
+      {/* Teacher Info Section */}
       <div className="flex flex-col md:flex-row justify-center md:justify-around md:bg-lightGreen">
-        <div className="flex flex-col bg-pureWhite p-4 lg:p-10 ml-4 md:ml-12 md:my-12 rounded md:w-1/2">
+        <div className="flex flex-col bg-pureWhite p-4 lg:p-10 ml-4 md:ml-12 md:my-12 rounded md:w-5/12">
           <div className="flex flex-row gap-4">
             <div className="flex m-2">
               {teacherInfo?.profileImageUrl && (
                 <img
                   src={teacherInfo.profileImageUrl}
                   alt={`${teacherInfo.firstName} ${teacherInfo.lastName}`}
-                  className="w-20 h-20 rounded-full"
+                  className="w-32 h-32 rounded-full object-cover"
                 />
               )}
             </div>
-            <div className="flex justify-center items-center">
-              <h1 className="text-center font-roboto font-medium">
+            <div className="flex flex-col justify-center">
+              <h1 className="text-center font-roboto font-medium text-4xl">
                 {teacherInfo?.firstName} {teacherInfo?.lastName}
               </h1>
+              {teacherInfo?.subjectArea && (
+                <p className="flex font-roboto text-xl">
+                  {teacherInfo.subjectArea.join(', ')}
+                </p>
+              )}
             </div>
           </div>
 
-          <div className="flex mt-4 gap-4">
+          {/* Actions Section */}
+          <div className="flex mt-8 gap-4">
             <button className="font-spartan bg-red hover:bg-pureWhite hover:text-red px-4 py-1 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-md transition duration-300 ease-in">
               Book lesson
             </button>
@@ -84,36 +93,59 @@ const TeacherInfoPage = () => {
             </button>
           </div>
         </div>
-        <div className="flex flex-col justify-center mx-auto p-4 m-4 md:m-12 rounded w-10/12 md:w-1/2 bg-lightGreen">
-          {teacherInfo?.profilePortfolioVideos &&
-            teacherInfo.profilePortfolioVideos.length > 0 && (
-              <div className="bg-lightGreen rounded ">
-                <video
-                  className=" w-full rounded "
-                  controls
-                  src={teacherInfo.profilePortfolioVideos[0].url}
-                  type="video/mp4"
-                >
-                  Your browser does not support the video format.
-                </video>
-              </div>
-            )}
+
+        {/* Welcome Video Section */}
+        <div className="flex flex-col justify-center mx-auto p-4 m-4 md:m-12 rounded w-full md:w-1/3 bg-lightGreen">
+          {teacherInfo?.profileVideoUrl && (
+            <div className="bg-lightGreen rounded ">
+              <video
+                className="  rounded "
+                controls
+                src={teacherInfo.profileVideoUrl}
+                type="video/mp4"
+              >
+                Your browser does not support the video format.
+              </video>
+            </div>
+          )}
         </div>
       </div>
 
+      {/* Teacher Classes Section */}
       <div className="flex flex-col md:flex-row justify-around p-4 md:m-8">
-        <div className="w-full md:w-1/2">
-          <p className="font-spartan text-center justify-center md:justify-start font-medium text-4xl p-4">
-            About Me
-          </p>
-          <p className="font-roboto text-xl">{teacherInfo?.aboutMe}</p>
+        <div className="flex flex-col">
+          <div className="w-full md:w-1/2">
+            <p className="font-spartan text-center justify-center md:justify-start font-medium text-4xl p-4">
+              About Me
+            </p>
+            <p className="font-roboto text-xl">{teacherInfo?.aboutMe}</p>
+          </div>
+
+          {/* Teacher Education and Experience */}
+          {teacherInfo.education && (
+            <>
+              <div className="flex flex-col w-full md:w-1/2 mb-8">
+                <p className="text-3xl font-spartan font-medium lg:my-4">
+                  Teacher Education
+                </p>
+                <p className="font-roboto text-xl">{teacherInfo.education}</p>
+              </div>
+
+              <div className="flex flex-col w-full md:w-1/2">
+                <p className="text-3xl font-spartan font-medium lg:my-4">
+                  Teacher Experience
+                </p>
+                <p className="font-roboto text-xl">{teacherInfo.experience}</p>
+              </div>
+            </>
+          )}
         </div>
 
+        {/* Teacher's Classes */}
         <div className="flex flex-col w-full p-4 w-full md:w-1/3">
           <p className="font-spartan text-center md:justify-start font-medium text-4xl">
-            Teacher's classes
+            Teacher's Classes
           </p>
-
           <div
             className="flex flex-row gap-4 my-4 overflow-x-scroll"
             style={{ scrollSnapType: 'x mandatory' }}
@@ -123,15 +155,12 @@ const TeacherInfoPage = () => {
                 <div
                   key={classItem._id}
                   className="flex flex-col border-darkGreen border-2 bg-pureWhite rounded w-full xl:w-[50%] mx-auto"
-                  style={{
-                    scrollSnapAlign: 'start',
-                    flexShrink: 0,
-                  }}
+                  style={{ scrollSnapAlign: 'start', flexShrink: 0 }}
                 >
                   <img
                     src={classItem.classImageUrl}
                     alt={classItem.classTitle}
-                    className="mb-4 h-[150px]  object-cover"
+                    className="mb-4 h-[150px] object-cover"
                   />
                   <h3 className="text-2xl text-center font-spartan font-semibold mb-1">
                     {classItem.classTitle}
@@ -148,13 +177,13 @@ const TeacherInfoPage = () => {
                     <div className="text-lg text-center font-roboto">
                       <span className="font-semibold">
                         {classItem.duration}
-                      </span>{' '}
+                      </span>
                       <span className="font-normal block whitespace-nowrap">
                         min
                       </span>
                     </div>
                     <div className="text-lg text-center font-roboto">
-                      <span className="font-semibold">${classItem.price}</span>{' '}
+                      <span className="font-semibold">${classItem.price}</span>
                       <span className="font-normal block whitespace-nowrap">
                         per session
                       </span>
@@ -171,18 +200,23 @@ const TeacherInfoPage = () => {
         </div>
       </div>
 
+      {/* Portfolio Section */}
       <div className="flex flex-col bg-pureWhite p-4 m-8 rounded">
-        {teacherInfo?.profilePortfolioImages &&
-        teacherInfo.profilePortfolioImages.length > 0 ? (
+        {teacherInfo?.profilePortfolioImages?.length > 0 ? (
           <div>
             <p className="text-3xl font-spartan text-center font-medium mb-4">
               Portfolio
             </p>
-            <img
-              className="w-1/2 md:w-1/6 rounded-md"
-              src={teacherInfo.profilePortfolioImages[0].url}
-              alt="Teacher Portfolio"
-            />
+            <div className="flex flex-wrap justify-center gap-4">
+              {teacherInfo.profilePortfolioImages.map((image, index) => (
+                <img
+                  key={index}
+                  className="w-[180px] h-[180px] md:w-1/6 rounded-md"
+                  src={image.url}
+                  alt={`Teacher Portfolio ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         ) : (
           <p className="text-center font-roboto font-medium text-xl">
@@ -190,6 +224,28 @@ const TeacherInfoPage = () => {
           </p>
         )}
       </div>
+
+      {/* Video Portfolio Section */}
+      {teacherInfo?.profilePortfolioVideos?.length > 0 && (
+        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4 p-4">
+          <h2 className="font-spartan font-semibold text-2xl py-2">
+            Video Portfolio
+          </h2>
+          <div className="flex flex-wrap gap-6 w-full justify-evenly">
+            {teacherInfo.profilePortfolioVideos.map((video) => (
+              <div key={video.publicId} className="relative lg:w-2/5">
+                <video aria-label="portfolio video" controls>
+                  <source src={video.url} type="video/mp4" />
+                  <source src={video.url} type="video/mpeg" />
+                  <source src={video.url} type="video/quicktime" />
+                  <source src={video.url} type="video/x-msvideo" />
+                  Your browser does not support this video.
+                </video>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
