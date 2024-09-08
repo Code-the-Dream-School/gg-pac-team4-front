@@ -6,6 +6,7 @@ import IconClock from '../../../assets/icons/icon-clock.svg';
 import IconLesson from '../../../assets/icons/icon-lesson.svg';
 import IconType from '../../../assets/icons/icon-type.png';
 import Loader from '../../common/Loader';
+import ScrollToTop from '../../layouts/ScrollToTop';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -172,7 +173,6 @@ const Classes = () => {
                   <h3 className="font-medium text-lg text-center">
                     Available time
                   </h3>
-                  {/* this part of code is in another PR, but added here for checking the fucntionality */}
                   {selectedClass[0].availableTime.length > 0 ? (
                     <>
                       {selectedClass[0].availableTime.map((time) => (
@@ -204,8 +204,8 @@ const Classes = () => {
                   <p className="p-5">{selectedClass[0].other}</p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
-                  {/* these buttons have no functionality yet */}
-                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                  onClick={() => navigate(`/dashboard/edit-class/${selectedClass[0]._id}`)}>
                     Edit
                   </button>
                   <button className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
@@ -232,6 +232,7 @@ const Classes = () => {
               </div>
             )}
           </div>
+          <ScrollToTop/>
         </>
       )}
     </>
