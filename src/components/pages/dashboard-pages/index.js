@@ -6,6 +6,8 @@ import Home from './Home';
 import Lessons from './Lessons';
 import Notifications from './Notifications';
 import Students from './Students';
+import AddLesson from './AddLesson';
+import EditLesson from './EditLesson';
 
 export {
   EditProfile,
@@ -16,4 +18,6 @@ export {
   Classes,
   Students,
   AddClass,
+  AddLesson,
+  EditLesson,
 };
