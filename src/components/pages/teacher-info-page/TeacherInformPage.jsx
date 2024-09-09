@@ -21,26 +21,30 @@ const TeacherInfoPage = () => {
         const teacherData = await getUserData(teacherId, userData.token);
         setTeacherInfo(teacherData.data);
 
-        const response = await getClassesData();
-        const allClasses = response.classes;
+        try {
+          const response = await getClassesData();
+          const allClasses = response.classes;
 
-        const myClassIds = teacherData.data.myClasses.map((id) => id);
-        const filteredClasses = allClasses.filter((classItem) =>
-          myClassIds.includes(classItem._id)
-        );
+          const myClassIds = teacherData.data.myClasses.map((id) => id);
+          const filteredClasses = allClasses.filter((classItem) =>
+            myClassIds.includes(classItem._id)
+          );
 
-        if (filteredClasses.length === 0) {
+          if (filteredClasses.length === 0) {
+            return <p> This teacher hasn't added any classes yet</p>;
+          } else {
+            setClasses(filteredClasses);
+          }
+        } catch (classesError) {
           setClassesError({
-            noClassesError: `This teacher hasn't added any classes yet.`,
+            fetchError: 'Failed to fetch classes data. Please try again later.',
           });
-        } else {
-          setClasses(filteredClasses);
         }
 
         setIsLoading(false);
-      } catch (error) {
+      } catch (teacherError) {
         setClassesError({
-          fetchError: 'Failed to fetch data. Please try again later.',
+          fetchError: 'Failed to fetch teacher data. Please try again later.',
         });
         setIsLoading(false);
       }
@@ -56,17 +60,14 @@ const TeacherInfoPage = () => {
     }
   }, [teacherId, userData]);
 
-  //Function to handle class  click
   const handleClassClick = (classId) => {
     navigate(`/class-info/${classId}`);
   };
 
-  // Function to handle image clicks
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);
   };
 
-  // Function to close the modal
   const handleCloseModal = () => {
     setSelectedImage(null);
   };
@@ -90,7 +91,7 @@ const TeacherInfoPage = () => {
               )}
             </div>
             <div className="flex flex-col justify-center">
-              <h1 className="text-center font-roboto font-medium text-4xl">
+              <h1 className="font-roboto font-medium text-2xl md:text-4xl my-2">
                 {teacherInfo?.firstName} {teacherInfo?.lastName}
               </h1>
               {teacherInfo?.subjectArea && (
@@ -128,8 +129,8 @@ const TeacherInfoPage = () => {
 
       {/* Teacher Classes Section */}
       <div className="flex flex-col md:flex-row justify-around p-4 md:m-8">
-        <div className="flex flex-col">
-          <div className="w-full md:w-1/2">
+        <div className="flex flex-col md:w-1/2">
+          <div className="w-full ">
             <p className="font-spartan text-center justify-center md:justify-start font-medium text-4xl p-4">
               About Me
             </p>
@@ -139,14 +140,14 @@ const TeacherInfoPage = () => {
           {/* Teacher Education and Experience */}
           {teacherInfo.education && (
             <>
-              <div className="flex flex-col w-full md:w-1/2 mb-8">
+              <div className="flex flex-col w-full  mb-8">
                 <p className="text-3xl font-spartan font-medium lg:my-4">
                   Teacher Education
                 </p>
                 <p className="font-roboto text-xl">{teacherInfo.education}</p>
               </div>
 
-              <div className="flex flex-col w-full md:w-1/2">
+              <div className="flex flex-col w-full">
                 <p className="text-3xl font-spartan font-medium lg:my-4">
                   Teacher Experience
                 </p>
@@ -227,7 +228,7 @@ const TeacherInfoPage = () => {
               {teacherInfo.profilePortfolioImages.map((image, index) => (
                 <img
                   key={index}
-                  className="w-[180px] h-[180px] w-full md:w-1/6 rounded-md cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
+                  className=" w-full md:w-1/6 rounded-md cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
                   src={image.url}
                   alt={`Teacher Portfolio ${index + 1}`}
                   onClick={() => handleImageClick(image.url)}
