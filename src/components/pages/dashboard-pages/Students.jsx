@@ -4,6 +4,7 @@ import {
   getAllUsersInfo,
   getAllStudentLessons,
   getClassesData,
+  deleteLesson,
 } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +13,7 @@ import {
   formatDateWithoutWeekday,
 } from '../../../util/NotificationsUtils';
 import { formatDateWithWeekday } from '../../../util/NotificationsUtils';
+import { v4 as uuidv4 } from 'uuid';
 
 const TeacherStudents = () => {
   const navigate = useNavigate();
@@ -98,6 +100,13 @@ const TeacherStudents = () => {
           acc[classId].push(lesson);
           return acc;
         }, {});
+        // Sort lessons in each group by date
+        for (const classId in groupedLessons) {
+          groupedLessons[classId].sort(
+            (a, b) =>
+              new Date(a.lessonSchedule.date) - new Date(b.lessonSchedule.date)
+          );
+        }
         setStudentLessons(groupedLessons);
         setLessonsError({});
       } catch (error) {
@@ -116,23 +125,62 @@ const TeacherStudents = () => {
     ? students.find((student) => student._id === selectedId)
     : null;
 
-  const handleEdit = async (lessonId) => {
-    console.log(lessonId);
+  const handleAddNewLesson = () => {
+    navigate('/dashboard/add-lesson', {
+      state: {
+        selectedStudentId: selectedStudent._id,
+      },
+    });
   };
 
-  const handleDelete = async (lessonId) => {
-    console.log(lessonId);
+  const handleEdit = async (lesson) => {
+    navigate(`/dashboard/edit-lesson/${lesson}`, {
+      state: {
+        selectedStudentId: selectedStudent._id,
+        lessonId: lesson,
+      },
+    });
+  };
+
+  const handleDelete = async (studentId, lessonId) => {
+    setIsLoading(true); // Start loading
+    const token = userData.token;
+    try {
+      await deleteLesson(token, studentId, lessonId);
+      setStudentLessons((prevLessons) => {
+        const updatedLessons = { ...prevLessons };
+        // Filter lessons by class and lesson id
+        for (const classId in updatedLessons) {
+          updatedLessons[classId] = updatedLessons[classId].filter(
+            (lesson) => lesson._id !== lessonId
+          );
+          if (updatedLessons[classId].length === 0) {
+            delete updatedLessons[classId];
+          }
+        }
+        return updatedLessons;
+      });
+      setLessonsError({});
+    } catch (error) {
+      console.error('Error deleting lesson:', error);
+      setLessonsError({
+        message: 'Failed to delete lesson. Please try again later.',
+      });
+    } finally {
+      setIsLoading(false); // Stop loading
+    }
   };
 
   const studentsList = students.map(
     ({ _id, profileImageUrl, firstName, lastName }) => {
+      const uniqueKey = uuidv4();
       const active = _id === selectedId;
       const selectedStyle = active
         ? 'flex flex-col lg:flex-row w-full justify-center items-center p-2 transition duration-300 ease-in bg-darkGreen'
         : 'flex flex-col lg:flex-row w-full justify-center items-center p-2 hover:bg-lightGreen transition duration-300 ease-in';
       return (
         <div
-          key={_id}
+          key={uniqueKey}
           onClick={() => setSelectedId(_id)}
           className={selectedStyle}
         >
@@ -239,7 +287,10 @@ const TeacherStudents = () => {
                           </button>
                         </div>
                         <div className="mt-8">
-                          <button className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red">
+                          <button
+                            onClick={handleAddNewLesson}
+                            className="w-full sm:w-1/2 lg:w-full bg-pureWhite hover:bg-red hover:text-pureWhite h-10 hover:border-2 hover:border-red text-red font-spartan font-semibold md:text-xl rounded-md border-2 border-red"
+                          >
                             Add a new lesson
                           </button>
                         </div>
@@ -317,7 +368,9 @@ const TeacherStudents = () => {
                                         Edit
                                       </button>
                                       <button
-                                        onClick={() => handleDelete(lesson._id)}
+                                        onClick={() =>
+                                          handleDelete(selectedId, lesson._id)
+                                        }
                                         className="ml-1 mt-3 w-2/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
                                       >
                                         Delete

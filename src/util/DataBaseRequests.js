@@ -246,6 +246,22 @@ export const getAllStudentLessons = async (token, studentId) => {
   }
 };
 
+export const getLessonDetails = async (token, studentId, lessonId) => {
+  try {
+    const response = await axios.get(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/${lessonId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
 export const bookLesson = async (token, classId, availableTimeId) => {
   try {
     const response = await axios.post(
@@ -292,6 +308,42 @@ export const rejectApplication = async (token, classId, applicationId) => {
       }
     );
     return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const addLesson = async (token, formData, studentId) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
+
+export const editLesson = async (token, formData, studentId, lessonId) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/myStudents/${studentId}/lessons/${lessonId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response;
   } catch (error) {
     throw error.response.data;
   }
@@ -372,6 +424,25 @@ export const deleteWelcomeVideo = async (id, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    return response;
+  } catch (error) {
+    throw error.response;
+  }
+};
+
+export const updateClassForm = async (classId, token, formData) => {
+  try {
+    const response = await axios.patch(
+      `${API_BASE_URL}/classes/${classId}`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response);
     return response;
   } catch (error) {
     throw error.response;

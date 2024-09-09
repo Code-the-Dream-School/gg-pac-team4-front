@@ -10,15 +10,12 @@ const ClassForm = ({
   formErrors,
   formData,
   onAddTime,
-  onReturn
+  onReturn,
 }) => {
   const options = subjectOptions;
-  
+
   return (
     <div className="w-full flex flex-col items-center p-4">
-      <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan mb-4">
-        Add a new class
-      </h1>
       {formErrors.form && (
         <p className="text-red font-spartan">{formErrors.form}</p>
       )}
@@ -36,6 +33,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="100"
+              value={formData.classTitle}
             >
               Class name
             </FormInput>
@@ -49,7 +47,7 @@ const ClassForm = ({
               multiple={false}
               placeholder="Select the category of the class"
               onChange={onHandleSubjects}
-              value={category}
+              value={category || formData.category}
             />
             {formErrors.description && (
               <p className="text-red text-sm font-spartan">
@@ -68,6 +66,7 @@ const ClassForm = ({
               onChange={onChange}
               min="2"
               max="200"
+              value={formData.description}
             />
             <FormInput type="file" onChange={onChange} name="classImage" />
             {formErrors.price && (
@@ -81,6 +80,7 @@ const ClassForm = ({
               name="price"
               onChange={onChange}
               min="0"
+              value={formData.price}
             >
               Price per session
             </FormInput>
@@ -95,6 +95,7 @@ const ClassForm = ({
               name="duration"
               onChange={onChange}
               min="0"
+              value={formData.duration}
             >
               Lesson duration
             </FormInput>
@@ -116,6 +117,7 @@ const ClassForm = ({
                 min="0"
                 name="minAge"
                 onChange={onChange}
+                value={formData.ages.minAge}
               >
                 Minimum
               </FormInput>
@@ -125,6 +127,7 @@ const ClassForm = ({
                 min="1"
                 name="maxAge"
                 onChange={onChange}
+                value={formData.ages.maxAge}
               >
                 Maximum
               </FormInput>
@@ -144,6 +147,7 @@ const ClassForm = ({
                     value="online"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.type === 'online'}
                   />
                   Online
                 </label>
@@ -154,6 +158,7 @@ const ClassForm = ({
                     value="offline"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.type === 'offline'}
                   />
                   Offline
                 </label>
@@ -174,6 +179,7 @@ const ClassForm = ({
                     value="Group"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.lessonType === 'Group'}
                   />
                   Group
                 </label>
@@ -184,6 +190,7 @@ const ClassForm = ({
                     value="1:1"
                     className="w-4 h-4 accent-lightGreen focus:darkGreen"
                     onChange={onChange}
+                    checked={formData.lessonType === '1:1'}
                   />
                   1:1
                 </label>
@@ -195,6 +202,7 @@ const ClassForm = ({
               name="goal"
               onChange={onChange}
               max="200"
+              value={formData.goal}
             >
               Learning goals of the class
             </FormInput>
@@ -204,6 +212,7 @@ const ClassForm = ({
               name="experience"
               onChange={onChange}
               max="200"
+              value={formData.experience}
             >
               Class experience
             </FormInput>
@@ -213,11 +222,14 @@ const ClassForm = ({
               name="other"
               onChange={onChange}
               max="200"
+              value={formData.other}
             >
               Other details
             </FormInput>
             {formErrors.availableTime && (
-              <p className="text-red text-sm font-spartan">{formErrors.availableTime}</p>
+              <p className="text-red text-sm font-spartan">
+                {formErrors.availableTime}
+              </p>
             )}
             <div className="flex gap-4 flex-col">
               <p className="w-full">Select your availability for this class:</p>
@@ -256,6 +268,7 @@ const ClassForm = ({
             Save
           </button>
           <button
+            type="button"
             onClick={onReturn}
             className="w-1/4 bg-pureWhite text-yellow hover:bg-yellow hover:text-pureWhite border-2 border-yellow font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
           >

@@ -211,7 +211,7 @@ const TeacherInfoPage = () => {
               {teacherInfo.profilePortfolioImages.map((image, index) => (
                 <img
                   key={index}
-                  className="w-[180px] h-[180px] md:w-1/6 rounded-md"
+                  className="w-[180px] h-[180px] w-full md:w-1/6 rounded-md"
                   src={image.url}
                   alt={`Teacher Portfolio ${index + 1}`}
                 />
@@ -231,7 +231,7 @@ const TeacherInfoPage = () => {
           <h2 className="font-spartan font-semibold text-2xl py-2">
             Video Portfolio
           </h2>
-          <div className="flex flex-wrap gap-6 w-full justify-start">
+          <div className="flex flex-wrap gap-6 w-full">
             {teacherInfo.profilePortfolioVideos.map((video) => (
               <div key={video.publicId} className="relative lg:w-2/5">
                 <video aria-label="portfolio video" controls>

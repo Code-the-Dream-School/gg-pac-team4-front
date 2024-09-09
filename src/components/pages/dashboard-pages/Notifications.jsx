@@ -13,7 +13,7 @@ import {
   formatDateWithoutWeekday,
   calculateAge,
 } from '../../../util/NotificationsUtils';
-import StudentNotifications from './StudentNotifications'
+import StudentNotifications from './StudentNotifications';
 
 const Notifications = ({ socket }) => {
   const { userData } = useAuth();
@@ -146,16 +146,13 @@ const Notifications = ({ socket }) => {
       });
     }
   };
-  
+
   if (userData.role !== 'teacher') {
-    return <StudentNotifications userData={userData}/>;
+    return <StudentNotifications userData={userData} />;
   }
 
   return (
     <div className="container mt-10">
-      <h1 className="text-red font-bold text-2xl sm:text-4xl font-spartan uppercase">
-        New applications:
-      </h1>
       {classesError && <p className="text-red">{classesError.message}</p>}
       <div className="flex flex-col gap-6 mt-10 m-5 md:m-10">
         {classes.length > 0 ? (

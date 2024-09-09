@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "serve -s dist",
     "dev": "vite",
     "build": "vite build",
     "format": "prettier --write .",
@@ -20,8 +21,10 @@
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.26.1",
     "react-tailwindcss-select": "^1.8.5",
+    "serve": "^14.2.3",
     "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",
