@@ -116,6 +116,25 @@ This configuration utilizes modern technologies and tools to optimize the develo
 
 - Ensure the back-end server is running as per the instructions in our [Back-End Repository](https://github.com/Code-the-Dream-School/gg-pac-team4-back).
 
+### Environment Variables
+
+To properly run this application, you need to set up environment variables. This is done by creating a `.env` file in the root directory of the project with the following variables:
+
+- **`VITE_API_BASE_URL`**:  
+  This is the base URL for the API. In development, it points to your local backend.
+  ```bash
+  VITE_API_BASE_URL=http://localhost:8000/api/v1
+
+- **`VITE_FRONTEND_URL`**:  
+  This is the URL where your front-end application is served during development.
+  ```bash
+  VITE_FRONTEND_URL=http://localhost:5173
+
+- **`VITE_CLIENT_ID`**:  
+  This is your client ID used for authentication purposes. Replace your_ClienT_ID with the actual client ID provided by your authentication service.
+  ```bash
+  VITE_CLIENT_ID=your_ClienT_ID
+
 ---
 ## Presentation
 - [Final Presentation Slides](https://docs.google.com/presentation/d/10YtT_JwBUy68j0Cfj-cmbwI22-Gy1HeS8je2AlQ_QJA/edit#slide=id.p2)
