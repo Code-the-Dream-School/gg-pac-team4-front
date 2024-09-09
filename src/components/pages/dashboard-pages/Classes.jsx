@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import DeleteClassModal from '../../common/DeleteClassModal';
 import { FormatTimeAmPm } from '../../../util/FormatTimeAmPm';
 import IconAge from '../../../assets/icons/icon-age.svg';
 import IconClock from '../../../assets/icons/icon-clock.svg';
@@ -9,6 +10,7 @@ import Loader from '../../common/Loader';
 import ScrollToTop from '../../layouts/ScrollToTop';
 import { getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
+import useDeleteClass from '../../../util/DeleteClassService';
 import { useNavigate } from 'react-router-dom';
 
 const Classes = () => {
@@ -19,7 +21,10 @@ const Classes = () => {
   const [selectedId, setSelectedId] = useState();
   const [selectedClass, setSelectedClass] = useState();
   const [classesError, setClassesError] = useState({});
+  const [deleteClassError, setDeleteClassError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const { isModalOpen, openModal, closeModal } = useDeleteClass();
 
   useEffect(() => {
     setIsLoading(true);
@@ -53,13 +58,13 @@ const Classes = () => {
   }, [userData]);
 
   useEffect(() => {
-    if (selectedId) {
+    if (selectedId && classes.length > 0) {
       const initialClass = classes.filter((classes) =>
         selectedId.includes(classes._id)
       );
       setSelectedClass(initialClass);
     }
-  }, [selectedId]);
+  }, [selectedId, classes]);
 
   const classesList = classes.map(({ _id, classImageUrl, classTitle }) => {
     const active = _id === selectedId;
@@ -94,6 +99,9 @@ const Classes = () => {
             <p className="text-red text-xl font-bold">
               {classesError.fetchError}
             </p>
+          )}
+          {deleteClassError && (
+            <p className="text-red text-lg font-semibold">{deleteClassError}</p>
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
             {classesError.noClassesError ? (
@@ -193,15 +201,27 @@ const Classes = () => {
                   <h3 className="font-medium text-lg text-center">
                     Class experience
                   </h3>
-                  <p className="p-5">{selectedClass[0].experience}</p>
+                  <p className="p-5">
+                    {selectedClass[0].experience
+                      ? selectedClass[0].experience
+                      : 'No information provided.'}
+                  </p>
                   <h3 className="font-medium text-lg text-center">
                     Learning goals
                   </h3>
-                  <p className="p-5">{selectedClass[0].goal}</p>
+                  <p className="p-5">
+                    {selectedClass[0].goal
+                      ? selectedClass[0].goal
+                      : 'No information provided.'}
+                  </p>
                   <h3 className="font-medium text-lg text-center">
                     Other details
                   </h3>
-                  <p className="p-5">{selectedClass[0].other}</p>
+                  <p className="p-5">
+                    {selectedClass[0].other
+                      ? selectedClass[0].other
+                      : 'No information provided.'}
+                  </p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
                   <button
@@ -212,10 +232,22 @@ const Classes = () => {
                   >
                     Edit
                   </button>
-                  <button className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in">
+                  <button
+                    onClick={openModal}
+                    className="w-1/3 bg-pureWhite text-red hover:bg-red hover:text-pureWhite border-2 border-red font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                  >
                     Delete
                   </button>
                 </div>
+                <DeleteClassModal
+                  classId={selectedId}
+                  token={userData.token}
+                  isOpen={isModalOpen}
+                  onRequestClose={closeModal}
+                  onError={setDeleteClassError}
+                  onSelectedClass={setSelectedClass}
+                  onSelectedId={setSelectedId}
+                />
               </div>
             ) : (
               <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
