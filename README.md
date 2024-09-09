@@ -84,7 +84,7 @@ This configuration utilizes modern technologies and tools to optimize the develo
 ### Effortless Registration and Profile Creation
 
 - **Sign Up**: Users can sign up as either a student or a teacher. After completing the registration, they will be redirected to the login page. Upon successful login, users gain full access to the dashboard. In case of a forgotten password, they can request a reset link via email and log in with a newly created password.
-- **Edit Profile**: Users can update their personal information, upload the their photo.
+- **Edit Profile**: Users can update their personal information, upload their photo.
 - **Add Portfolio and Welcome Video**: Showcase skills with portfolio items and an introduction video.
 - **Class Management**: Users can add, edit, or delete classes.
 
