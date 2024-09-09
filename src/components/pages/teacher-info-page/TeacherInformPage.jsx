@@ -2,15 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { getUserData, getClassesData } from '../../../util/DataBaseRequests';
 import { useAuth } from '../../../AuthProvider';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Loader from '../../common/Loader';
 
 const TeacherInfoPage = () => {
   const { userData } = useAuth();
   const { teacherId } = useParams();
+  const navigate = useNavigate();
   const [teacherInfo, setTeacherInfo] = useState(null);
   const [classes, setClasses] = useState([]);
   const [classesError, setClassesError] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     const fetchTeacherAndClasses = async () => {
@@ -53,6 +56,21 @@ const TeacherInfoPage = () => {
     }
   }, [teacherId, userData]);
 
+  //Function to handle class  click
+  const handleClassClick = (classId) => {
+    navigate(`/class-info/${classId}`);
+  };
+
+  // Function to handle image clicks
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+  };
+
+  // Function to close the modal
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
   if (isLoading) return <Loader />;
   if (classesError.fetchError) return <p>{classesError.fetchError}</p>;
 
@@ -85,9 +103,6 @@ const TeacherInfoPage = () => {
 
           {/* Actions Section */}
           <div className="flex mt-8 gap-4">
-            <button className="font-spartan bg-red hover:bg-pureWhite hover:text-red px-4 py-1 border-2 border-transparent hover:border-red text-white font-spartan font-semibold text-sm sm:text-lg rounded-md transition duration-300 ease-in">
-              Book lesson
-            </button>
             <button className="font-spartan bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
               Send Message
             </button>
@@ -95,11 +110,11 @@ const TeacherInfoPage = () => {
         </div>
 
         {/* Welcome Video Section */}
-        <div className="flex flex-col justify-center mx-auto p-4 m-4 md:m-12 rounded w-full md:w-1/3 bg-lightGreen">
+        <div className="flex flex-col justify-center mx-auto p-4 m-4 md:m-12 rounded w-full md:w-1/3 bg-lightGreen cursor-pointer">
           {teacherInfo?.profileVideoUrl && (
             <div className="bg-lightGreen rounded ">
               <video
-                className="  rounded "
+                className="rounded"
                 controls
                 src={teacherInfo.profileVideoUrl}
                 type="video/mp4"
@@ -154,8 +169,9 @@ const TeacherInfoPage = () => {
               classes.map((classItem) => (
                 <div
                   key={classItem._id}
-                  className="flex flex-col border-darkGreen border-2 bg-pureWhite rounded w-full xl:w-[50%] mx-auto"
+                  className="flex flex-col border-darkGreen border-2 bg-pureWhite rounded w-full xl:w-[50%] mx-auto cursor-pointer hover:scale-105"
                   style={{ scrollSnapAlign: 'start', flexShrink: 0 }}
+                  onClick={() => handleClassClick(classItem._id)}
                 >
                   <img
                     src={classItem.classImageUrl}
@@ -211,9 +227,10 @@ const TeacherInfoPage = () => {
               {teacherInfo.profilePortfolioImages.map((image, index) => (
                 <img
                   key={index}
-                  className="w-[180px] h-[180px] w-full md:w-1/6 rounded-md"
+                  className="w-[180px] h-[180px] w-full md:w-1/6 rounded-md cursor-pointer transition-transform duration-300 ease-in-out hover:scale-110"
                   src={image.url}
                   alt={`Teacher Portfolio ${index + 1}`}
+                  onClick={() => handleImageClick(image.url)}
                 />
               ))}
             </div>
@@ -227,14 +244,18 @@ const TeacherInfoPage = () => {
 
       {/* Video Portfolio Section */}
       {teacherInfo?.profilePortfolioVideos?.length > 0 && (
-        <div className="h-3/5 flex flex-col items-center bg-pureWhite mb-4 p-4">
-          <h2 className="font-spartan font-semibold text-2xl py-2">
+        <div className="h-3/5 flex flex-col items-center bg-pureWhite m-8 p-4">
+          <h2 className="font-spartan font-semibold text-3xl m-4">
             Video Portfolio
           </h2>
           <div className="flex flex-wrap gap-6 w-full">
             {teacherInfo.profilePortfolioVideos.map((video) => (
-              <div key={video.publicId} className="relative lg:w-2/5">
-                <video aria-label="portfolio video" controls>
+              <div key={video.publicId} className="relative lg:w-2/5 ">
+                <video
+                  className="rounded"
+                  aria-label="portfolio video"
+                  controls
+                >
                   <source src={video.url} type="video/mp4" />
                   <source src={video.url} type="video/mpeg" />
                   <source src={video.url} type="video/quicktime" />
@@ -244,6 +265,16 @@ const TeacherInfoPage = () => {
               </div>
             ))}
           </div>
+        </div>
+      )}
+
+      {/* Modal for Enlarged Image */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50"
+          onClick={handleCloseModal}
+        >
+          <img src={selectedImage} alt="Enlarged Portfolio" className="h-3/4" />
         </div>
       )}
     </div>
