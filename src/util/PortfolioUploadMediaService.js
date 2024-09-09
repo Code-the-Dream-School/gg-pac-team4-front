@@ -55,7 +55,7 @@ const useMediaUploader = (mediaType) => {
       setUploadedFiles([]);
     } catch (error) {
       setIsLoading(false);
-      setError({ message: error.data.error });
+      setError({ message: error.data.error || error.data.message });
       console.log(error);
       setShowFileInput(!showFileInput);
       setUploadedFiles([]);
@@ -118,7 +118,7 @@ const useMediaUploader = (mediaType) => {
       setUploadedFiles([]);
     } catch (error) {
       setIsLoading(false);
-      setError({ message: error.data.error });
+      setError({ message: error.data.error || error.data.message });
       setShowFileInput(!showFileInput);
       setUploadedFiles([]);
       console.log('error', error.data);

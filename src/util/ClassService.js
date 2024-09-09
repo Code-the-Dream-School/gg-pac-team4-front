@@ -36,6 +36,13 @@ const useClasses = () => {
     }));
   };
 
+  const handleRemoveTime = (index) => {
+    setFormData((formData) => ({
+      ...formData,
+      availableTime: formData.availableTime.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleChange = (e, index) => {
     const { name, value, files } = e.target;
 
@@ -192,6 +199,7 @@ const useClasses = () => {
     handleSubjects,
     handleChange,
     handleAddTime,
+    handleRemoveTime,
     returnToClasses,
     formErrors,
     formData,

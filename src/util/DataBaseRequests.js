@@ -420,7 +420,7 @@ export const updateClassForm = async(classId, token, formData) => {
           Authorization: `Bearer ${token}`,
         },
       }
-    );console.log(response);
+    );
     return response;
   } catch (error) {
     throw error.response;
