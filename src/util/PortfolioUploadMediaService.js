@@ -3,7 +3,7 @@ import {
   deleteWelcomeVideo,
   getUserData,
   uploadPortfolioMedia,
-  uploadWelcomeVideo
+  uploadWelcomeVideo,
 } from './DataBaseRequests';
 
 import { useAuth } from '../AuthProvider';
@@ -46,7 +46,8 @@ const useMediaUploader = (mediaType) => {
         const uploadedFileURL = await getUserData(userData._id, userData.token);
         setUserData((userData) => ({
           ...userData,
-          [`profilePortfolio${mediaType}`]: uploadedFileURL.data[`profilePortfolio${mediaType}`],
+          [`profilePortfolio${mediaType}`]:
+            uploadedFileURL.data[`profilePortfolio${mediaType}`],
         }));
       }
       setIsLoading(false);
@@ -63,7 +64,7 @@ const useMediaUploader = (mediaType) => {
   };
 
   const handleDeleteMedia = async (fileId) => {
-    setIsLoading(true); 
+    setIsLoading(true);
     try {
       const result = await deletePortfolioMedia(
         userData._id,
@@ -72,10 +73,14 @@ const useMediaUploader = (mediaType) => {
         mediaType
       );
       if (result.status === 200) {
-        const updatedPortfolio = await getUserData(userData._id, userData.token);
+        const updatedPortfolio = await getUserData(
+          userData._id,
+          userData.token
+        );
         setUserData((userData) => ({
           ...userData,
-          [`profilePortfolio${mediaType}`]: updatedPortfolio.data[`profilePortfolio${mediaType}`],
+          [`profilePortfolio${mediaType}`]:
+            updatedPortfolio.data[`profilePortfolio${mediaType}`],
         }));
         setIsLoading(false);
         setError({});
@@ -126,7 +131,7 @@ const useMediaUploader = (mediaType) => {
   };
 
   const handleWelcomeVideoDelete = async () => {
-    setIsLoading(true); 
+    setIsLoading(true);
     try {
       const result = await deleteWelcomeVideo(userData._id, userData.token);
       if (result.status === 200) {
@@ -145,9 +150,8 @@ const useMediaUploader = (mediaType) => {
       console.log('Error deleting video:', error);
       setIsLoading(false);
       setError({ message: 'An error occurred while deleting the video.' });
-    } 
+    }
   };
-
 
   return {
     showFileInput,
@@ -161,7 +165,7 @@ const useMediaUploader = (mediaType) => {
     handleDeleteMedia,
     handleWelcomeVideoChange,
     handleWelcomeVideoSubmit,
-    handleWelcomeVideoDelete
+    handleWelcomeVideoDelete,
   };
 };
 

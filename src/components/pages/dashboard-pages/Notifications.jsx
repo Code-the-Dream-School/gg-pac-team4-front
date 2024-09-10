@@ -162,9 +162,11 @@ const Notifications = ({ socket }) => {
 
   return (
     <div className="container mt-10">
-      {classes.length > 0 && <h1 className="text-red font-bold text-2xl font-spartan uppercase ml-10">
-        New applications:
-      </h1>}
+      {classes.length > 0 && (
+        <h1 className="text-red font-bold text-2xl font-spartan uppercase ml-10">
+          New applications:
+        </h1>
+      )}
       {classesError && <p className="text-red">{classesError.message}</p>}
       {applicantsError && <p className="text-red">{applicantsError.message}</p>}
       {isLoading ? (

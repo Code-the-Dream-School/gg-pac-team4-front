@@ -1,4 +1,4 @@
-import DeleteIcon from '../../../assets/icons/delete.png'
+import DeleteIcon from '../../../assets/icons/delete.png';
 import FormInput from '../../common/FormInput';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
@@ -12,10 +12,10 @@ const ClassForm = ({
   formData,
   onAddTime,
   onRemoveTime,
-  onReturn
+  onReturn,
 }) => {
   const options = subjectOptions;
-  
+
   return (
     <div className="w-full flex flex-col items-center p-4">
       {formErrors.form && (
@@ -229,7 +229,9 @@ const ClassForm = ({
               Other details
             </FormInput>
             {formErrors.availableTime && (
-              <p className="text-red text-sm font-spartan">{formErrors.availableTime}</p>
+              <p className="text-red text-sm font-spartan">
+                {formErrors.availableTime}
+              </p>
             )}
             <div className="flex gap-4 flex-col">
               <p className="w-full">Select your availability for this class:</p>
@@ -248,12 +250,17 @@ const ClassForm = ({
                     onChange={(e) => onChange(e, index)}
                     value={time.startTime}
                   />
-                  <button 
+                  <button
                     type="button"
-                    aria-label='delete date and time'
+                    aria-label="delete date and time"
                     onClick={() => onRemoveTime(index)}
-                    className='flex items-center justify-center h-10 w-10 transform hover:scale-125 transition-all duration-200'>
-                      <img src={DeleteIcon} alt="delete icon" className='h-5 w-5 hover:scale-1.2'/>
+                    className="flex items-center justify-center h-10 w-10 transform hover:scale-125 transition-all duration-200"
+                  >
+                    <img
+                      src={DeleteIcon}
+                      alt="delete icon"
+                      className="h-5 w-5 hover:scale-1.2"
+                    />
                   </button>
                 </div>
               ))}

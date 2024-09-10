@@ -3,7 +3,7 @@ const MentorCard = ({
   teamMemberData,
   cardClassName,
   imgClassName,
-  textClassName
+  textClassName,
 }) => {
   return (
     <div
@@ -17,10 +17,14 @@ const MentorCard = ({
         alt={teamMemberData.alt}
         className={`w-40 h-40 rounded-full border-solid border-4 border-pureWhite mt-14 ${imgClassName}`}
       />
-      <p className={`w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center ${textClassName}`}>
+      <p
+        className={`w-full font-spartan font-semibold text-white text-2xl lg:text-3xl text-center ${textClassName}`}
+      >
         {teamMemberData.name}
       </p>
-      <p className={`w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center ${textClassName}`}>
+      <p
+        className={`w-full font-spartan font-semibold text-white text-xl lg:text-2xl text-center ${textClassName}`}
+      >
         {teamMemberData.title}
       </p>
     </div>
