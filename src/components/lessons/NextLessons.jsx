@@ -1,5 +1,6 @@
+import { formatDateWithWeekday, formatDateWithoutWeekday } from '../../util/NotificationsUtils';
+
 import CountdownTimer from '../../util/LessonsTimer';
-import { formatDateWithoutWeekday } from '../../util/NotificationsUtils';
 
 const NextLessons = ({ nextTwoLessons }) => {
   return (
@@ -7,7 +8,7 @@ const NextLessons = ({ nextTwoLessons }) => {
       {nextTwoLessons.length > 0 ? (
         <div className="flex gap-8 flex-col lg:flex-row">
           {nextTwoLessons.map((lesson) => {
-            const lessonDate = formatDateWithoutWeekday(lesson.lessonSchedule.date);
+            const lessonDate = new Date(lesson.lessonSchedule.date);
             const now = new Date();
             const daysRemaining = Math.floor(
               (lessonDate - now) / (1000 * 60 * 60 * 24)
@@ -46,12 +47,8 @@ const NextLessons = ({ nextTwoLessons }) => {
                   ) : (
                     <p className="mb-2">
                       <span className="font-medium">Date:</span>{' '}
-                      {lessonDate.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'numeric',
-                        day: 'numeric',
-                      })}{' '} at {lesson.lessonSchedule.startTime}
-                       
+                      {formatDateWithoutWeekday(lessonDate) }{' '}
+                      {lesson.lessonSchedule.startTime}
                     </p>
                   )}
                 </div>
