@@ -8,6 +8,7 @@ const AddClass = () => {
     handleSubjects,
     handleChange,
     handleAddTime,
+    handleRemoveTime,
     returnToClasses,
     formErrors,
     formData,
@@ -33,6 +34,7 @@ const AddClass = () => {
           formData={formData}
           onAddTime={handleAddTime}
           onReturn={returnToClasses}
+          onRemoveTime={handleRemoveTime}
         />
         </>
       )}
