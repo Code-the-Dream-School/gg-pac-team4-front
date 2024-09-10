@@ -1,3 +1,4 @@
+import DeleteIcon from '../../../assets/icons/delete.png';
 import FormInput from '../../common/FormInput';
 import SelectDropdown from '../../common/SelectDropdown';
 import subjectOptions from '../../../data/subjects';
@@ -10,6 +11,7 @@ const ClassForm = ({
   formErrors,
   formData,
   onAddTime,
+  onRemoveTime,
   onReturn,
 }) => {
   const options = subjectOptions;
@@ -248,6 +250,18 @@ const ClassForm = ({
                     onChange={(e) => onChange(e, index)}
                     value={time.startTime}
                   />
+                  <button
+                    type="button"
+                    aria-label="delete date and time"
+                    onClick={() => onRemoveTime(index)}
+                    className="flex items-center justify-center h-10 w-10 transform hover:scale-125 transition-all duration-200"
+                  >
+                    <img
+                      src={DeleteIcon}
+                      alt="delete icon"
+                      className="h-5 w-5 hover:scale-1.2"
+                    />
+                  </button>
                 </div>
               ))}
               <button

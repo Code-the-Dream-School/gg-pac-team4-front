@@ -96,7 +96,7 @@ export const getClassesData = async (
   description = '',
   category = '',
   page = 1,
-  limit = 50,
+  limit = 150,
   sortBy = 'classTitle',
   sortOrder = 'asc'
 ) => {
@@ -442,7 +442,6 @@ export const updateClassForm = async (classId, token, formData) => {
         },
       }
     );
-    console.log(response);
     return response;
   } catch (error) {
     throw error.response;

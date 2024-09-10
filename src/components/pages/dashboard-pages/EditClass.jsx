@@ -14,6 +14,7 @@ const EditClass = () => {
     handleSubjects,
     handleChange,
     handleAddTime,
+    handleRemoveTime,
     returnToClasses,
     formErrors,
     formData,
@@ -84,6 +85,7 @@ const EditClass = () => {
             formData={formData}
             onAddTime={handleAddTime}
             onReturn={returnToClasses}
+            onRemoveTime={handleRemoveTime}
           />
         </>
       )}
