@@ -104,7 +104,7 @@ const TeacherInfoPage = () => {
 
           {/* Actions Section */}
           <div className="flex mt-8 gap-4">
-            <button className="font-spartan bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+            <button className="bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
               Send Message
             </button>
           </div>
@@ -158,7 +158,7 @@ const TeacherInfoPage = () => {
         </div>
 
         {/* Teacher's Classes */}
-        <div className="flex flex-col w-full p-4 w-full md:w-1/3">
+        <div className="flex flex-col p-4 w-full md:w-1/3">
           <p className="font-spartan text-center md:justify-start font-medium text-4xl">
             Teacher's Classes
           </p>

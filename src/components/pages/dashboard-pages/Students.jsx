@@ -220,7 +220,7 @@ const TeacherStudents = () => {
           )}
           <div className="flex sm:flex-row flex-col gap-4 sm:gap-1 justify-evenly pt-4 items-start mb-10 w-full h-full">
             {studentsError.noStudentsError ? (
-              <div className="bg-pureWhite w-2/3 h-full flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
+              <div className="bg-pureWhite w-2/3 flex flex-col gap-4 h-2/3 self-center sm:self-start items-center">
                 <p className="px-4 font-spartan font-semibold text-center my-10 tracking-wide text-xl">
                   {studentsError.noStudentsError}
                   <br />
