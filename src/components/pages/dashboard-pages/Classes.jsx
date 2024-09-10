@@ -23,9 +23,9 @@ const Classes = () => {
   const [classesError, setClassesError] = useState({});
   const [deleteClassError, setDeleteClassError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
-  const { isModalOpen, openModal, closeModal} = useDeleteClass();
-  
+
+  const { isModalOpen, openModal, closeModal } = useDeleteClass();
+
   useEffect(() => {
     setIsLoading(true);
     const getTeacherClasses = async () => {
@@ -201,19 +201,35 @@ const Classes = () => {
                   <h3 className="font-medium text-lg text-center">
                     Class experience
                   </h3>
-                  <p className="p-5">{selectedClass[0].experience ? selectedClass[0].experience : 'No information provided.'}</p>
+                  <p className="p-5">
+                    {selectedClass[0].experience
+                      ? selectedClass[0].experience
+                      : 'No information provided.'}
+                  </p>
                   <h3 className="font-medium text-lg text-center">
                     Learning goals
                   </h3>
-                  <p className="p-5">{selectedClass[0].goal ? selectedClass[0].goal : 'No information provided.'}</p>
+                  <p className="p-5">
+                    {selectedClass[0].goal
+                      ? selectedClass[0].goal
+                      : 'No information provided.'}
+                  </p>
                   <h3 className="font-medium text-lg text-center">
                     Other details
                   </h3>
-                  <p className="p-5">{selectedClass[0].other ? selectedClass[0].other : 'No information provided.'}</p>
+                  <p className="p-5">
+                    {selectedClass[0].other
+                      ? selectedClass[0].other
+                      : 'No information provided.'}
+                  </p>
                 </div>
                 <div className="flex gap-8 justify-center w-full sm:2/5 ">
-                  <button className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
-                  onClick={() => navigate(`/dashboard/edit-class/${selectedClass[0]._id}`)}>
+                  <button
+                    className="bg-yellow w-1/3 hover:bg-pureWhite hover:text-yellow hover:border-2 hover:border-yellow text-white font-spartan font-semibold text-lg py-1 rounded-lg transition duration-300 easy-in"
+                    onClick={() =>
+                      navigate(`/dashboard/edit-class/${selectedClass[0]._id}`)
+                    }
+                  >
                     Edit
                   </button>
                   <button
@@ -252,7 +268,7 @@ const Classes = () => {
               </div>
             )}
           </div>
-          <ScrollToTop/>
+          <ScrollToTop />
         </>
       )}
     </>

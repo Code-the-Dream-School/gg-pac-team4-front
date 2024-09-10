@@ -11,13 +11,20 @@ const useDeleteClass = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleDelete = async (token, classId, onRequestClose, onError, onSelectedClass, onSelectedId) => {
+  const handleDelete = async (
+    token,
+    classId,
+    onRequestClose,
+    onError,
+    onSelectedClass,
+    onSelectedId
+  ) => {
     try {
-        setIsLoading(true);
+      setIsLoading(true);
       let response = await deleteClass(token, classId);
       if (response.status === 200) {
         const result = await getUserData(userData._id, token);
-        if(result.data.myClasses.length === 0) {
+        if (result.data.myClasses.length === 0) {
           onSelectedId(null);
           onSelectedClass(null);
         } else {
@@ -28,18 +35,19 @@ const useDeleteClass = () => {
           myClasses: result.data.myClasses,
         }));
         setIsLoading(false);
-        onError(''); 
-        onRequestClose();//close modal
-        
+        onError('');
+        onRequestClose(); //close modal
       }
     } catch (error) {
       console.error('Error deleting class:', error);
-      error.message === 'Cannot delete class with existing lessons' ? onError('Cannot delete class with existing lessons') : onError('Failed to delete this class. Please try again later.');
+      error.message === 'Cannot delete class with existing lessons'
+        ? onError('Cannot delete class with existing lessons')
+        : onError('Failed to delete this class. Please try again later.');
       setIsLoading(false);
-      onRequestClose();//close modal
+      onRequestClose(); //close modal
     }
   };
-  
+
   return {
     isModalOpen,
     openModal,

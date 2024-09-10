@@ -45,7 +45,9 @@ const EditLesson = () => {
         });
       } catch (error) {
         console.error('Error fetching lesson:', error);
-        setFormErrors({ form: 'Error fetching lesson details. Please try again.' });
+        setFormErrors({
+          form: 'Error fetching lesson details. Please try again.',
+        });
       }
     };
 

@@ -204,7 +204,10 @@ const ClassInfoPage = () => {
         {classItem.availableTime && classItem.availableTime.length > 0 ? (
           classItem.availableTime.map((timeSlot) => (
             <div key={timeSlot._id}>
-              <p>{formatDateWithoutWeekday(timeSlot.date)} at {timeSlot.startTime} </p>
+              <p>
+                {formatDateWithoutWeekday(timeSlot.date)} at{' '}
+                {timeSlot.startTime}{' '}
+              </p>
             </div>
           ))
         ) : (

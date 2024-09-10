@@ -15,7 +15,6 @@ import {
 import { formatDateWithWeekday } from '../../../util/NotificationsUtils';
 import { v4 as uuidv4 } from 'uuid';
 
-
 const TeacherStudents = () => {
   const navigate = useNavigate();
   const { userData } = useAuth();

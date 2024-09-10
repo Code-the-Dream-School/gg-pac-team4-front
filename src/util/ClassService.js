@@ -167,7 +167,6 @@ const useClasses = () => {
   };
 
   const createMultipartForm = (data) => {
-
     const multipartForm = new FormData();
 
     for (let key in data) {

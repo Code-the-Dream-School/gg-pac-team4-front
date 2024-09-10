@@ -3,7 +3,7 @@ import Loader from '../../common/Loader';
 import useClasses from '../../../util/ClassService';
 
 const AddClass = () => {
-  const{
+  const {
     handleSubmit,
     handleSubjects,
     handleChange,
@@ -13,8 +13,8 @@ const AddClass = () => {
     formErrors,
     formData,
     isLoading,
-    category
-} = useClasses();
+    category,
+  } = useClasses();
 
   return (
     <>
@@ -22,20 +22,20 @@ const AddClass = () => {
         <Loader />
       ) : (
         <>
-        <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan my-4">
-        Add a new class
-        </h1>
-        <ClassForm
-          onChange={handleChange}
-          onHandleSubjects={handleSubjects}
-          category={category}
-          onSubmit={handleSubmit}
-          formErrors={formErrors}
-          formData={formData}
-          onAddTime={handleAddTime}
-          onReturn={returnToClasses}
-          onRemoveTime={handleRemoveTime}
-        />
+          <h1 className="text-black font-semibold text-xl sm:text-2xl font-spartan my-4">
+            Add a new class
+          </h1>
+          <ClassForm
+            onChange={handleChange}
+            onHandleSubjects={handleSubjects}
+            category={category}
+            onSubmit={handleSubmit}
+            formErrors={formErrors}
+            formData={formData}
+            onAddTime={handleAddTime}
+            onReturn={returnToClasses}
+            onRemoveTime={handleRemoveTime}
+          />
         </>
       )}
     </>

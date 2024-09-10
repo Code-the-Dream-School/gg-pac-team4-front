@@ -19,23 +19,29 @@ This repository contains the **React.js application** code, which interfaces wit
 Our front-end is powered by a suite of modern tools and libraries to ensure a responsive, efficient, and visually appealing user experience:
 
 - **Core Frameworks:**
+
   - `React` - A JavaScript library for building user interfaces, ensuring a reactive and component-based architecture.
   - `React DOM` - Serves as the entry point to the DOM and server renderers for React.
 
 - **Routing and Navigation:**
+
   - `React Router Dom` - Enables dynamic routing in a web app, which is critical for single-page applications.
 
 - **Real-time Communication:**
+
   - `Socket.io` - A library for real-time, bidirectional communication between clients and servers, ensuring a seamless, live interaction experience.
 
 - **HTTP Requests:**
+
   - `Axios` - Promise-based HTTP client for making requests to back-end services.
 
 - **UI Components and Design:**
-  - `React tailwindcss select` -  A select input made with Tailwindcss and React.
+
+  - `React tailwindcss select` - A select input made with Tailwindcss and React.
   - `React modal` - Accessible modal dialog component for React.JS.
 
 - **Styling and CSS Frameworks:**
+
   - `Tailwind CSS` - A utility-first CSS framework for rapid UI development.
 
 - **Development and Build Tools:**
@@ -48,34 +54,50 @@ Our front-end is powered by a suite of modern tools and libraries to ensure a re
 This project includes several NPM scripts to facilitate development, testing, and production builds. Below is a breakdown of the available scripts:
 
 - **`start`**:  
-  Serves the production build of the project from the `dist` directory using the `serve` package. Use this after running a build to test the production version locally.  
+  Serves the production build of the project from the `dist` directory using the `serve` package. Use this after running a build to test the production version locally.
+
   ```bash
   npm start
 
+  ```
+
 - **`dev`**:  
-  Starts the Vite development server for local development. This provides fast hot module replacement (HMR) and a quick feedback loop during development. 
+  Starts the Vite development server for local development. This provides fast hot module replacement (HMR) and a quick feedback loop during development.
+
   ```bash
   npm run dev
+
+  ```
 
 - **`build`**:  
   Builds the project for production using Vite. The output is optimized for deployment and placed in the **`dist`** directory.
+
   ```bash
   npm run dev
 
+  ```
+
 - **`format`**:  
   Runs Prettier to automatically format all supported files in the project according to the project's Prettier configuration.
+
   ```bash
   npm run format
 
+  ```
+
 - **`lint`**:  
   Runs ESLint to lint all JavaScript and JSX files in the project. The **`--max-warnings 0`** option ensures that any warnings will cause the linting process to fail, encouraging clean code.
+
   ```bash
   npm run lint
+
+  ```
 
 - **`preview`**:  
   Serves the built application locally, using Vite’s preview command. This simulates a production environment for testing purposes.
   ```bash
   npm run preview
+  ```
 
 This configuration utilizes modern technologies and tools to optimize the development process and boost the application's performance.
 
@@ -90,12 +112,12 @@ This configuration utilizes modern technologies and tools to optimize the develo
 
 ### Search Functionality
 
-- All users can explore classes tailored to their artistic interests by browsing categories on the main page or using the search bar with relevant keywords. 
+- All users can explore classes tailored to their artistic interests by browsing categories on the main page or using the search bar with relevant keywords.
 - Detailed class information and teacher profiles are accessible exclusively to logged-in users.
 
 ### Effortless Lesson Browsing and Booking
 
-- After registering, students gain access to detailed lesson information and can easily request bookings by submitting a simple form. 
+- After registering, students gain access to detailed lesson information and can easily request bookings by submitting a simple form.
 - Teachers receive these requests in their My Applications section, where they can choose to approve or decline them. Once approved, the lessons are added to the student's profile, allowing them to view and manage all their enrolled classes with ease.
 
 ### Integrated Communication and Notifications
@@ -122,21 +144,30 @@ To properly run this application, you need to set up environment variables. This
 
 - **`VITE_API_BASE_URL`**:  
   This is the base URL for the API. In development, it points to your local backend.
+
   ```bash
   VITE_API_BASE_URL=http://localhost:8000/api/v1
 
+  ```
+
 - **`VITE_FRONTEND_URL`**:  
   This is the URL where your front-end application is served during development.
+
   ```bash
   VITE_FRONTEND_URL=http://localhost:5173
+
+  ```
 
 - **`VITE_CLIENT_ID`**:  
   This is your client ID used for authentication purposes. Replace your_ClienT_ID with the actual client ID provided by your authentication service.
   ```bash
   VITE_CLIENT_ID=your_ClienT_ID
+  ```
 
 ---
+
 ## Presentation
+
 - [Final Presentation Slides](https://docs.google.com/presentation/d/10YtT_JwBUy68j0Cfj-cmbwI22-Gy1HeS8je2AlQ_QJA/edit#slide=id.p2)
 
 ---

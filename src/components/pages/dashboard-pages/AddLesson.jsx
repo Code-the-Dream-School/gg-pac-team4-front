@@ -36,7 +36,9 @@ const AddLesson = () => {
         setFilteredClasses(filteredClasses);
       } catch (error) {
         console.error('Error fetching classes:', error);
-        setFormErrors({ form: 'Error fetching class details. Please try again.' });
+        setFormErrors({
+          form: 'Error fetching class details. Please try again.',
+        });
       }
     };
 

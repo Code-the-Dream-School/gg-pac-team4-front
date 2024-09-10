@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const TeacherInfo = ({ teacherInfo }) => {
   const [showFullExperience, setShowFullExperience] = useState(false);
+  const navigate = useNavigate();
 
   const handleToggleExperience = () => {
     setShowFullExperience(!showFullExperience);
   };
-
+  const handleProfileRedirect = () => {
+    navigate(`/teacher-info/${teacherInfo._id}`);
+  };
   const truncatedLength = 100;
   const shouldShowReadMore =
     teacherInfo.experience && teacherInfo.experience.length > truncatedLength;
@@ -30,7 +34,10 @@ const TeacherInfo = ({ teacherInfo }) => {
       </div>
       <div className="flex flex-row mt-4 gap-4">
         {teacherInfo.profileImageUrl && (
-          <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+          <button
+            onClick={handleProfileRedirect}
+            className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-2 hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red"
+          >
             Profile
           </button>
         )}

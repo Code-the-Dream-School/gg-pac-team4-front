@@ -7,7 +7,7 @@ import {
   Notifications,
   Students,
   AddLesson,
-  EditLesson
+  EditLesson,
 } from './components/pages/dashboard-pages/index.js';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -25,6 +25,7 @@ import RequestPasswordResetForm from './components/auth/RequestPasswordResetForm
 import ResetPasswordForm from './components/auth/ResetPasswordForm.jsx';
 import SearchPage from './components/search/SearchPage';
 import TeamPage from './components/pages/TeamPage.jsx';
+import TeacherInformPage from './components/pages/teacher-info-page/TeacherInformPage.jsx';
 
 const AppRoutes = ({ socket }) => {
   return (
@@ -37,12 +38,16 @@ const AppRoutes = ({ socket }) => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/class-info/:classId" element={<ClassInfoPage />} />
+          <Route
+            path="/teacher-info/:teacherId"
+            element={<TeacherInformPage />}
+          />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard socket={socket} />}>
               <Route path="edit-profile" element={<EditProfile />} />
               <Route path="classes" element={<Classes />} />
               <Route path="add-class" element={<AddClass />} />
-              <Route path="edit-class/:classId" element={<EditClass/>} />
+              <Route path="edit-class/:classId" element={<EditClass />} />
               <Route path="students" element={<Students />} />
               <Route path="lessons" element={<Lessons />} />
               <Route path="add-lesson" element={<AddLesson />} />
