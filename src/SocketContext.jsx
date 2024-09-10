@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import { useAuth } from './AuthProvider';
-import NotificationModal from './components/common/NotificationModal';
+import NotificationModal from './components/common/notificationModal';
 
 const SocketContext = createContext();
 
