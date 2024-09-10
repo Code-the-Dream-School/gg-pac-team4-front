@@ -19,6 +19,9 @@ const setupSocketListeners = (
   socketIo.on(`applications-${userId}`, handleNotification);
   socketIo.on(`approveMessage-${userId}`, handleNotification);
   socketIo.on(`rejectMessage-${userId}`, handleNotification);
+  socketIo.on(`newLesson-${userId}`, handleNotification);  
+  socketIo.on(`editLesson-${userId}`, handleNotification);
+  socketIo.on(`deleteLesson-${userId}`, handleNotification);
 
   socketIo.on('disconnect', () => {
     console.info('Disconnected');
