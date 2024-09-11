@@ -47,7 +47,7 @@ const TeacherInfo = ({ teacherInfo }) => {
           }}
           className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red"
         >
-          Send a Message
+          Send Message
         </button>
       </div>
       <div className="mt-6">

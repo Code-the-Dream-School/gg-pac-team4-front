@@ -108,7 +108,7 @@ const TeacherInfoPage = () => {
               onClick={() => {
                 window.location.href = `mailto:${teacherInfo.email}?subject=Message from Student`;
               }}
-              className="font-spartan bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-semibold text-lg rounded-md border-2 border-red"
+              className="bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-semibold text-lg rounded-md border-2 border-red"
             >
               Send Message
             </button>
@@ -163,7 +163,7 @@ const TeacherInfoPage = () => {
         </div>
 
         {/* Teacher's Classes */}
-        <div className="flex flex-col w-full p-4 md:w-1/3">
+        <div className="flex flex-col p-4 w-full md:w-1/3">
           <p className="font-spartan text-center md:justify-start font-medium text-4xl">
             Teacher's Classes
           </p>

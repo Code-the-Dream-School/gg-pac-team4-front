@@ -1,3 +1,4 @@
+import PasswordInput from '../../util/PasswordInput';
 import FormInput from '../common/FormInput';
 import { Link } from 'react-router-dom';
 
@@ -39,19 +40,19 @@ const LoginForm = ({
       {formErrors.form && (
         <p className="text-red text-sm font-spartan">{formErrors.form}</p>
       )}
-      <FormInput
-        type="password"
-        placeholder=" "
-        name="password"
+      <PasswordInput
         value={formData.password}
         onChange={handleChange}
+        name="password"
+        placeholder=" "
+        error={formErrors.password}
       >
         Password
-      </FormInput>
+      </PasswordInput>
       <button
         type="button"
         onClick={onRequestPasswordResetForm}
-        className=" font-spartan text-black mt-2 mb-2"
+        className="font-spartan text-black mt-2 mb-2"
       >
         Forgot Password?
       </button>

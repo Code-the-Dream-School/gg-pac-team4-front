@@ -101,7 +101,7 @@ const Lessons = () => {
                   }}
                   className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 easy-in"
                 >
-                  Send message
+                  Send Message
                 </button>
               </div>
             </div>
