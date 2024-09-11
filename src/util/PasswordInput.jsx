@@ -22,7 +22,7 @@ const PasswordInput = ({ value, onChange, name, placeholder, error }) => {
         onClick={handleTogglePassword}
         className="absolute inset-y-0 right-0 flex items-center pr-3"
       >
-        {showPassword ? '👁️' : '🙈'}
+        {showPassword ? '🤓' : '😎'}
       </button>
       {error && <p className="text-red text-sm font-spartan">{error}</p>}
     </div>
