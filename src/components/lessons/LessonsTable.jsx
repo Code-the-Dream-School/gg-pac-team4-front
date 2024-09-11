@@ -1,4 +1,4 @@
-import { formatDateWithWeekday } from '../../util/NotificationsUtils';
+import { formatDateWithWeekday } from "../../util/NotificationsUtils";
 
 const LessonsTable = ({ lessonList, title }) => {
   return (
@@ -49,7 +49,7 @@ const LessonsTable = ({ lessonList, title }) => {
                   <div className="p-2 flex-1">{lesson.lessonTitle}</div>
                   <div className="p-2 flex-1">{lesson.lessonDescription}</div>
                   <div className="p-2 flex-1">
-                    {formatDateWithWeekday(lesson.date)}
+                      {formatDateWithWeekday(lesson.date)}
                   </div>
                   <div className="p-2 flex-1">{lesson.startTime}</div>
                   <div className="p-2 flex-1">{lesson.hometask || 'None'}</div>

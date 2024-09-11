@@ -28,6 +28,7 @@ export const sortClassesByEarliestApplicationDate = (classes) => {
 
 export const formatDateWithWeekday = (dateString) => {
   const date = new Date(dateString);
+
   const optionsWithoutWeekday = {
     timeZone: 'UTC',
     year: 'numeric',
@@ -36,6 +37,7 @@ export const formatDateWithWeekday = (dateString) => {
   };
 
   const optionsWeekday = {
+    timeZone: 'UTC',
     weekday: 'long',
   };
 
@@ -46,7 +48,7 @@ export const formatDateWithWeekday = (dateString) => {
 
   const weekday = date.toLocaleDateString('en-US', optionsWeekday);
 
-  return `${dateWithoutWeekday}; ${weekday}`;
+  return `${weekday}, ${dateWithoutWeekday}`;
 };
 
 export const formatDateWithoutWeekday = (dateString) => {
