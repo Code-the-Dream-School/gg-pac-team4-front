@@ -102,9 +102,14 @@ const TeacherInfoPage = () => {
             </div>
           </div>
 
-          {/* Actions Section */}
+          {/* Send message using mail to */}
           <div className="flex mt-8 gap-4">
-            <button className="bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+            <button
+              onClick={() => {
+                window.location.href = `mailto:${teacherInfo.email}?subject=Message from Student`;
+              }}
+              className="bg-pureWhite px-4 py-1 hover:bg-red hover:text-pureWhite hover-border-red text-red font-semibold text-lg rounded-md border-2 border-red"
+            >
               Send Message
             </button>
           </div>

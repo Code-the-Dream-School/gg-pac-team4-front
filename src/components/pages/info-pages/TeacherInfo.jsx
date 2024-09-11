@@ -41,7 +41,12 @@ const TeacherInfo = ({ teacherInfo }) => {
             Profile
           </button>
         )}
-        <button className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover-border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red">
+        <button
+          onClick={() => {
+            window.location.href = `mailto:${teacherInfo.email}?subject=Message from Student`;
+          }}
+          className="bg-pureWhite py-1 px-4 hover:bg-red hover:text-pureWhite hover:border-red text-red font-spartan font-semibold text-lg rounded-md border-2 border-red"
+        >
           Send Message
         </button>
       </div>

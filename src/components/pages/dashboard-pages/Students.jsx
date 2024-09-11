@@ -281,11 +281,16 @@ const TeacherStudents = () => {
                         )}
                       </div>
                       <div className="lg:w-1/4 ml-auto">
-                        <div>
-                          <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in">
-                            Send message
-                          </button>
-                        </div>
+                      <div>
+                        <button
+                          onClick={() => {
+                            window.location.href = `mailto:${selectedStudent.email}?subject=Message from Teacher`;
+                          }}
+                          className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 ease-in"
+                        >
+                          Send Message
+                        </button>
+                      </div>
                         <div className="mt-8">
                           <button
                             onClick={handleAddNewLesson}

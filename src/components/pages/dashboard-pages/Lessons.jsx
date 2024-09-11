@@ -95,8 +95,13 @@ const Lessons = () => {
                 </div>
               </div>
               <div className="lg:w-1/3 flex justify-center lg:justify-end">
-                <button className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 easy-in">
-                  Send message
+                <button
+                  onClick={() => {                    
+                    window.location.href = `mailto:${teacherData.email}?subject=Subject%20Text&body=Message%20Body`;
+                  }}
+                  className="w-full sm:w-1/2 lg:w-full bg-red hover:bg-pureWhite hover:text-red h-10 hover:border-2 hover:border-red text-white font-spartan font-semibold md:text-xl rounded-lg transition duration-300 easy-in"
+                >
+                  Send Message
                 </button>
               </div>
             </div>
