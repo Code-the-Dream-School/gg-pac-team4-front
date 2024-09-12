@@ -10,9 +10,14 @@ import { useNavigate } from 'react-router-dom';
 
 const HomePage = () => {
   const navigate = useNavigate();
-  const search = () => {
-    navigate('/search');
+  const search = (query) => {
+    if (query) {
+      navigate(`/search?query=${encodeURIComponent(query)}`);
+    } else {
+      navigate('/search');
+    }
   };
+
   return (
     <div className="flex flex-col w-full lg:w-11/12 lg:mx-auto mt-4">
       <section className="flex flex-col-reverse lg:flex-row lg:justify-between justify-center items-center">
@@ -23,7 +28,7 @@ const HomePage = () => {
           <div className="flex justify-center lg:justify-start">
             <button
               className="flex items-center bg-red hover:bg-pureWhite hover:text-red hover:border-2 hover:border-red text-white font-spartan font-semibold text-xl md:text-2xl py-2 h-12 w-3/5 justify-center rounded-lg"
-              onClick={search}
+              onClick={() => search('')}
             >
               Get started
               <img
@@ -35,10 +40,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="w-4/5 md:w-5/12 flex justify-end">
-          <img
-            src={mainImage}
-            alt="art skills image"
-          />
+          <img src={mainImage} alt="art skills image" />
         </div>
       </section>
       <section className="flex flex-col sm:flex-row items-center justify-center">
@@ -48,7 +50,7 @@ const HomePage = () => {
             backgroundImage: `url(${GreenBlobImage})`,
           }}
         >
-          <p className='font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3'>
+          <p className="font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3">
             Courses for every age
           </p>
         </div>
@@ -56,7 +58,7 @@ const HomePage = () => {
           className="w-full h-60 sm:h-80 md:h-96  bg-contain bg-center bg-no-repeat flex justify-center items-center"
           style={{ backgroundImage: `url(${YellowBlobImage})` }}
         >
-          <p className='font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3'>
+          <p className="font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3">
             Over 100 subject taught
           </p>
         </div>
@@ -64,27 +66,28 @@ const HomePage = () => {
           className="w-full h-60 sm:h-80 md:h-96 bg-contain bg-center bg-no-repeat flex justify-center items-center"
           style={{ backgroundImage: `url(${PurpleBlobImage})` }}
         >
-          <p className='font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3'>
+          <p className="font-spartan font-semibold text-white text-2xl lg:text-3xl w-1/5 sm:w-1/3">
             1000+ experienced teachers
           </p>
         </div>
       </section>
       <section className="px-4 py-8 flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 md:w-10/12">
-            {items.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center text-center rounded-lg"
-              >
-                <img src={item.src} alt={item.alt} className="mr-2" />
-                <p className="text-xl md:text-2xl font-spartan font-medium hover:text-darkGreen hover:cursor-pointer">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12 md:w-10/12">
+          {items.map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center text-center rounded-lg cursor-pointer"
+              onClick={() => search(item.text)}
+            >
+              <img src={item.src} alt={item.alt} className="mr-2" />
+              <p className="text-xl md:text-2xl font-spartan font-medium hover:text-darkGreen">
+                {item.text}
+              </p>
+            </div>
+          ))}
+        </div>
       </section>
-    <ScrollToTop/>
+      <ScrollToTop />
     </div>
   );
 };

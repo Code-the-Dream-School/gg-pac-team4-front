@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import Loader from '../../common/Loader';
+import NextLessons from '../../lessons/NextLessons';
+import useLessonsData from '../../../util/LessonsService';
 
 const HomeStudent = ({ profile, onNavigate, profileError }) => {
   const {
@@ -12,6 +15,8 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     myLessons,
   } = profile;
 
+  const { isLoading, nextTwoLessons } = useLessonsData();
+
   let editedDateOfBirth = new Date(dateOfBirth).toLocaleString('en-US', {
     timeZone: 'UTC',
     year: 'numeric',
@@ -23,13 +28,15 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
     (new Date().getTime() - new Date(dateOfBirth)) /
     (24 * 3600 * 365.25 * 1000);
 
+  if (isLoading) return <Loader />;
+
   return (
     <div className="flex flex-col sm:flex-row w-full flex-grow sm:justify-around mb-4">
       <div className="flex flex-col sm:w-4/12 items-center gap-4 mt-4">
         <div className="flex flex-wrap p-2 items-center justify-center gap-4">
           <img
-            className="w-20 h-20 rounded-full"
-            src={profileImageUrl}
+          className="h-24 w-24 rounded-full object-cover"
+          src={profileImageUrl}
             alt="user photo"
           />
           <div className="font-spartan font-semibold text-2xl text-center xl:text-left">
@@ -73,26 +80,20 @@ const HomeStudent = ({ profile, onNavigate, profileError }) => {
           </div>
         ) : null}
       </div>
-      <div className="flex flex-col w-9/12 sm:w-7/12 gap-8 mt-4 self-center sm:self-start">
-        <div className="sm:h-2/5 flex flex-col bg-pureWhite">
-          <h2 className="font-spartan font-semibold text-2xl p-4">
-            Your upcoming lessons
-          </h2>
-          <div>
-            <p className="px-4">
-              {myLessons.length > 0 ? myClasses : 'No lessons booked yet'}
-            </p>
-          </div>
-          {myLessons.length > 0 ? (
-            <Link className="p-4 underline mt-auto" to="/dashboard/lessons">
-              See more lessons
-            </Link>
-          ) : (
-            <Link className="p-4 underline mt-auto" to="/search">
-              Search classes or teachers
-            </Link>
-          )}
-        </div>
+      <div className="flex flex-col w-9/12 sm:w-7/12 gap-2 mt-4 self-center sm:self-start h-full">
+        <h2 className="font-spartan font-semibold text-2xl p-4">
+          Your upcoming lessons
+        </h2>
+        <NextLessons nextTwoLessons={nextTwoLessons} />
+        {myLessons.length > 0 ? (
+          <Link className="p-4 underline" to="/dashboard/lessons">
+            See more lessons
+          </Link>
+        ) : (
+          <Link className="p-4 underline" to="/search">
+            Search classes or teachers
+          </Link>
+        )}
       </div>
     </div>
   );
