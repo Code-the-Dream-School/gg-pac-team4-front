@@ -43,10 +43,9 @@ export const SocketProvider = ({ children }) => {
     const userId = userData._id;
 
     const socketIo = io(
-      [
-        'http://localhost:8000',
-        'https://gg-pac-team4-back.onrender.com/api/v1',
-      ],
+      window.location.hostname === 'localhost' 
+        ? 'http://localhost:8000' 
+        : 'https://gg-pac-team4-back.onrender.com/api/v1',
       {
         query: { userId: userId },
       }
