@@ -42,9 +42,15 @@ export const SocketProvider = ({ children }) => {
 
     const userId = userData._id;
 
-    const socketIo = io('http://localhost:8000', {
-      query: { userId: userId },
-    });
+    const socketIo = io(
+      [
+        'http://localhost:8000',
+        'https://gg-pac-team4-back.onrender.com/api/v1',
+      ],
+      {
+        query: { userId: userId },
+      }
+    );
 
     socketIo.on('connect', () => {
       console.info('Connected with socket ID:', socketIo.id);
